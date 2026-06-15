@@ -128,8 +128,9 @@ ARCora is deployed on Vercel.
 * [+] Token swap
 * [+] NFT minting
 * [+] NFT gallery
-* [ ] Price charts
-* [ ] Transaction explorer
+* [+] Price charts
+* [+] Transaction explorer
+* [ ] Token Bridge
 * [ ] Multi-chain support
 * [ ] AI portfolio assistant
 * [ ] Staking
