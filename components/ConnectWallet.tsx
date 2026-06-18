@@ -3,11 +3,15 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 export default function ConnectWallet() {
 
   const [mounted, setMounted] =
     useState(false);
+
+  const pathname =
+    usePathname();
 
   useEffect(() => {
 
@@ -17,6 +21,34 @@ export default function ConnectWallet() {
 
   if (!mounted)
     return null;
+
+  function navClass(
+    href: string
+  ) {
+
+    return `
+
+      px-5
+      py-2
+      rounded-full
+      duration-300
+
+      ${
+        pathname === href
+
+          ?
+
+          "bg-zinc-800 text-white"
+
+          :
+
+          "text-zinc-400 hover:bg-zinc-800 hover:text-white"
+
+      }
+
+    `;
+
+  }
 
   return (
 
@@ -88,69 +120,45 @@ export default function ConnectWallet() {
               gap-2
               "
             >
+
               <Link
                 href="/"
-                className="
-                px-5
-                py-2
-                rounded-full
-                text-zinc-400
-                hover:bg-zinc-800
-                hover:text-white
-                duration-300
-                "
+                className={navClass("/")}
               >
                 Dashboard
               </Link>
+
               <Link
                 href="/nfts"
-                className="
-                px-5
-                py-2
-                rounded-full
-                text-zinc-400
-                hover:bg-zinc-800
-                hover:text-white
-                duration-300
-                "
+                className={navClass("/nfts")}
               >
                 NFTs
               </Link>
 
-            <Link
-              href="/swap"
-              className="
-              px-5
-              py-2
-              rounded-full
-              text-zinc-400
-              hover:bg-zinc-800
-              hover:text-white
-              duration-300
-              "
-            >
-              Swap
-            </Link>
-            
-            <Link
-              href="/portfolio"
-              className="
-              px-5
-              py-2
-              rounded-full
-              text-zinc-400
-              hover:bg-zinc-800
-              hover:text-white
-              duration-300
-              "
-            >
-              Portfolio
-            </Link>
+              <Link
+                href="/swap"
+                className={navClass("/swap")}
+              >
+                Swap
+              </Link>
+
+              <Link
+                href="/bridge"
+                className={navClass("/bridge")}
+              >
+                Bridge
+              </Link>
+
+              <Link
+                href="/portfolio"
+                className={navClass("/portfolio")}
+              >
+                Portfolio
+              </Link>
 
             </nav>
 
           </div>
-
 
           {/* Right */}
 

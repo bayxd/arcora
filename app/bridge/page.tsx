@@ -1,11 +1,9 @@
 import ConnectWallet from "@/components/ConnectWallet";
-import SwapCard from "@/components/SwapCard";
-import EURCBalance from "@/components/EURCBalance";
-import SwapHistory from "@/components/SwapHistory";
-import RecentActivity from "@/components/RecentActivity";
+import BridgeCard from "@/components/BridgeCard";
+import BridgeHistory from "@/components/BridgeHistory";
 import Footer from "@/components/Footer";
 
-export default function SwapPage() {
+export default function BridgePage() {
 
   return (
 
@@ -20,12 +18,12 @@ export default function SwapPage() {
 
       <div
         className="
-        max-w-[1800px]
+        max-w-[1000px]
         mx-auto
         px-8
         xl:px-16
         py-10
-        space-y-8
+        space-y-10
         "
       >
 
@@ -37,7 +35,7 @@ export default function SwapPage() {
           border
           border-white/10
           rounded-[40px]
-          p-8
+          p-10
           backdrop-blur-xl
           shadow-2xl
           "
@@ -45,7 +43,7 @@ export default function SwapPage() {
 
           <h1
             className="
-            text-5xl
+            text-6xl
             font-black
             bg-linear-to-r
             from-purple-400
@@ -55,66 +53,33 @@ export default function SwapPage() {
             bg-clip-text
             "
           >
-            Swap
+            Bridge
           </h1>
 
           <p
             className="
             text-zinc-400
-            mt-3
+            text-xl
+            mt-5
             "
           >
-            Swap USDC and EURC instantly.
+            Bridge USDC to Arc Testnet instantly.
           </p>
 
         </section>
 
-
-        {/* EURC Balance */}
-
         <div
           className="
-          max-w-3xl
+          max-w-[1000px]
           mx-auto
+          space-y-10
           "
         >
-          <EURCBalance />
-        </div>
 
+          <BridgeCard />
 
-        {/* Swap Card */}
+          <BridgeHistory />
 
-        <div
-          className="
-          max-w-3xl
-          mx-auto
-          "
-        >
-          <SwapCard />
-        </div>
-
-
-        {/* Swap History */}
-
-        <div
-          className="
-          max-w-5x2
-          mx-auto
-          "
-        >
-          <SwapHistory />
-        </div>
-
-
-        {/* Recent Activity */}
-
-        <div
-          className="
-          max-w-5x2
-          mx-auto
-          "
-        >
-          <RecentActivity />
         </div>
 
       </div>

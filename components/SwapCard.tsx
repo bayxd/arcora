@@ -93,183 +93,191 @@ localStorage.setItem(
 
   }
 
-  return (
+return (
 
-    <section
+  <section
+    className="
+    bg-zinc-900/70
+    backdrop-blur-xl
+    border
+    border-white/10
+    rounded-4xl
+    p-6
+    shadow-2xl
+    "
+  >
+
+    <h2
       className="
-      bg-zinc-900/70
-      backdrop-blur-xl
-      border
-      border-white/10
-      rounded-4xl
-      p-8
-      shadow-2xl
+      text-3xl
+      font-bold
+      mb-6
+      "
+    >
+      Swap
+    </h2>
+
+    {/* You Pay */}
+
+    <div
+      className="
+      bg-zinc-800
+      rounded-3xl
+      p-5
       "
     >
 
-      <h2
+      <p
         className="
-        text-3xl
-        font-bold
-        mb-8
+        text-zinc-500
+        text-sm
         "
       >
-        Swap
-      </h2>
-
-      <div
-        className="
-        bg-zinc-800
-        rounded-3xl
-        p-6
-        "
-      >
-
-        <p
-          className="
-          text-zinc-500
-          text-sm
-          "
-        >
-          You Pay
-        </p>
-
-        <div
-          className="
-          flex
-          items-center
-          justify-between
-          mt-4
-          "
-        >
-
-          <input
-            type="number"
-            value={amount}
-            onChange={(e) =>
-              setAmount(
-                e.target.value
-              )
-            }
-            className="
-            bg-transparent
-            outline-none
-            text-4xl
-            font-bold
-            w-40
-            "
-          />
-
-          <select
-            value={tokenIn}
-            onChange={(e) =>
-              setTokenIn(
-                e.target.value
-              )
-            }
-            className="
-            bg-zinc-700
-            rounded-full
-            px-5
-            py-3
-            "
-          >
-
-            <option>
-              USDC
-            </option>
-
-            <option>
-              EURC
-            </option>
-
-          </select>
-
-        </div>
-
-      </div>
+        You Pay
+      </p>
 
       <div
         className="
         flex
-        justify-center
-        my-5
-        text-3xl
+        items-center
+        justify-between
+        mt-4
         "
       >
-        ↓
+
+        <input
+          type="number"
+          value={amount}
+          onChange={(e) =>
+            setAmount(
+              e.target.value
+            )
+          }
+          className="
+          bg-transparent
+          outline-none
+          text-3xl
+          font-bold
+          w-40
+          "
+        />
+
+        <select
+          value={tokenIn}
+          onChange={(e) =>
+            setTokenIn(
+              e.target.value
+            )
+          }
+          className="
+          bg-zinc-700
+          rounded-full
+          px-5
+          py-3
+          "
+        >
+
+          <option>
+            USDC
+          </option>
+
+          <option>
+            EURC
+          </option>
+
+        </select>
+
       </div>
+
+    </div>
+
+    {/* Arrow */}
+
+    <div
+      className="
+      flex
+      justify-center
+      py-4
+      text-3xl
+      "
+    >
+      ↓
+    </div>
+
+    {/* You Receive */}
+
+    <div
+      className="
+      bg-zinc-800
+      rounded-3xl
+      p-5
+      "
+    >
+
+      <p
+        className="
+        text-zinc-500
+        text-sm
+        "
+      >
+        You Receive
+      </p>
 
       <div
         className="
-        bg-zinc-800
-        rounded-3xl
-        p-6
+        text-3xl
+        font-black
+        mt-4
         "
       >
-
-        <p
-          className="
-          text-zinc-500
-          text-sm
-          "
-        >
-          You Receive
-        </p>
-
-        <div
-          className="
-          text-4xl
-          font-black
-          mt-4
-          "
-        >
-          {tokenOut}
-        </div>
-
+        {tokenOut}
       </div>
 
-      <button
+    </div>
 
-        onClick={swap}
+    {/* Button */}
 
-        disabled={loading}
+    <button
 
-        className="
-        w-full
-        mt-8
-        py-4
-        rounded-full
-        text-lg
-        font-bold
-        bg-linear-to-r
-        from-purple-600
-        via-pink-500
-        to-blue-500
-        hover:scale-[1.02]
-        duration-300
-        "
+      onClick={swap}
 
-      >
+      disabled={loading}
 
-        {
+      className="
+      w-full
+      mt-6
+      py-4
+      rounded-full
+      text-lg
+      font-bold
+      bg-linear-to-r
+      from-purple-600
+      via-pink-500
+      to-blue-500
+      hover:scale-[1.02]
+      duration-300
+      "
 
-          loading
+    >
 
-            ?
+      {
 
-            "Swapping..."
+        loading
 
-            :
+        ?
 
-            "Swap"
+        "Swapping..."
 
-        }
+        :
 
-      </button>
+        `Swap ${tokenIn} → ${tokenOut}`
 
-    </section>
+      }
 
-  );
+    </button>
+
+  </section>
+
+);
 
 }

@@ -1,18 +1,11 @@
 import ConnectWallet from "@/components/ConnectWallet";
 import Dashboard from "@/components/Dashboard";
-import WalletCard from "@/components/WalletCard";
-import BalanceCard from "@/components/BalanceCard";
 import NFTCard from "@/components/NFTCard";
 import NFTInfo from "@/components/NFTInfo";
 import MyNFTs from "@/components/MyNFTs";
-import SwapCard from "@/components/SwapCard";
-import EURCBalance from "@/components/EURCBalance";
-import SwapHistory from "@/components/SwapHistory";
 import DashboardStats from "@/components/DashboardStats";
-import RecentActivity from "@/components/RecentActivity";
 import Footer from "@/components/Footer";
 import MarketOverview from "@/components/MarketOverview";
-
 
 export default function Home() {
 
@@ -34,7 +27,7 @@ export default function Home() {
         px-8
         xl:px-16
         py-10
-        space-y-12
+        space-y-10
         "
       >
 
@@ -83,22 +76,14 @@ export default function Home() {
 
         {/* Dashboard */}
 
-        <section
-          className="
-          space-y-6
-          "
-        >
+        <Dashboard />
 
-          <Dashboard />
+        <DashboardStats />
 
-          <DashboardStats />
-
-          <MarketOverview />
-
-        </section>
+        <MarketOverview />
 
 
-        {/* Wallet + Balance */}
+        {/* Wallet */}
 
         <section
           className="
@@ -108,68 +93,54 @@ export default function Home() {
           "
         >
 
-          <WalletCard />
-
-          <BalanceCard />
-
         </section>
 
 
-        {/* Main */}
+        {/* NFT Overview */}
 
         <section
           className="
           grid
-          2xl:grid-cols-2
-          gap-10
-          items-start
+          xl:grid-cols-2
+          gap-8
           "
         >
 
-          {/* Left */}
+          <NFTInfo />
 
-          <div
-            className="
-            space-y-10
-            "
-          >
+          <NFTCard />
 
-            <section
-              className="
-              grid
-              xl:grid-cols-2
-              gap-8
-              "
-            >
-
-              <NFTInfo />
-
-              <NFTCard />
-
-            </section>
-
-            <MyNFTs />
-
-          </div>
+        </section>
 
 
-          {/* Right */}
+        {/* My NFTs */}
 
-          <div
-            className="
-            space-y-10
-            "
-          >
+        <MyNFTs />
 
-            <SwapCard />
 
-            <EURCBalance />
+        {/* EURC Balance */}
 
-            <SwapHistory />
+        <div
+          className="
+          max-w-5xl
+          mx-auto
+          "
+        >
 
-            <RecentActivity />
 
-          </div>
+        </div>
+
+
+        {/* Activity */}
+
+        <section
+          className="
+          grid
+          xl:grid-cols-2
+          gap-8
+          items-start
+          "
+        >
 
         </section>
 
