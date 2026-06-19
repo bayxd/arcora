@@ -139,8 +139,37 @@ ARCora is deployed on Vercel.
 * [+] Transaction explorer
 * [+] Token Bridge
 * [+] Multi-chain support
-* [-] AI portfolio assistant
-* [-] Staking
+
+## Fix Swap Configuration
+
+### Fixed
+
+* Removed `allowanceStrategy: "approve"` from swap configuration.
+
+### Root Cause
+
+The swap request failed with:
+Stablecoin Service createSwap failed:
+Maximum retry attempts (3) exceeded: fetch failed
+The issue was caused by using:
+
+config: {
+  kitKey: process.env.KIT_KEY!,
+  allowanceStrategy: "approve",
+}
+
+Current working configuration:
+
+config: {
+  kitKey: process.env.KIT_KEY!,
+}
+
+### Result
+
+* ✅ Same-chain swap now executes successfully.
+* ✅ Compatible with `@circle-fin/swap-kit@1.2.3`.
+* ✅ No changes required to the existing ARCora swap architecture.
+
 
 ---
 
