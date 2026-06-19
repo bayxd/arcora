@@ -26,8 +26,7 @@ export async function POST(request: Request) {
       return Response.json(
         {
           success: false,
-          error:
-            "amount, tokenIn, dan tokenOut wajib diisi"
+          error: "amount, tokenIn, dan tokenOut wajib diisi"
         },
         {
           status: 400
@@ -53,11 +52,7 @@ export async function POST(request: Request) {
     }
 
     console.log("================================");
-
-    console.log(
-      "BODY =",
-      body
-    );
+    console.log("BODY =", body);
 
     const adapter =
       createViemAdapterFromPrivateKey({
@@ -67,14 +62,8 @@ export async function POST(request: Request) {
 
       });
 
-    console.log("ADAPTER =");
-
-    console.dir(
-      adapter,
-      {
-        depth: null
-      }
-    );
+    console.log("SERVICE ADDRESS =");
+  
 
     const context =
       createSwapKitContext();
@@ -102,7 +91,7 @@ export async function POST(request: Request) {
     );
 
     console.log(
-      "USING APPROVE MODE"
+      "ALLOWANCE STRATEGY = APPROVE"
     );
 
     const result =
@@ -125,16 +114,9 @@ export async function POST(request: Request) {
 
           amountIn:
             String(amount),
-
-          config: {
-
-            kitKey:
-              process.env.KIT_KEY!,
-
-            allowanceStrategy:
-              "approve"
-
-          }
+config: {
+  kitKey: process.env.KIT_KEY!,
+}
 
         }
       );

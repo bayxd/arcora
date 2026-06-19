@@ -20,6 +20,15 @@ export default function SwapCard() {
 
       setLoading(true);
 
+      console.log(
+        "SEND",
+        {
+          amount,
+          tokenIn,
+          tokenOut
+        }
+      );
+
       const response =
         await fetch(
           "/api/swap",
@@ -31,16 +40,18 @@ export default function SwapCard() {
                 "application/json"
             },
 
-          body: JSON.stringify({
-          amount,
-          tokenIn: "EURC",
-          tokenOut: "USDC"
-})
+            body: JSON.stringify({
+              amount,
+              tokenIn,
+              tokenOut
+            })
           }
         );
 
       const data =
         await response.json();
+
+      console.log("RESPONSE =", data);
 
       if (data.success) {
 
@@ -55,33 +66,55 @@ export default function SwapCard() {
             ?? "[]"
 
           );
-          console.log(data.result);
-history.unshift({
-  amount,
-  tokenIn,
-  tokenOut,
-  date: new Date().toLocaleString(),
-  explorerUrl: data.result.explorerUrl,
-  txHash: data.result.txHash
-});
 
-localStorage.setItem(
-  "swapHistory",
-  JSON.stringify(history)
-);
+        history.unshift({
 
-      toast.success(
-        `${amount} ${tokenIn} → ${tokenOut}`
-      );
+          amount,
+
+          tokenIn,
+
+          tokenOut,
+
+          date:
+            new Date().toLocaleString(),
+
+          explorerUrl:
+            data.result?.explorerUrl,
+
+          txHash:
+            data.result?.txHash
+
+        });
+
+        localStorage.setItem(
+          "swapHistory",
+          JSON.stringify(history)
+        );
+
+        toast.success(
+          `${amount} ${tokenIn} → ${tokenOut}`
+        );
 
       }
 
       else {
 
-      toast.error(
-        "An error occurred"
-      );
+        toast.error(
+          data.message ??
+          "Swap failed"
+        );
+
       }
+
+    }
+
+    catch (error) {
+
+      console.error(error);
+
+      toast.error(
+        "Swap failed"
+      );
 
     }
 
@@ -93,191 +126,183 @@ localStorage.setItem(
 
   }
 
-return (
+  return (
 
-  <section
-    className="
-    bg-zinc-900/70
-    backdrop-blur-xl
-    border
-    border-white/10
-    rounded-4xl
-    p-6
-    shadow-2xl
-    "
-  >
-
-    <h2
+    <section
       className="
-      text-3xl
-      font-bold
-      mb-6
-      "
-    >
-      Swap
-    </h2>
-
-    {/* You Pay */}
-
-    <div
-      className="
-      bg-zinc-800
-      rounded-3xl
-      p-5
+      bg-zinc-900/70
+      backdrop-blur-xl
+      border
+      border-white/10
+      rounded-4xl
+      p-6
+      shadow-2xl
       "
     >
 
-      <p
+      <h2
         className="
-        text-zinc-500
-        text-sm
+        text-3xl
+        font-bold
+        mb-6
         "
       >
-        You Pay
-      </p>
+        Swap
+      </h2>
+
+      <div
+        className="
+        bg-zinc-800
+        rounded-3xl
+        p-5
+        "
+      >
+
+        <p
+          className="
+          text-zinc-500
+          text-sm
+          "
+        >
+          You Pay
+        </p>
+
+        <div
+          className="
+          flex
+          items-center
+          justify-between
+          mt-4
+          "
+        >
+
+          <input
+            type="number"
+            value={amount}
+            onChange={(e) =>
+              setAmount(
+                e.target.value
+              )
+            }
+            className="
+            bg-transparent
+            outline-none
+            text-3xl
+            font-bold
+            w-40
+            "
+          />
+
+          <select
+            value={tokenIn}
+            onChange={(e) =>
+              setTokenIn(
+                e.target.value
+              )
+            }
+            className="
+            bg-zinc-700
+            rounded-full
+            px-5
+            py-3
+            "
+          >
+
+            <option>
+              USDC
+            </option>
+
+            <option>
+              EURC
+            </option>
+
+          </select>
+
+        </div>
+
+      </div>
 
       <div
         className="
         flex
-        items-center
-        justify-between
-        mt-4
+        justify-center
+        py-4
+        text-3xl
         "
       >
-
-        <input
-          type="number"
-          value={amount}
-          onChange={(e) =>
-            setAmount(
-              e.target.value
-            )
-          }
-          className="
-          bg-transparent
-          outline-none
-          text-3xl
-          font-bold
-          w-40
-          "
-        />
-
-        <select
-          value={tokenIn}
-          onChange={(e) =>
-            setTokenIn(
-              e.target.value
-            )
-          }
-          className="
-          bg-zinc-700
-          rounded-full
-          px-5
-          py-3
-          "
-        >
-
-          <option>
-            USDC
-          </option>
-
-          <option>
-            EURC
-          </option>
-
-        </select>
-
+        ↓
       </div>
-
-    </div>
-
-    {/* Arrow */}
-
-    <div
-      className="
-      flex
-      justify-center
-      py-4
-      text-3xl
-      "
-    >
-      ↓
-    </div>
-
-    {/* You Receive */}
-
-    <div
-      className="
-      bg-zinc-800
-      rounded-3xl
-      p-5
-      "
-    >
-
-      <p
-        className="
-        text-zinc-500
-        text-sm
-        "
-      >
-        You Receive
-      </p>
 
       <div
         className="
-        text-3xl
-        font-black
-        mt-4
+        bg-zinc-800
+        rounded-3xl
+        p-5
         "
       >
-        {tokenOut}
+
+        <p
+          className="
+          text-zinc-500
+          text-sm
+          "
+        >
+          You Receive
+        </p>
+
+        <div
+          className="
+          text-3xl
+          font-black
+          mt-4
+          "
+        >
+          {tokenOut}
+        </div>
+
       </div>
 
-    </div>
+      <button
 
-    {/* Button */}
+        onClick={swap}
 
-    <button
+        disabled={loading}
 
-      onClick={swap}
+        className="
+        w-full
+        mt-6
+        py-4
+        rounded-full
+        text-lg
+        font-bold
+        bg-linear-to-r
+        from-purple-600
+        via-pink-500
+        to-blue-500
+        hover:scale-[1.02]
+        duration-300
+        "
 
-      disabled={loading}
+      >
 
-      className="
-      w-full
-      mt-6
-      py-4
-      rounded-full
-      text-lg
-      font-bold
-      bg-linear-to-r
-      from-purple-600
-      via-pink-500
-      to-blue-500
-      hover:scale-[1.02]
-      duration-300
-      "
+        {
 
-    >
+          loading
 
-      {
+          ?
 
-        loading
+          "Swapping..."
 
-        ?
+          :
 
-        "Swapping..."
+          `Swap ${tokenIn} → ${tokenOut}`
 
-        :
+        }
 
-        `Swap ${tokenIn} → ${tokenOut}`
+      </button>
 
-      }
+    </section>
 
-    </button>
-
-  </section>
-
-);
+  );
 
 }
