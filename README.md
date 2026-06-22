@@ -103,17 +103,20 @@ DASHBOARD
 <img width="1185" height="938" alt="Screenshot 2026-06-18 074019" src="https://github.com/user-attachments/assets/9c7d1182-bbf1-4622-a6fd-ca5c4ecc10ed" />
 
 
+
 NFTS
 <img width="891" height="837" alt="Screenshot 2026-06-18 074129" src="https://github.com/user-attachments/assets/86c6d209-655c-4bf6-a8e5-5b2a761edd29" />
 
 
+
 SWAP
-<img width="1583" height="926" alt="Screenshot 2026-06-22 144945" src="https://github.com/user-attachments/assets/8b622773-3d6a-4ba9-b48e-de974aa902c4" />
+<img width="1599" height="926" alt="Screenshot 2026-06-22 145125" src="https://github.com/user-attachments/assets/e2bfdf85-0d50-422c-908f-80b7c8b75173" />
 
 
 
 BRIDGE
 <img width="1187" height="792" alt="Screenshot 2026-06-18 074302" src="https://github.com/user-attachments/assets/ce5fd9fb-8733-4148-a4d7-44b6fd77e4c5" />
+
 
 
 PORTOFOLIO
