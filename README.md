@@ -110,7 +110,7 @@ KIT_KEY=KIT_KEY:your_key_id:your_key_secret
 
 ## Screenshots
 # DASHBOARD
-<img width="1185" height="938" alt="Screenshot 2026-06-18 074019" src="https://github.com/user-attachments/assets/9c7d1182-bbf1-4622-a6fd-ca5c4ecc10ed" />
+<img width="1343" height="808" alt="Screenshot 2026-06-22 212336" src="https://github.com/user-attachments/assets/1ae2a33c-dcea-47ed-9723-09c01170e2d2" />
 
 
 
