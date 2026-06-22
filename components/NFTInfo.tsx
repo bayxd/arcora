@@ -1,7 +1,14 @@
 "use client";
 
-import { useReadContract } from "wagmi";
-import { NFT_ADDRESS } from "../lib/contracts";
+import {
+  useReadContract,
+  useWriteContract
+} from "wagmi";
+
+import {
+  NFT_ADDRESS
+} from "../lib/contracts";
+
 
 const abi = [
 
@@ -15,11 +22,22 @@ const abi = [
         type: "uint256"
       }
     ]
+  },
+
+  {
+    type: "function",
+    name: "mint",
+    stateMutability: "nonpayable",
+    inputs: [],
+    outputs: []
   }
 
 ] as const;
 
 export default function NFTInfo() {
+  const {
+    writeContract
+  } = useWriteContract();
 
   const { data } =
     useReadContract({
@@ -46,17 +64,19 @@ export default function NFTInfo() {
 
   return (
 
-    <section
-      className="
-      bg-zinc-900/70
-      backdrop-blur-xl
-      border
-      border-white/10
-      rounded-4xl
-      p-8
-      shadow-2xl
-      "
-    >
+      <section
+        className="
+        bg-zinc-900/70
+        backdrop-blur-xl
+        border
+        border-white/10
+        rounded-4xl
+        p-12
+        shadow-2xl
+        w-full
+        max-w-5xl
+        "
+      >
 
       <div
         className="
@@ -74,7 +94,7 @@ export default function NFTInfo() {
             font-bold
             "
           >
-            ARCora NFT
+            ARCora NFT Collection
           </h2>
 
           <p
@@ -106,32 +126,27 @@ export default function NFTInfo() {
 
       </div>
 
-
-      <div
+        <div
         className="
-        mt-8
-        bg-zinc-800
+        mt-10
+        bg-zinc-800/80
         rounded-3xl
-        p-6
+        p-10
+        space-y-10
         "
-      >
+        >
 
         <div
           className="
-          flex
-          items-center
-          justify-between
+          grid
+          md:grid-cols-2
+          gap-10
           "
         >
 
           <div>
 
-            <p
-              className="
-              text-zinc-500
-              text-sm
-              "
-            >
+            <p className="text-zinc-500 text-sm">
               Total Minted
             </p>
 
@@ -158,19 +173,9 @@ export default function NFTInfo() {
 
           </div>
 
+          <div className="text-right">
 
-          <div
-            className="
-            text-right
-            "
-          >
-
-            <p
-              className="
-              text-zinc-500
-              text-sm
-              "
-            >
+            <p className="text-zinc-500 text-sm">
               Tier
             </p>
 
@@ -178,8 +183,8 @@ export default function NFTInfo() {
               className="
               text-purple-400
               font-bold
-              text-xl
-              mt-2
+              text-2xl
+              mt-3
               "
             >
               Early Access
@@ -188,67 +193,164 @@ export default function NFTInfo() {
           </div>
 
         </div>
-
-
         <div
           className="
-          mt-8
+          grid
+          md:grid-cols-2
+          gap-10
+          pt-8
+          border-t
+          border-white/10
+          "
+        >
+
+          <div>
+
+            <p className="text-zinc-500 text-sm">
+              Collection
+            </p>
+
+            <div
+              className="
+              text-xl
+              font-bold
+              mt-3
+              "
+            >
+              Genesis
+            </div>
+
+          </div>
+
+          <div className="text-right">
+
+            <p className="text-zinc-500 text-sm">
+              Status
+            </p>
+
+            <div
+              className="
+              text-green-400
+              font-semibold
+              text-xl
+              mt-3
+              "
+            >
+              Active ✓
+            </div>
+
+          </div>
+
+        </div>
+                <div
+                  className="
+                  mt-8
+                  "
+                >
+
+                  <div
+                    className="
+                    flex
+                    items-center
+                    justify-between
+                    text-sm
+                    text-zinc-500
+                    "
+                  >
+
+                    <span>
+
+                      Mint Progress
+
+                    </span>
+
+                    <span>
+
+                      {percentage.toFixed(1)}%
+
+                    </span>
+
+                  </div>
+
+
+                <div
+          className="
+          h-3
+          rounded-full
+          bg-zinc-700
+          mt-3
+          overflow-hidden
           "
         >
 
           <div
             className="
-            flex
-            items-center
-            justify-between
-            text-sm
-            text-zinc-500
-            "
-          >
-
-            <span>
-
-              Mint Progress
-
-            </span>
-
-            <span>
-
-              {percentage.toFixed(1)}%
-
-            </span>
-
-          </div>
-
-
-          <div
-            className="
-            h-3
+            h-full
             rounded-full
-            bg-zinc-700
-            mt-3
-            overflow-hidden
+            bg-linear-to-r
+            from-purple-500
+            via-pink-500
+            to-blue-500
             "
-          >
-
-            <div
-              className="
-              h-full
-              rounded-full
-              bg-linear-to-r
-              from-purple-500
-              via-pink-500
-              to-blue-500
-              "
-              style={{
-                width:
-                  `${percentage}%`
-              }}
-            />
-
-          </div>
+            style={{
+              width:
+                `${percentage}%`
+            }}
+          />
 
         </div>
+
+        </div>
+        <div
+  className="
+  mt-8
+  pt-8
+  border-t
+  border-white/10
+  "
+>
+
+  <button
+
+    className="
+    w-full
+    py-5
+    rounded-full
+    text-xl
+    font-bold
+    bg-linear-to-r
+    from-purple-600
+    via-pink-500
+    to-blue-500
+    hover:scale-[1.02]
+    duration-300
+    shadow-xl
+    shadow-purple-500/20
+    "
+
+    onClick={() =>
+
+      writeContract({
+
+        address:
+          NFT_ADDRESS as `0x${string}`,
+
+        abi,
+
+        functionName:
+          "mint"
+
+      })
+
+    }
+
+  >
+
+    Mint ARCora NFT
+
+  </button>
+
+</div>
 
       </div>
 

@@ -1,6 +1,5 @@
 import ConnectWallet from "@/components/ConnectWallet";
 import NFTInfo from "@/components/NFTInfo";
-import NFTCard from "@/components/NFTCard";
 import MyNFTs from "@/components/MyNFTs";
 import Footer from "@/components/Footer";
 
@@ -24,7 +23,7 @@ export default function NFTsPage() {
         px-8
         xl:px-16
         py-10
-        space-y-10
+        space-y-16
         "
       >
 
@@ -70,19 +69,16 @@ export default function NFTsPage() {
         </section>
 
 
-        {/* NFT Cards */}
+        {/* NFT Collection */}
 
         <section
           className="
-          grid
-          xl:grid-cols-2
-          gap-10
+          flex
+          justify-center
           "
         >
 
           <NFTInfo />
-
-          <NFTCard />
 
         </section>
 
