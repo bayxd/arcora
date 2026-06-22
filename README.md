@@ -144,35 +144,18 @@ ARCora is deployed on Vercel.
 * [+] Token Bridge
 * [+] Multi-chain support
 
-## Fix Swap Configuration
+Current Development Status
 
-### Fixed
+Circle Swap Kit integration has been completed successfully.
 
-* Removed `allowanceStrategy: "approve"` from swap configuration.
+During development, Arc Testnet may temporarily return:
 
-### Root Cause
+INPUT_UNSUPPORTED_ROUTE
+No route available
 
-The swap request failed with:
-Stablecoin Service createSwap failed:
-Maximum retry attempts (3) exceeded: fetch failed
-The issue was caused by using:
+This response indicates that routing or liquidity is temporarily unavailable rather than an application error.
 
-config: {
-  kitKey: process.env.KIT_KEY!,
-  allowanceStrategy: "approve",
-}
-
-Current working configuration:
-
-config: {
-  kitKey: process.env.KIT_KEY!,
-}
-
-### Result
-
-* ✅ Same-chain swap now executes successfully.
-* ✅ Compatible with `@circle-fin/swap-kit@1.2.3`.
-* ✅ No changes required to the existing ARCora swap architecture.
+ARCora is designed to recover gracefully from these situations and is ready once routes become available again.
 
 
 ---
