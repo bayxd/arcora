@@ -114,8 +114,8 @@ KIT_KEY=KIT_KEY:your_key_id:your_key_secret
 
 
 
-# NFTS
-<img width="891" height="904" alt="Screenshot 2026-06-22 224602" src="https://github.com/user-attachments/assets/e8ea4851-57d0-472f-a120-a376474014ca" />
+# SEND
+
 
 
 
@@ -126,6 +126,11 @@ KIT_KEY=KIT_KEY:your_key_id:your_key_secret
 
 # BRIDGE
 <img width="1187" height="792" alt="Screenshot 2026-06-18 074302" src="https://github.com/user-attachments/assets/ce5fd9fb-8733-4148-a4d7-44b6fd77e4c5" />
+
+
+
+# NFTS
+<img width="891" height="904" alt="Screenshot 2026-06-22 224602" src="https://github.com/user-attachments/assets/e8ea4851-57d0-472f-a120-a376474014ca" />
 
 
 
