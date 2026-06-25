@@ -52,13 +52,6 @@ Powered by Circle App Kit
 * View owned NFTs
 * NFT details page
 
-### Premium UI
-
-* Dark mode design
-* Glassmorphism effects
-* Responsive layout
-* Inspired by Uniswap and Magic Eden
-
 ---
 
 ## Tech Stack
@@ -180,11 +173,6 @@ ARCora implements recovery mechanisms and is designed to gracefully handle tempo
 
 ---
 
-## License
-
-MIT License
-
----
 
 Built with ❤️ using Next.js and Circle Web3 Services.
 
