@@ -1,12 +1,6 @@
 export interface UnifiedBalanceHistoryItem {
 
-  type:
-
-    "deposit"
-
-    |
-
-    "spend";
+  type: "deposit" | "spend";
 
   amount: string;
 
@@ -14,7 +8,7 @@ export interface UnifiedBalanceHistoryItem {
 
   txHash: string;
 
-  explorerUrl: string;
+  explorerUrl?: string;
 
   transferId?: string;
 
