@@ -3,7 +3,6 @@ import PortfolioAllocation from "@/components/PortfolioAllocation";
 import Footer from "@/components/Footer";
 import AssetBreakdown from "@/components/AssetBreakdown";
 import PerformanceChart from "@/components/PerformanceChart";
-import ProfitLoss from "@/components/ProfitLoss";
 import TransactionHistory from "@/components/TransactionHistory";
 import DashboardStats from "@/components/DashboardStats";
 
@@ -33,16 +32,13 @@ export default function PortfolioPage() {
 
         <DashboardStats />
 
-        <ProfitLoss />
+        <AssetBreakdown />
 
         <PerformanceChart />
 
-        <AssetBreakdown />
-
         <PortfolioAllocation />
 
-        <TransactionHistory />
-
+    
       </div>
 
       <Footer />

@@ -5,13 +5,11 @@ import { useState } from "react";
 export function useQuote() {
 
   const [quote, setQuote] =
-    useState<{
-      amountOut: string;
-      fee?: string;
-      minimumReceived?: string;
-      priceImpact?: string;
-    } | null>(null);
-
+  useState<{
+    estimatedOutput?: { amount: string; token: string };
+    stopLimit?: { amount: string; token: string };
+    fees?: { type: string; amount: string; token: string }[];
+  } | null>(null);
   async function getQuote(
 
     amount: string,

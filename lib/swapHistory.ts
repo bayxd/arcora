@@ -25,35 +25,19 @@ export function saveSwapHistory(
     );
 
   history.unshift({
-
     amount,
-
     tokenIn,
-
     tokenOut,
-
-    date:
-
-      new Date()
-
-        .toLocaleString(),
-
+    date: new Date().toLocaleString(),
     explorerUrl,
-
     txHash
-
   });
 
+  const trimmed = history.slice(0, 20);
+
   localStorage.setItem(
-
     "swapHistory",
-
-    JSON.stringify(
-
-      history
-
-    )
-
+    JSON.stringify(trimmed)
   );
 
 }

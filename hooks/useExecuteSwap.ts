@@ -46,28 +46,26 @@ export function useExecuteSwap() {
     const data =
       await response.json();
 
-    if (
-      data.success
-    ) {
+    if (data.success) {
+      const txHash =
+        data.result?.status?.txHash ??
+        data.result?.result?.txHash ??
+        data.result?.txHash;
+
+      const explorerUrl =
+        data.result?.status?.explorerUrl ??
+        data.result?.result?.explorerUrl ??
+        data.result?.explorerUrl;
 
       saveSwapHistory(
-
         amount,
-
         tokenIn,
-
         tokenOut,
-
-        data.result?.explorerUrl,
-
-        data.result?.txHash
-
+        explorerUrl,
+        txHash
       );
 
-      toast.success(
-        `${amount} ${tokenIn} → ${tokenOut}`
-      );
-
+      toast.success(`${amount} ${tokenIn} → ${tokenOut}`);
     }
 
     else {

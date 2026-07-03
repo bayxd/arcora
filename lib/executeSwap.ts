@@ -1,18 +1,12 @@
-import {
-  createSwapKitContext,
-  swap
-}
-from "@circle-fin/swap-kit";
+import { AppKit } from "@circle-fin/app-kit";
 
 import {
   createViemAdapterFromPrivateKey
-}
-from "@circle-fin/adapter-viem-v2";
+} from "@circle-fin/adapter-viem-v2";
 
-import {
-  CHAINS
-}
-from "@/constants/chains";
+import { CHAINS } from "@/constants/chains";
+
+const kit = new AppKit();
 
 export async function executeSwap(
 
@@ -56,21 +50,14 @@ export async function executeSwap(
 
     });
 
-  const context =
-    createSwapKitContext();
-
-  const result =
-    await swap(
-
-      context,
-
-      {
+    const result =
+    await kit.swap({
 
         from: {
 
-          adapter,
+        adapter,
 
-          chain:
+        chain:
             CHAINS.ARC_TESTNET
 
         },
@@ -80,19 +67,41 @@ export async function executeSwap(
         tokenOut,
 
         amountIn:
-          String(amount),
+        String(amount),
 
         config: {
 
-          kitKey:
-            process.env.KIT_KEY
+        kitKey:
+            process.env.KIT_KEY!
 
         }
 
-      }
+    });
 
-    );
+    console.log("Waiting for final status...");
 
-  return result;
+    const status =
+    await kit.waitForSwap({
+
+        result,
+
+        kitKey:
+        process.env.KIT_KEY!
+
+    });
+
+    console.log("FINAL STATUS");
+
+    console.dir(status, {
+    depth: null
+    });
+
+    return {
+
+    result,
+
+    status
+
+    };
 
 }

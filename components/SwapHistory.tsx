@@ -74,11 +74,14 @@ export default function SwapHistory() {
 
         :
 
-        <div
-          className="
-          space-y-4
-          "
-        >
+          <div
+            className="
+            space-y-4
+            max-h-125
+            overflow-y-auto
+            pr-2
+            "
+          >
 
           {
 

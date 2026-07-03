@@ -1,7 +1,7 @@
+import RequireGenesisPass from "@/components/RequireGenesisPass";
 import ConnectWallet from "@/components/ConnectWallet";
 import SwapCard from "@/components/SwapCard";
 import SwapHistory from "@/components/SwapHistory";
-import RecentActivity from "@/components/RecentActivity";
 import Footer from "@/components/Footer";
 
 export default function SwapPage() {
@@ -16,7 +16,7 @@ export default function SwapPage() {
     >
 
       <ConnectWallet />
-
+      <RequireGenesisPass>
       <div
         className="
         max-w-7xl
@@ -51,14 +51,17 @@ export default function SwapPage() {
           space-y-8
           "
         >
-
+          
+          
           <SwapHistory />
 
-          <RecentActivity />
+
 
         </section>
 
       </div>
+
+      </RequireGenesisPass>
 
       <Footer />
 

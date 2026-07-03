@@ -2,6 +2,7 @@ import ConnectWallet from "@/components/ConnectWallet";
 import BridgeCard from "@/components/BridgeCard";
 import BridgeHistory from "@/components/BridgeHistory";
 import Footer from "@/components/Footer";
+import RequireGenesisPass from "@/components/RequireGenesisPass";
 
 export default function BridgePage() {
 
@@ -16,32 +17,36 @@ export default function BridgePage() {
 
       <ConnectWallet />
 
-      <div
-        className="
-        max-w-[1000px]
-        mx-auto
-        px-8
-        xl:px-16
-        py-25
-        space-y-10
-        "
-      >
+      <RequireGenesisPass>
 
         <div
           className="
           max-w-[1000px]
           mx-auto
+          px-8
+          xl:px-16
+          py-25
           space-y-10
           "
         >
 
-          <BridgeCard />
+          <div
+            className="
+            max-w-[1000px]
+            mx-auto
+            space-y-10
+            "
+          >
 
-          <BridgeHistory />
+            <BridgeCard />
+
+            <BridgeHistory />
+
+          </div>
 
         </div>
 
-      </div>
+      </RequireGenesisPass>
 
       <Footer />
 

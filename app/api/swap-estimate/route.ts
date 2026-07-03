@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getSwapQuote } from "@/lib/getSwapQuote";
+import { estimateSwap } from "@/lib/estimateSwap";
 
 export async function POST(
   request: Request
@@ -54,7 +54,7 @@ export async function POST(
     }
 
     const quote =
-      await getSwapQuote(
+      await estimateSwap(
 
         amount,
 

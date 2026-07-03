@@ -1,16 +1,6 @@
 type Props = {
 
-  quote: {
-
-    amountOut: string;
-
-    fee?: string;
-
-    minimumReceived?: string;
-
-    priceImpact?: string;
-
-  } | null;
+  quote: any;
 
   tokenIn: string;
 
@@ -34,168 +24,145 @@ export default function SwapInfo({
 
   return (
 
-    <div
-      className="
-      mt-5
-      space-y-2
-      text-sm
-      text-zinc-400
-      px-1
-      "
-    >
+  <div
+  className="
+  mt-4
+  rounded-2xl
+  bg-zinc-900/50
+  border
+  border-white/5
+  p-4
+  space-y-4
+  "
+  >
 
-      <div
-        className="
-        flex
-        justify-between
-        "
-      >
+  <div className="flex justify-between">
 
-        <span>
-          Rate
-        </span>
+  <span className="text-zinc-400">
 
-        <span>
+  Estimated Receive
 
-          {
+  </span>
 
-            quote
+  <span className="font-semibold text-emerald-400">
 
-              ?
+  {quote?.estimatedOutput?.amount ?? "-"}
 
-              `1 ${tokenIn} ≈ ${quote.amountOut} ${tokenOut}`
+  {" "}
 
-              :
+  {quote?.estimatedOutput?.token ?? tokenOut}
 
-              `1 ${tokenIn} = 1 ${tokenOut}`
+  </span>
 
-          }
+  </div>
 
-        </span>
+  <div className="flex justify-between">
 
-      </div>
+  <span className="text-zinc-400">
 
+  Minimum Receive
 
-      <div
-        className="
-        flex
-        justify-between
-        "
-      >
+  </span>
 
-        <span>
-          Fee
-        </span>
+  <span>
 
-        <span>
+  {quote?.stopLimit?.amount ?? "-"}
 
-          {
+  {" "}
 
-            quote?.fee
+  {quote?.stopLimit?.token ?? tokenOut}
 
-            ??
+  </span>
 
-            "-"
+  </div>
 
-          }
+  <div className="border-t border-white/5"></div>
 
-        </span>
+  {
 
-      </div>
+  quote?.fees?.map(
 
+  (fee:any)=>(
 
-      <div
-        className="
-        flex
-        justify-between
-        "
-      >
+  <div
 
-        <span>
-          Minimum Received
-        </span>
+  key={fee.type}
 
-        <span>
+  className="flex justify-between"
 
-          {
+  >
 
-            quote?.minimumReceived
+  <span className="text-zinc-400">
 
-            ??
+  {
 
-            "-"
+  fee.type==="provider"
 
-          }
+  ?
 
-        </span>
+  "Provider Fee"
 
-      </div>
+  :
 
+  "Gas Fee"
 
-      <div
-        className="
-        flex
-        justify-between
-        "
-      >
+  }
 
-        <span>
-          Price Impact
-        </span>
+  </span>
 
-        <span>
+  <span>
 
-          {
+  {fee.amount}
 
-            quote?.priceImpact
+  {" "}
 
-            ??
+  {fee.token}
 
-            "-"
+  </span>
 
-          }
+  </div>
 
-        </span>
+  )
 
-      </div>
+  )
 
+  }
 
-      <div
-        className="
-        flex
-        justify-between
-        "
-      >
+  <div className="border-t border-white/5"></div>
 
-        <span>
-          Slippage
-        </span>
+  <div className="flex justify-between">
 
-        <span>
-          {slippage}%
-        </span>
+  <span className="text-zinc-400">
 
-      </div>
+  Slippage
 
+  </span>
 
-      <div
-        className="
-        flex
-        justify-between
-        "
-      >
+  <span>
 
-        <span>
-          Network
-        </span>
+  {slippage}%
 
-        <span>
-          Arc Testnet
-        </span>
+  </span>
 
-      </div>
+  </div>
 
-    </div>
+  <div className="flex justify-between">
+
+  <span className="text-zinc-400">
+
+  Network
+
+  </span>
+
+  <span>
+
+  Arc Testnet
+
+  </span>
+
+  </div>
+
+  </div>
 
   );
 

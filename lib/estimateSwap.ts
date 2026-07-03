@@ -1,3 +1,13 @@
+import { AppKit } from "@circle-fin/app-kit";
+
+import {
+  createViemAdapterFromPrivateKey
+} from "@circle-fin/adapter-viem-v2";
+
+import { CHAINS } from "@/constants/chains";
+
+const kit = new AppKit();
+
 export async function estimateSwap(
 
   amount: string,
@@ -10,35 +20,62 @@ export async function estimateSwap(
 
 ) {
 
-  const amountOut =
-    Number(amount);
+  if (!process.env.PRIVATE_KEY) {
 
-  const fee =
-    amountOut * 0.001;
+    throw new Error("PRIVATE_KEY tidak ditemukan");
 
-  const minimumReceived =
-    amountOut -
-    (
-      amountOut *
-      Number(slippage)
-      /
-      100
-    );
+  }
 
-  return {
+  if (!process.env.KIT_KEY) {
 
-    amountOut:
-      amountOut.toFixed(6),
+    throw new Error("KIT_KEY tidak ditemukan");
 
-    fee:
-      fee.toFixed(6),
+  }
 
-    minimumReceived:
-      minimumReceived.toFixed(6),
+  const adapter =
+    createViemAdapterFromPrivateKey({
 
-    priceImpact:
-      "0.01"
+      privateKey:
+        process.env.PRIVATE_KEY
 
-  };
+    });
+
+  const estimate =
+    await kit.estimateSwap({
+
+      from: {
+
+        adapter,
+
+        chain:
+          CHAINS.ARC_TESTNET
+
+      },
+
+      tokenIn,
+
+      tokenOut,
+
+      amountIn:
+        String(amount),
+
+      config: {
+
+        kitKey:
+          process.env.KIT_KEY!
+
+      }
+
+    });
+
+  console.log("========== ESTIMATE ==========");
+
+  console.dir(estimate, {
+    depth: null,
+  });
+
+  console.log("==============================");
+
+  return estimate;
 
 }

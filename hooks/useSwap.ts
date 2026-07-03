@@ -10,6 +10,8 @@ import { useExecuteSwap } from "./useExecuteSwap";
 
 export function useSwap() {
 
+  const [swapResult, setSwapResult] = useState<any>(null);
+
   const [status, setStatus] =
     useState<SwapStatus>(
       "idle"
@@ -93,6 +95,12 @@ export function useSwap() {
 
       if (data.success) {
 
+        setSwapResult(data.result);
+
+      }
+
+      if (data.success) {
+
         setStatus(
           "success"
         );
@@ -141,7 +149,9 @@ export function useSwap() {
 
     quote,
 
-    swap
+    swap,
+
+    swapResult
 
   };
 
