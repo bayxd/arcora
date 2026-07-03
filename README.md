@@ -45,12 +45,8 @@ Powered by Circle App Kit
 * Track bridge transactions
 * Multi-chain support
 
-### NFT Collection
-
-* Mint ARCora Early Access Badge
-* Genesis Collection
-* View owned NFTs
-* NFT details page
+### Genesis Pass
+* Access to Swap,Bridge,Send
 
 ---
 
