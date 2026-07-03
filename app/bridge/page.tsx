@@ -21,7 +21,7 @@ export default function BridgePage() {
 
         <div
           className="
-          max-w-[1000px]
+          max-w-250
           mx-auto
           px-8
           xl:px-16
@@ -32,7 +32,7 @@ export default function BridgePage() {
 
           <div
             className="
-            max-w-[1000px]
+            max-w-250
             mx-auto
             space-y-10
             "

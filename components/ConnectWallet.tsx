@@ -99,7 +99,7 @@ export default function ConnectWallet() {
               />
             </svg>
 
-            <span className="text-3xl font-black bg-gradient-to-r from-purple-400 via-pink-500 to-blue-500 bg-clip-text text-transparent">
+            <span className="text-3xl font-black bg-linear-to-r from-purple-400 via-pink-500 to-blue-500 bg-clip-text text-transparent">
               ARCora
             </span>
           </Link>
