@@ -49,19 +49,19 @@ Powered by Circle App Kit
 
 ## Tech Stack
 
-# Frontend
+### Frontend
 * Next.js 16
 * React 19
 * TypeScript
 * TailwindCSS
-# Web3
+### Web3
 * Wagmi
 * Viem
 * RainbowKit
-# Circle Ecosystem
+### Circle Ecosystem
 * @circle-fin/app-kit
 * @circle-fin/adapter-viem-v2
-# Additional Libraries
+### Additional Libraries
 * TanStack Query
 * Sonner
 * Recharts
