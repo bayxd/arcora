@@ -10,13 +10,11 @@ ARCora is a modern Web3 application built on Arc Testnet, designed to provide a 
 ## Features
 
 ### Wallet Connection
-
-* Connect wallet with RainbowKit
+* Connect wallet with Reown kit
 * Multi-wallet support
 * Real-time account information
 
 ### Portfolio Dashboard
-
 * USDC balance
 * EURC balance
 * NFT holdings
@@ -39,7 +37,6 @@ Powered by Circle App Kit
 * ArcScan explorer links
 
 ## Cross-Chain Bridge
-
 * Bridge assets across supported chains
 * Powered by Circle Bridge Kit
 * Track bridge transactions
