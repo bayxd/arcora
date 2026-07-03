@@ -109,35 +109,29 @@ KIT_KEY=KIT_KEY:your_key_id:your_key_secret
 ---
 
 ## Screenshots
-## DASHBOARD
-<img width="1343" height="808" alt="Screenshot 2026-06-22 212336" src="https://github.com/user-attachments/assets/1ae2a33c-dcea-47ed-9723-09c01170e2d2" />
+### PORTFOLIO
+<img width="1776" height="899" alt="image" src="https://github.com/user-attachments/assets/5620a01a-c02f-402e-91e9-ae301c975b70" />
 
 
 
-## SEND
-<img width="1337" height="695" alt="image" src="https://github.com/user-attachments/assets/7415ccd6-97cc-471d-aa21-9beb47aeb1a0" />
+### SWAP
+<img width="1584" height="897" alt="image" src="https://github.com/user-attachments/assets/5ad27b90-3d70-44da-8056-f388a6cdb8c9" />
+
+
+
+### BRIDGE
+<img width="1601" height="885" alt="image" src="https://github.com/user-attachments/assets/3aaaee58-8d0a-40bc-852c-f06729de2507" />
 
 
 
 
-## SWAP
-<img width="1599" height="926" alt="Screenshot 2026-06-22 145125" src="https://github.com/user-attachments/assets/e2bfdf85-0d50-422c-908f-80b7c8b75173" />
+### SEND
+<img width="1594" height="852" alt="image" src="https://github.com/user-attachments/assets/ccdfba29-bb1f-4ec8-b435-d6a91a9a47f5" />
 
 
 
-## BRIDGE
-<img width="1187" height="792" alt="Screenshot 2026-06-18 074302" src="https://github.com/user-attachments/assets/ce5fd9fb-8733-4148-a4d7-44b6fd77e4c5" />
-
-
-
-## NFTS
-<img width="891" height="904" alt="Screenshot 2026-06-22 224602" src="https://github.com/user-attachments/assets/e8ea4851-57d0-472f-a120-a376474014ca" />
-
-
-
-## PORTFOLIO
-<img width="878" height="862" alt="Screenshot 2026-06-18 074346" src="https://github.com/user-attachments/assets/c3f3639e-1653-4d3d-b0b9-a48150401e45" />
-
+### GENESIS PASS
+<img width="1583" height="896" alt="image" src="https://github.com/user-attachments/assets/05ee10d8-028f-40c7-a4e6-a1f418018e83" />
 
 
 ---
@@ -148,21 +142,15 @@ ARCora is deployed on Vercel.
 
 ---
 
+### Refactor: NFT Contract Deployment
 
-# Current Development Status
+Refactored the NFT deployment architecture by replacing the custom Solidity ERC-721 contract with Circle's official Smart Contract Template.
 
-
-Circle Swap Kit integration has been completed successfully.
-
-During development, Arc Testnet may occasionally return:
-
-INPUT_UNSUPPORTED_ROUTE
-No route available
-
-This response indicates that routing or liquidity is temporarily unavailable rather than an application error.
-
-ARCora implements recovery mechanisms and is designed to gracefully handle temporary infrastructure conditions while remaining ready once routes become available again.
-
+Highlights:
+- Migrated deployment to the Circle SDK workflow.
+- Removed dependency on manually maintained ERC-721 contracts.
+- Standardized the deployment process according to Circle documentation.
+- Improved integration with Circle Developer Platform.
 
 ---
 
