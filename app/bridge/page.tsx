@@ -3,6 +3,7 @@ import BridgeCard from "@/components/BridgeCard";
 import BridgeHistory from "@/components/BridgeHistory";
 import Footer from "@/components/Footer";
 import RequireGenesisPass from "@/components/RequireGenesisPass";
+import CyberpunkBackground from "@/components/CyberpunkBackground";
 
 export default function BridgePage() {
 
@@ -10,10 +11,14 @@ export default function BridgePage() {
 
     <main
       className="
+      relative
       min-h-screen
+      overflow-hidden
       text-white
       "
     >
+
+      <CyberpunkBackground />
 
       <ConnectWallet />
 
@@ -21,6 +26,8 @@ export default function BridgePage() {
 
         <div
           className="
+          relative
+          z-10
           max-w-250
           mx-auto
           px-8

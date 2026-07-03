@@ -62,7 +62,6 @@ export default function USDCStats() {
         font-semibold
         "
       >
-        Active ✓
       </span>
 
     </div>

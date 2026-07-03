@@ -36,8 +36,6 @@ export default function ConnectWallet() {
           relative
           bg-zinc-900/60
           backdrop-blur-2xl
-          border
-          border-white/10
           rounded-full
           px-6
           py-3

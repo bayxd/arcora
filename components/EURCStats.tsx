@@ -63,7 +63,7 @@ export default function EURCStats() {
         font-semibold
         "
       >
-        Active ✓
+       
       </span>
 
     </div>

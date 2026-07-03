@@ -31,7 +31,10 @@ export default function AssetBreakdown() {
 
     <section
       className="
+      relative
+      overflow-hidden
       bg-zinc-900/70
+      backdrop-blur-xl
       border
       border-white/10
       rounded-3xl
@@ -40,69 +43,119 @@ export default function AssetBreakdown() {
       "
     >
 
-      <h2
-        className="
-        text-2xl
-        font-bold
-        mb-8
-        "
-      >
-        Asset
-      </h2>
-
+ 
+      {/* subtle dot grid texture */}
       <div
-        className="
-        space-y-6
-        "
-      >
+        className="pointer-events-none absolute inset-0 opacity-[0.06]"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle, rgba(168,85,247,0.7) 1px, transparent 1px)",
+          backgroundSize: "18px 18px",
+        }}
+      />
+
+      <div className="relative">
+
+        <p className="text-[10px] tracking-[0.2em] text-purple-400/80 font-semibold uppercase mb-1 font-mono">
+          // Balance Sheet
+        </p>
+
+        <h2
+          className="
+          text-2xl
+          font-bold
+          tracking-tight
+          mb-8
+          "
+        >
+          Asset
+        </h2>
 
         <div
           className="
-          flex
-          items-center
-          justify-between
+          space-y-3
           "
         >
-          <span>USDC</span>
 
-          <span>
+          <div
+            className="
+            flex
+            items-center
+            justify-between
+            bg-zinc-800/80
+            border
+            border-white/5
+            rounded-2xl
+            p-4
+            hover:border-purple-500/20
+            duration-300
+            "
+          >
+            <div className="flex items-center gap-2">
+              <span
+                className="h-1.5 w-1.5 rounded-full"
+                style={{ backgroundColor: "#a855f7", boxShadow: "0 0 6px #a855f7" }}
+              />
+              <span className="text-zinc-400 text-xs uppercase tracking-widest font-semibold">
+                USDC
+              </span>
+            </div>
 
-            {
+            <span className="font-mono font-bold text-lg tabular-nums">
 
-              Number(
-                usdc?.formatted ?? 0
-              )
+              {
 
-              .toFixed(2)
+                Number(
+                  usdc?.formatted ?? 0
+                )
 
-            }
+                .toFixed(2)
 
-          </span>
+              }
 
-        </div>
+            </span>
 
-        <div
-          className="
-          flex
-          items-center
-          justify-between
-          "
-        >
-          <span>EURC</span>
+          </div>
 
-          <span>
+          <div
+            className="
+            flex
+            items-center
+            justify-between
+            bg-zinc-800/80
+            border
+            border-white/5
+            rounded-2xl
+            p-4
+            hover:border-blue-500/20
+            duration-300
+            "
+          >
+            <div className="flex items-center gap-2">
+              <span
+                className="h-1.5 w-1.5 rounded-full"
+                style={{ backgroundColor: "#3b82f6", boxShadow: "0 0 6px #3b82f6" }}
+              />
+              <span className="text-zinc-400 text-xs uppercase tracking-widest font-semibold">
+                EURC
+              </span>
+            </div>
 
-            {
+            <span className="font-mono font-bold text-lg tabular-nums">
 
-              Number(
-                eurc?.formatted ?? 0
-              )
+              {
 
-              .toFixed(2)
+                Number(
+                  eurc?.formatted ?? 0
+                )
 
-            }
+                .toFixed(2)
 
-          </span>
+              }
+
+            </span>
+
+          </div>
 
         </div>
 

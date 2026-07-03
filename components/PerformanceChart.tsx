@@ -61,7 +61,10 @@ export default function PerformanceChart() {
 
     <section
       className="
+      relative
+      overflow-hidden
       bg-zinc-900/70
+      backdrop-blur-xl
       border
       border-white/10
       rounded-3xl
@@ -70,118 +73,164 @@ export default function PerformanceChart() {
       "
     >
 
-      <div
-        className="
-        flex
-        items-center
-        justify-between
-        mb-8
-        "
-      >
+   
 
-        <h2
-          className="
-          text-2xl
-          font-bold
-          "
-        >
-          Performance
-        </h2>
+      {/* subtle dot grid texture */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.06]"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle, rgba(168,85,247,0.7) 1px, transparent 1px)",
+          backgroundSize: "18px 18px",
+        }}
+      />
+
+      <div className="relative">
 
         <div
           className="
           flex
-          gap-3
+          items-center
+          justify-between
+          mb-8
           "
         >
 
-          {
+          <div>
+            <p className="text-[10px] tracking-[0.2em] text-purple-400/80 font-semibold uppercase mb-1 font-mono">
+              // Growth Trace
+            </p>
+            <h2
+              className="
+              text-2xl
+              font-bold
+              tracking-tight
+              "
+            >
+              Performance
+            </h2>
+          </div>
 
-            Object.keys(
-              datasets
-            )
+          <div
+            className="
+            flex
+            gap-2
+            bg-zinc-800/60
+            border
+            border-white/5
+            rounded-full
+            p-1
+            "
+          >
 
-            .map(
+            {
 
-              (item) => (
+              Object.keys(
+                datasets
+              )
 
-                <button
+              .map(
 
-                  key={item}
+                (item) => (
 
-                  onClick={() =>
-                    setPeriod(
-                      item as keyof typeof datasets
-                    )
-                  }
+                  <button
 
-                  className={`
-                  px-4
-                  py-2
-                  rounded-full
-                  duration-300
+                    key={item}
 
-                  ${
-                    period === item
+                    onClick={() =>
+                      setPeriod(
+                        item as keyof typeof datasets
+                      )
+                    }
 
-                    ?
+                    className={`
+                    px-4
+                    py-1.5
+                    rounded-full
+                    text-xs
+                    font-semibold
+                    tracking-wide
+                    duration-300
 
-                    "bg-purple-600"
+                    ${
+                      period === item
 
-                    :
+                      ?
 
-                    "bg-zinc-800"
-                  }
-                  `}
-                >
+                      "bg-linear-to-r from-purple-600 via-pink-500 to-blue-500 text-white shadow-[0_0_12px_rgba(168,85,247,0.4)]"
 
-                  {item}
+                      :
 
-                </button>
+                      "text-zinc-400 hover:text-white"
+                    }
+                    `}
+                  >
+
+                    {item}
+
+                  </button>
+
+                )
 
               )
 
-            )
+            }
 
-          }
+          </div>
 
         </div>
 
-      </div>
+        <div
+          className="
+          h-72
+          "
+        >
 
-      <div
-        className="
-        h-72
-        "
-      >
+          <ResponsiveContainer>
 
-        <ResponsiveContainer>
+            <LineChart
+              data={
+                datasets[
+                  period
+                ]
+              }
+            >
 
-          <LineChart
-            data={
-              datasets[
-                period
-              ]
-            }
-          >
+              <defs>
+                <linearGradient id="performanceLine" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stopColor="#a855f7" />
+                  <stop offset="50%" stopColor="#ec4899" />
+                  <stop offset="100%" stopColor="#3b82f6" />
+                </linearGradient>
+              </defs>
 
-            <Tooltip />
+              <Tooltip
+                contentStyle={{
+                  background: "rgba(24,24,27,0.9)",
+                  border: "1px solid rgba(168,85,247,0.3)",
+                  borderRadius: "12px",
+                  color: "#fff",
+                  fontSize: "12px"
+                }}
+              />
 
-            <Line
+              <Line
 
-              dataKey="value"
+                dataKey="value"
 
-              stroke="#a855f7"
+                stroke="url(#performanceLine)"
 
-              strokeWidth={4}
+                strokeWidth={4}
 
-              dot={false}
+                dot={false}
 
-            />
+              />
 
-          </LineChart>
+            </LineChart>
 
-        </ResponsiveContainer>
+          </ResponsiveContainer>
+
+        </div>
 
       </div>
 

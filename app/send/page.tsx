@@ -3,16 +3,21 @@ import SendCard from "@/components/SendCard";
 import Footer from "@/components/Footer";
 import RequireGenesisPass from "@/components/RequireGenesisPass";
 import SendHistory from "@/components/SendHistory";
+import CyberpunkBackground from "@/components/CyberpunkBackground";
 
 export default function SendPage() {
   return (
-    <main className="min-h-screen text-white">
+    <main className="relative min-h-screen overflow-hidden text-white">
+      <CyberpunkBackground />
+
       <ConnectWallet />
 
       <RequireGenesisPass>
         <div
           className="
-            max-w-[1800px]
+            relative
+            z-10
+            max-w-[18000px]
             mx-auto
             px-8
             xl:px-16
@@ -27,7 +32,7 @@ export default function SendPage() {
 
           {/* Send History */}
           <section className="flex justify-center">
-            <div className="w-full max-w-md">
+            <div className="w-full max-w-200">
               <SendHistory />
             </div>
           </section>

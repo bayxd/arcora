@@ -3,6 +3,7 @@ import ConnectWallet from "@/components/ConnectWallet";
 import SwapCard from "@/components/SwapCard";
 import SwapHistory from "@/components/SwapHistory";
 import Footer from "@/components/Footer";
+import CyberpunkBackground from "@/components/CyberpunkBackground";
 
 export default function SwapPage() {
 
@@ -10,15 +11,21 @@ export default function SwapPage() {
 
     <main
       className="
+      relative
       min-h-screen
+      overflow-hidden
       text-white
       "
     >
+
+      <CyberpunkBackground />
 
       <ConnectWallet />
       <RequireGenesisPass>
       <div
         className="
+        relative
+        z-10
         max-w-7xl
         mx-auto
         px-6

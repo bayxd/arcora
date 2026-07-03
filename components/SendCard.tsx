@@ -36,7 +36,7 @@ export default function SendCard() {
       p-6
       shadow-2xl
       w-full
-      max-w-md
+      max-w-200
       "
     >
 
@@ -66,7 +66,7 @@ export default function SendCard() {
           flex
           items-center
           justify-between
-          mb-4
+          mb-7
           "
         >
 

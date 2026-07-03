@@ -38,7 +38,7 @@ export default function SendHistory() {
         rounded-2xl
         p-5
         shadow-xl
-        w-full
+        w-200
         "
     >
 

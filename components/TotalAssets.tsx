@@ -80,7 +80,7 @@ export default function TotalAssets() {
         className="
         text-zinc-500
         text-sm
-        mt-2
+        mt-1
         "
       >
         USD
