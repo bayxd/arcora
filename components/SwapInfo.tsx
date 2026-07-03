@@ -26,25 +26,26 @@ export default function SwapInfo({
 
   <div
   className="
-  mt-4
-  rounded-2xl
+  mt-3
+  rounded-xl
   bg-zinc-900/50
   border
   border-white/5
-  p-4
-  space-y-4
+  p-3.5
+  space-y-2.5
+  text-xs
   "
   >
 
   <div className="flex justify-between">
 
-  <span className="text-zinc-400">
+  <span className="text-zinc-500">
 
-  Estimated Receive
+  Est. Receive
 
   </span>
 
-  <span className="font-semibold text-emerald-400">
+  <span className="font-mono font-semibold text-emerald-400">
 
   {quote?.estimatedOutput?.amount ?? "-"}
 
@@ -58,13 +59,13 @@ export default function SwapInfo({
 
   <div className="flex justify-between">
 
-  <span className="text-zinc-400">
+  <span className="text-zinc-500">
 
-  Minimum Receive
+  Min. Receive
 
   </span>
 
-  <span>
+  <span className="font-mono text-zinc-300">
 
   {quote?.stopLimit?.amount ?? "-"}
 
@@ -92,7 +93,7 @@ export default function SwapInfo({
 
   >
 
-  <span className="text-zinc-400">
+  <span className="text-zinc-500">
 
   {
 
@@ -110,7 +111,7 @@ export default function SwapInfo({
 
   </span>
 
-  <span>
+  <span className="font-mono text-zinc-300">
 
   {fee.amount}
 
@@ -132,13 +133,13 @@ export default function SwapInfo({
 
   <div className="flex justify-between">
 
-  <span className="text-zinc-400">
+  <span className="text-zinc-500">
 
   Slippage
 
   </span>
 
-  <span>
+  <span className="font-mono">
 
   {slippage}%
 
@@ -148,13 +149,13 @@ export default function SwapInfo({
 
   <div className="flex justify-between">
 
-  <span className="text-zinc-400">
+  <span className="text-zinc-500">
 
   Network
 
   </span>
 
-  <span>
+  <span className="text-purple-400 font-medium">
 
   Arc Testnet
 

@@ -22,11 +22,11 @@ export default function ConnectWallet() {
 
   function navClass(href: string) {
     return `
-      px-5 py-2 rounded-full duration-300
+      px-4 py-2 rounded-full text-sm font-medium duration-300 border border-transparent
       ${
         pathname === href
-          ? "bg-zinc-800 text-white"
-          : "text-zinc-400 hover:bg-zinc-800 hover:text-white"
+          ? "bg-zinc-800 text-white border-purple-500/20 shadow-[0_0_12px_rgba(168,85,247,0.15)]"
+          : "text-zinc-400 hover:bg-zinc-800/60 hover:text-white"
       }
     `;
   }
@@ -34,14 +34,14 @@ export default function ConnectWallet() {
   return (
     <header className="sticky top-5 z-50">
       <div className="max-w-[1800px] mx-auto px-6">
-        <div className="bg-zinc-900/60 backdrop-blur-2xl border border-white/10 rounded-full px-8 py-4 shadow-[0_10px_50px_rgba(0,0,0,.4)] flex items-center justify-between">
+        <div className="bg-zinc-900/60 backdrop-blur-2xl border border-white/10 rounded-full px-6 py-3 shadow-[0_10px_50px_rgba(0,0,0,.4)] flex items-center justify-between">
 
           {/* Left */}
-          <div className="flex items-center gap-12">
-          <Link href="/" className="flex items-center gap-3">
+          <div className="flex items-center gap-10">
+          <Link href="/" className="flex items-center gap-2.5">
             <svg
-              width="42"
-              height="42"
+              width="34"
+              height="34"
               viewBox="0 0 64 64"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -99,12 +99,12 @@ export default function ConnectWallet() {
               />
             </svg>
 
-            <span className="text-3xl font-black bg-linear-to-r from-purple-400 via-pink-500 to-blue-500 bg-clip-text text-transparent">
+            <span className="text-2xl font-black bg-linear-to-r from-purple-400 via-pink-500 to-blue-500 bg-clip-text text-transparent tracking-tight">
               ARCora
             </span>
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-2">
+          <nav className="hidden lg:flex items-center gap-1">
             <Link href="/portfolio" className={navClass("/portfolio")}>Portfolio</Link>
             <Link href="/swap" className={navClass("/swap")}>Swap</Link>
             <Link href="/bridge" className={navClass("/bridge")}>Bridge</Link>
@@ -115,16 +115,37 @@ export default function ConnectWallet() {
           </div>
 
           {/* Right */}
-          <div className="scale-105">
-            <button
-              onClick={() => appKit.open()}
-              className="px-5 py-2 bg-purple-600 rounded-full text-white"
-            >
-              {isConnected && address
-                ? `${address.slice(0, 6)}...${address.slice(-4)}`
-                : "Connect Wallet"}
-            </button>
-          </div>
+          <button
+            onClick={() => appKit.open()}
+            className="
+            relative
+            overflow-hidden
+            px-4
+            py-2
+            rounded-full
+            text-sm
+            font-semibold
+            font-mono
+            bg-linear-to-r
+            from-purple-600
+            via-pink-500
+            to-blue-500
+            shadow-[0_0_16px_rgba(168,85,247,0.3)]
+            hover:shadow-[0_0_22px_rgba(168,85,247,0.45)]
+            hover:scale-[1.02]
+            duration-300
+            flex
+            items-center
+            gap-2
+            "
+          >
+            {isConnected && address && (
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-300 animate-pulse" />
+            )}
+            {isConnected && address
+              ? `${address.slice(0, 6)}...${address.slice(-4)}`
+              : "Connect Wallet"}
+          </button>
 
         </div>
 

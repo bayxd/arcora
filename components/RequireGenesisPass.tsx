@@ -68,7 +68,7 @@ export default function RequireGenesisPass({
 
   if (!address) {
     return (
-      <div className="max-w-[1800px] mx-auto px-8 xl:px-16 py-25 text-white text-center">
+      <div className="max-w-[1800px] mx-auto px-8 xl:px-16 py-25 text-white text-center text-sm font-mono text-zinc-500">
         Connect wallet
       </div>
     );
@@ -76,7 +76,7 @@ export default function RequireGenesisPass({
 
   if (isLoading) {
     return (
-      <div className="max-w-[1800px] mx-auto px-8 xl:px-16 py-25 text-white text-center">
+      <div className="max-w-[1800px] mx-auto px-8 xl:px-16 py-25 text-white text-center text-sm font-mono text-zinc-500">
         Checking access...
       </div>
     );
@@ -85,20 +85,63 @@ export default function RequireGenesisPass({
   if (!isHolder) {
     return (
       <div className="max-w-[1800px] mx-auto px-8 xl:px-16 py-25 flex flex-col items-center justify-center text-center text-white">
-        <div className="bg-zinc-900/70 backdrop-blur-xl border border-white/10 rounded-4xl p-12 shadow-2xl max-w-lg w-full">
-          <h1 className="text-3xl font-bold mb-6">🔒 Feature Locked</h1>
+        <div className="relative overflow-hidden bg-zinc-900/80 backdrop-blur-xl border border-white/10 rounded-[28px] p-8 shadow-2xl max-w-lg w-full">
 
-          <p className="text-zinc-400 mb-8">
-            Mint a Genesis Pass to unlock this feature.
-          </p>
+          {/* neon top strip */}
+          <div className="absolute top-0 left-0 right-0 h-[2px] bg-linear-to-r from-purple-600 via-pink-500 to-blue-500" />
 
-          <button
-            onClick={handleMint}
-            disabled={minting}
-            className="w-full py-4 rounded-full text-lg font-bold bg-linear-to-r from-purple-600 via-pink-500 to-blue-500 hover:scale-[1.02] duration-300 disabled:opacity-50"
-          >
-            {minting ? "Minting..." : "Mint Genesis Pass"}
-          </button>
+          {/* HUD corner brackets */}
+          <div className="pointer-events-none absolute top-3 left-3 h-3 w-3 border-t border-l border-purple-500/50 rounded-tl-sm" />
+          <div className="pointer-events-none absolute top-3 right-3 h-3 w-3 border-t border-r border-blue-500/50 rounded-tr-sm" />
+          <div className="pointer-events-none absolute bottom-3 left-3 h-3 w-3 border-b border-l border-purple-500/25 rounded-bl-sm" />
+          <div className="pointer-events-none absolute bottom-3 right-3 h-3 w-3 border-b border-r border-blue-500/25 rounded-br-sm" />
+
+          <div className="relative">
+
+            <p className="text-[10px] tracking-[0.2em] text-purple-400/80 font-semibold uppercase mb-2">
+              // Access Denied
+            </p>
+
+            <h1 className="text-2xl font-bold mb-4">🔒 Feature Locked</h1>
+
+            <p className="text-zinc-400 text-sm mb-6">
+              Mint a Genesis Pass to unlock this feature.
+            </p>
+
+            <button
+              onClick={handleMint}
+              disabled={minting}
+              className="
+              group
+              relative
+              w-full
+              h-12
+              rounded-xl
+              text-sm
+              font-bold
+              tracking-wide
+              uppercase
+              overflow-hidden
+              bg-linear-to-r
+              from-purple-600
+              via-pink-500
+              to-blue-500
+              hover:scale-[1.01]
+              active:scale-[0.99]
+              disabled:opacity-60
+              disabled:hover:scale-100
+              duration-300
+              shadow-[0_0_20px_rgba(168,85,247,0.25)]
+              hover:shadow-[0_0_28px_rgba(168,85,247,0.4)]
+              "
+            >
+              <span className="relative z-10">
+                {minting ? "Minting..." : "Mint Genesis Pass"}
+              </span>
+            </button>
+
+          </div>
+
         </div>
       </div>
     );

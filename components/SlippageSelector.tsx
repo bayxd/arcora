@@ -26,12 +26,25 @@ export default function SlippageSelector({
 
     <div
       className="
-      mt-5
+      mt-3
       flex
       items-center
-      gap-2
+      gap-1.5
       "
     >
+
+      <span
+        className="
+        text-[10px]
+        uppercase
+        tracking-widest
+        text-zinc-600
+        font-semibold
+        mr-1
+        "
+      >
+        Slip
+      </span>
 
       {
 
@@ -54,11 +67,14 @@ export default function SlippageSelector({
               }
 
               className={`
-                px-4
-                py-2
-                rounded-xl
-                font-medium
+                px-3
+                py-1.5
+                rounded-lg
+                text-xs
+                font-mono
+                font-semibold
                 duration-300
+                border
 
                 ${
 
@@ -66,11 +82,11 @@ export default function SlippageSelector({
 
                     ?
 
-                    "bg-purple-600 text-white"
+                    "bg-purple-600 border-purple-500 text-white shadow-[0_0_12px_rgba(168,85,247,0.4)]"
 
                     :
 
-                    "bg-zinc-800 text-zinc-400 hover:bg-zinc-700"
+                    "bg-zinc-800/80 border-white/5 text-zinc-400 hover:bg-zinc-700"
 
                 }
 

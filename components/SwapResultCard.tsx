@@ -19,12 +19,12 @@ export default function SwapResultCard({
 
     <div
       className="
-      mt-5
-      rounded-2xl
+      mt-4
+      rounded-xl
       border
       border-emerald-500/20
       bg-emerald-500/5
-      p-5
+      p-4
       "
     >
 
@@ -40,17 +40,19 @@ export default function SwapResultCard({
           className="
           text-emerald-400
           font-bold
+          text-sm
           "
         >
-          ✅ Swap Completed
+          Swap Completed
         </h3>
 
         <span
           className="
-          text-xs
+          text-[10px]
+          font-mono
           rounded-full
           bg-emerald-500/20
-          px-3
+          px-2.5
           py-1
           text-emerald-400
           "
@@ -62,21 +64,21 @@ export default function SwapResultCard({
 
       <div
         className="
-        mt-5
-        space-y-3
-        text-sm
+        mt-3
+        space-y-2
+        text-xs
         "
       >
 
         <div className="flex justify-between">
 
-          <span className="text-zinc-400">
+          <span className="text-zinc-500">
 
             Received
 
           </span>
 
-          <span className="font-semibold">
+          <span className="font-mono font-semibold">
 
             {result?.result?.amountOut}{" "}
 
@@ -88,7 +90,7 @@ export default function SwapResultCard({
 
         <div className="flex justify-between">
 
-          <span className="text-zinc-400">
+          <span className="text-zinc-500">
 
             Transaction
 
@@ -97,7 +99,6 @@ export default function SwapResultCard({
           <span
             className="
             font-mono
-            text-xs
             "
           >
 
@@ -122,14 +123,18 @@ export default function SwapResultCard({
         rel="noreferrer"
 
         className="
-        mt-5
+        mt-4
         block
-        rounded-xl
+        rounded-lg
         bg-zinc-800
-        py-3
+        border
+        border-white/5
+        py-2.5
         text-center
+        text-xs
         font-semibold
         hover:bg-zinc-700
+        hover:border-purple-500/30
         duration-300
         "
 

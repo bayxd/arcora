@@ -37,24 +37,52 @@ export default function SwapHistory() {
 
     <section
       className="
-      bg-zinc-900
+      relative
+      overflow-hidden
+      bg-zinc-900/80
       border
-      border-zinc-800
-      rounded-3xl
-      p-6
+      border-white/10
+      rounded-2xl
+      p-5
       shadow-xl
       "
     >
 
-      <h2
+      {/* neon top strip */}
+      <div className="absolute top-0 left-0 right-0 h-0.5 bg-linear-to-r from-blue-500 via-pink-500 to-purple-600" />
+
+      <div
         className="
-        text-2xl
-        font-bold
-        mb-6
+        flex
+        items-center
+        justify-between
+        mb-4
         "
       >
-        Swap History
-      </h2>
+
+        <h2
+          className="
+          text-base
+          font-bold
+          tracking-tight
+          "
+        >
+          Swap History
+        </h2>
+
+        <span
+          className="
+          text-[10px]
+          font-mono
+          uppercase
+          tracking-widest
+          text-zinc-600
+          "
+        >
+          {history.length} {history.length === 1 ? "entry" : "entries"}
+        </span>
+
+      </div>
 
       {
 
@@ -64,9 +92,11 @@ export default function SwapHistory() {
 
         <div
           className="
-          text-zinc-500
+          text-zinc-600
           text-center
-          py-10
+          py-8
+          text-xs
+          font-mono
           "
         >
           No transactions yet
@@ -76,10 +106,10 @@ export default function SwapHistory() {
 
           <div
             className="
-            space-y-4
-            max-h-125
+            space-y-2
+            max-h-72
             overflow-y-auto
-            pr-2
+            pr-1.5
             "
           >
 
@@ -96,60 +126,97 @@ export default function SwapHistory() {
                   key={index}
 
                   className="
-                  bg-zinc-800
-                  rounded-2xl
-                  p-4
+                  relative
+                  bg-zinc-800/60
+                  border
+                  border-white/5
+                  rounded-xl
+                  pl-3.5
+                  pr-3
+                  py-2.5
+                  hover:border-purple-500/20
+                  duration-200
                   "
 
                 >
 
+                  <span
+                    className="
+                    absolute
+                    left-0
+                    top-2.5
+                    bottom-2.5
+                    w-0.5
+                    rounded-full
+                    bg-linear-to-b
+                    from-purple-500
+                    to-blue-500
+                    "
+                  />
+
                   <div
                     className="
-                    text-lg
-                    font-bold
+                    flex
+                    items-center
+                    justify-between
                     "
                   >
-                    {item.amount}
-                    {" "}
-                    {item.tokenIn}
-                    {" → "}
-                    {item.tokenOut}
+
+                    <div
+                      className="
+                      text-sm
+                      font-semibold
+                      font-mono
+                      "
+                    >
+                      {item.amount}
+                      {" "}
+                      {item.tokenIn}
+                      <span className="text-zinc-600 mx-1.5">→</span>
+                      {item.tokenOut}
+                    </div>
+
+                    {
+
+                    item.txHash &&
+
+                    <a
+
+                      href={item.explorerUrl}
+
+                      target="_blank"
+
+                      rel="noreferrer"
+
+                      className="
+                      text-purple-400
+                      text-[10px]
+                      font-medium
+                      hover:text-purple-300
+                      shrink-0
+                      ml-2
+                      "
+
+                    >
+
+                      View ↗
+
+                    </a>
+
+                  }
+
                   </div>
 
                   <div
                     className="
-                    text-zinc-500
-                    text-sm
-                    mt-2
+                    text-zinc-600
+                    text-[10px]
+                    font-mono
+                    mt-1
                     "
                   >
                     {item.date}
                   </div>
-                  {
-
-                  item.txHash &&
-
-                  <a
-
-                    href={item.explorerUrl}
-
-                    target="_blank"
-
-                    className="
-                    text-purple-400
-                    text-sm
-                    mt-3
-                    inline-block
-                    hover:text-purple-300
-                    "
-
-                  >
-
-                    View on Explorer ↗
-
-                  </a>
-
-                }
 
                 </div>
 

@@ -36,10 +36,13 @@ export default function SwapInput({
 
     <div
       className="
-      bg-zinc-800
-      rounded-[28px]
-      p-5
-      hover:bg-zinc-800/80
+      bg-zinc-800/80
+      border
+      border-white/5
+      rounded-2xl
+      p-4
+      hover:border-purple-500/30
+      hover:bg-zinc-800
       duration-300
       "
     >
@@ -54,8 +57,11 @@ export default function SwapInput({
 
         <p
           className="
+          text-[10px]
+          tracking-widest
+          uppercase
           text-zinc-500
-          text-sm
+          font-semibold
           "
         >
           You Pay
@@ -63,15 +69,12 @@ export default function SwapInput({
 
         <p
           className="
-          text-xs
-          text-zinc-400
+          text-[11px]
+          font-mono
+          text-zinc-500
           "
         >
-          Balance: {
-
-            balance.toFixed(4)
-
-          } {tokenIn}
+          Bal <span className="text-zinc-300">{balance.toFixed(4)}</span> {tokenIn}
         </p>
 
       </div>
@@ -81,7 +84,7 @@ export default function SwapInput({
         flex
         items-center
         justify-between
-        mt-4
+        mt-2.5
         "
       >
 
@@ -102,9 +105,11 @@ export default function SwapInput({
           className="
           bg-transparent
           outline-none
-          text-4xl
-          font-black
-          w-40
+          text-3xl
+          font-bold
+          font-mono
+          tabular-nums
+          w-32
           "
 
         />
@@ -122,10 +127,13 @@ export default function SwapInput({
           }
 
           className="
-          bg-zinc-700
+          bg-zinc-700/80
+          border
+          border-white/5
           rounded-full
-          px-5
-          py-3
+          px-4
+          py-2
+          text-sm
           font-semibold
           cursor-pointer
           "

@@ -218,3 +218,22 @@ a {
     0 0 30px rgba(168,85,247,.15);
 
 }
+
+@keyframes bridge-flow {
+  from {
+    transform: translateY(-50%);
+  }
+  to {
+    transform: translateY(0%);
+  }
+}
+
+.animate-bridge-flow {
+  animation: bridge-flow 1.2s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-bridge-flow {
+    animation: none;
+  }
+}

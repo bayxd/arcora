@@ -15,7 +15,7 @@ from "@/lib/send/browserWallet";
 
 const kit =
   new AppKit();
-  
+
 export function useExecuteSend() {
 
   async function executeSend(
@@ -70,6 +70,35 @@ export function useExecuteSend() {
           sendParams
 
         );
+
+      // Simpan ke riwayat kirim (localStorage)
+      const txHash =
+        (result as any)?.txHash ??
+        (result as any)?.result?.txHash ??
+        "";
+
+      const explorerUrl =
+        (result as any)?.explorerUrl ??
+        (result as any)?.result?.explorerUrl ??
+        "";
+
+      const history = JSON.parse(
+        localStorage.getItem("sendHistory") ?? "[]"
+      );
+
+      history.unshift({
+        amount,
+        recipient,
+        date: new Date().toLocaleString(),
+        txHash,
+        explorerUrl,
+        status: "Completed"
+      });
+
+      localStorage.setItem(
+        "sendHistory",
+        JSON.stringify(history.slice(0, 20))
+      );
 
       toast.success(
 
