@@ -36,7 +36,7 @@ Powered by Circle App Kit
 * Transaction history
 * ArcScan explorer links
 
-## Cross-Chain Bridge
+### Cross-Chain Bridge
 * Bridge assets across supported chains
 * Powered by Circle Bridge Kit
 * Track bridge transactions
