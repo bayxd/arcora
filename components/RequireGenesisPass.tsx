@@ -84,7 +84,7 @@ export default function RequireGenesisPass({
 
   if (!isHolder) {
     return (
-      <div className="max-w-[1800px] mx-auto px-8 xl:px-16 py-25 flex flex-col items-center justify-center text-center text-white">
+      <div className="max-w-[1800px] mx-auto px-8 xl:px-16 py-60 flex flex-col items-center justify-center text-center text-white">
         <div className="relative overflow-hidden bg-zinc-900/80 backdrop-blur-xl border border-white/10 rounded-[28px] p-8 shadow-2xl max-w-lg w-full">
 
           {/* neon top strip */}
