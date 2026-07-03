@@ -27,7 +27,7 @@ export default function SendPage() {
 
           {/* Send History */}
           <section className="flex justify-center">
-            <div className="w-full max-w-5xl">
+            <div className="w-full max-w-md">
               <SendHistory />
             </div>
           </section>

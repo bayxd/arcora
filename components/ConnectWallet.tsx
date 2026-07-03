@@ -6,6 +6,14 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { useAccount } from "wagmi";
 
+const NAV_ITEMS = [
+  { href: "/portfolio", label: "Portfolio" },
+  { href: "/swap", label: "Swap" },
+  { href: "/bridge", label: "Bridge" },
+  { href: "/send", label: "Send" },
+  { href: "/genesis", label: "My Genesis" },
+];
+
 export default function ConnectWallet() {
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
@@ -20,25 +28,28 @@ export default function ConnectWallet() {
 
   if (!mounted) return null;
 
-  function navClass(href: string) {
-    return `
-      px-4 py-2 rounded-full text-sm font-medium duration-300 border border-transparent
-      ${
-        pathname === href
-          ? "bg-zinc-800 text-white border-purple-500/20 shadow-[0_0_12px_rgba(168,85,247,0.15)]"
-          : "text-zinc-400 hover:bg-zinc-800/60 hover:text-white"
-      }
-    `;
-  }
-
   return (
     <header className="sticky top-5 z-50">
       <div className="max-w-[1800px] mx-auto px-6">
-        <div className="bg-zinc-900/60 backdrop-blur-2xl border border-white/10 rounded-full px-6 py-3 shadow-[0_10px_50px_rgba(0,0,0,.4)] flex items-center justify-between">
+        <div
+          className="
+          relative
+          bg-zinc-900/60
+          backdrop-blur-2xl
+          border
+          border-white/10
+          rounded-full
+          px-6
+          py-3
+          shadow-[0_10px_50px_rgba(0,0,0,.4),0_0_40px_rgba(168,85,247,0.06)]
+          flex
+          items-center
+          justify-between
+          "
+        >
 
-          {/* Left */}
-          <div className="flex items-center gap-10">
-          <Link href="/" className="flex items-center gap-2.5">
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-2.5 shrink-0">
             <svg
               width="34"
               height="34"
@@ -104,17 +115,50 @@ export default function ConnectWallet() {
             </span>
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-1">
-            <Link href="/portfolio" className={navClass("/portfolio")}>Portfolio</Link>
-            <Link href="/swap" className={navClass("/swap")}>Swap</Link>
-            <Link href="/bridge" className={navClass("/bridge")}>Bridge</Link>
-            <Link href="/send" className={navClass("/send")}>Send</Link>
-            <Link href="/genesis" className={navClass("/genesis")}>My Genesis</Link>
+          {/* Nav — centered */}
+          <nav className="hidden lg:flex items-center gap-1 absolute left-1/2 -translate-x-1/2">
+            {NAV_ITEMS.map((item) => {
+              const active = pathname === item.href;
 
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`
+                    relative px-3.5 py-2 text-xs font-mono uppercase tracking-widest duration-300
+                    ${
+                      active
+                        ? "text-white"
+                        : "text-zinc-500 hover:text-zinc-200"
+                    }
+                  `}
+                >
+                  {item.label}
+
+                  {active && (
+                    <span
+                      className="
+                      absolute
+                      left-1/2
+                      -translate-x-1/2
+                      -bottom-0.5
+                      h-0.5
+                      w-5
+                      rounded-full
+                      bg-linear-to-r
+                      from-purple-400
+                      via-pink-400
+                      to-blue-400
+                      shadow-[0_0_6px_rgba(168,85,247,0.6)]
+                      "
+                    />
+                  )}
+                </Link>
+              );
+            })}
           </nav>
-          </div>
 
-          {/* Right */}
+          {/* Connect Wallet */}
           <button
             onClick={() => appKit.open()}
             className="
@@ -137,6 +181,7 @@ export default function ConnectWallet() {
             flex
             items-center
             gap-2
+            shrink-0
             "
           >
             {isConnected && address && (

@@ -39,7 +39,7 @@ export default function Footer() {
           </h3>
 
           <p className="mt-2">
-            Swap Anytime, Mint Anywhere.
+            Swap Anytime, Bridge Anywhere.
           </p>
 
           <p className="mt-2 text-sm">

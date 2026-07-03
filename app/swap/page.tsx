@@ -30,7 +30,7 @@ export default function SwapPage() {
 
 <section
   className="
-  max-w-5xl
+  max-w-4xl
   mx-auto
   mt-10
   "
@@ -45,7 +45,7 @@ export default function SwapPage() {
 
         <section
           className="
-          max-w-5xl
+          max-w-4xl
           mx-auto
           mt-20
           space-y-8
