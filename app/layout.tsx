@@ -1,7 +1,6 @@
 import "./globals.css";
 import { Providers } from "./providers";
 import { Toaster } from "sonner";
-import { AccessProvider } from "@/context/AccessContext";
 
 
 export default function RootLayout({children,}: {
@@ -12,7 +11,6 @@ export default function RootLayout({children,}: {
         <Providers>
           {children}
         </Providers>
-
         <Toaster
           richColors
           position="top-right"
