@@ -97,32 +97,9 @@ export default function NFTInfo() {
             ARCora NFT Collection
           </h2>
 
-          <p
-            className="
-            text-zinc-400
-            mt-2
-            "
-          >
-            Early Access Badge Collection
-          </p>
 
         </div>
 
-
-        <div
-          className="
-          bg-purple-500/20
-          border
-          border-purple-500/30
-          rounded-full
-          px-5
-          py-2
-          text-purple-300
-          font-semibold
-          "
-        >
-          Genesis
-        </div>
 
       </div>
 
@@ -166,29 +143,10 @@ export default function NFTInfo() {
                 ml-3
                 "
               >
-                /1000
+                /3000
               </span>
 
             </h3>
-
-          </div>
-
-          <div className="text-right">
-
-            <p className="text-zinc-500 text-sm">
-              Tier
-            </p>
-
-            <div
-              className="
-              text-purple-400
-              font-bold
-              text-2xl
-              mt-3
-              "
-            >
-              Early Access
-            </div>
 
           </div>
 
@@ -204,42 +162,7 @@ export default function NFTInfo() {
           "
         >
 
-          <div>
-
-            <p className="text-zinc-500 text-sm">
-              Collection
-            </p>
-
-            <div
-              className="
-              text-xl
-              font-bold
-              mt-3
-              "
-            >
-              Genesis
-            </div>
-
-          </div>
-
-          <div className="text-right">
-
-            <p className="text-zinc-500 text-sm">
-              Status
-            </p>
-
-            <div
-              className="
-              text-green-400
-              font-semibold
-              text-xl
-              mt-3
-              "
-            >
-              Active ✓
-            </div>
-
-          </div>
+        
 
         </div>
                 <div

@@ -117,7 +117,7 @@ export default function MyNFTs() {
             mt-2
             "
           >
-            Genesis Collection
+            Collection
           </p>
 
         </div>

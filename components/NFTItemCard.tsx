@@ -50,17 +50,9 @@ export default function NFTItemCard({
             font-bold
             "
           >
-            ARCora Early Access Badge
+            ARCora Collection
           </h3>
 
-          <p
-            className="
-            text-zinc-400
-            mt-2
-            "
-          >
-            Genesis Collection
-          </p>
 
           <div
             className="

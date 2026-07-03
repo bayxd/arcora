@@ -105,12 +105,12 @@ export default function ConnectWallet() {
           </Link>
 
           <nav className="hidden lg:flex items-center gap-2">
+            <Link href="/portfolio" className={navClass("/portfolio")}>Portfolio</Link>
             <Link href="/swap" className={navClass("/swap")}>Swap</Link>
             <Link href="/bridge" className={navClass("/bridge")}>Bridge</Link>
             <Link href="/send" className={navClass("/send")}>Send</Link>
-            <Link href="/nfts" className={navClass("/nfts")}>Mint Badge</Link>
-            <Link href="/portfolio" className={navClass("/portfolio")}>Portfolio</Link>
             <Link href="/genesis" className={navClass("/genesis")}>My Genesis</Link>
+            <Link href="/nfts" className={navClass("/nfts")}>NFT</Link>
           </nav>
           </div>
 
