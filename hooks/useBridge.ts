@@ -60,12 +60,6 @@ export function useBridge() {
 
         });
 
-      toast.success(
-
-        `${amount} USDC bridged`
-
-      );
-
       return {
 
         success: true,

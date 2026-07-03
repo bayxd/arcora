@@ -1,19 +1,34 @@
 import { createAppKit } from "@reown/appkit/react";
 import { WagmiAdapter } from "@reown/appkit-adapter-wagmi";
-import { mainnet, arcTestnet } from '@reown/appkit/networks'
+import {
+  arcTestnet,
+  baseSepolia,
+  arbitrumSepolia,
+  polygonAmoy
+} from "@reown/appkit/networks";
 
 const projectId = process.env.NEXT_PUBLIC_REOWN_PROJECT_ID!;
 
 export const wagmiAdapter = new WagmiAdapter({
   projectId,
-  networks: [mainnet, arcTestnet],
+  networks: [
+    arcTestnet,
+    baseSepolia,
+    arbitrumSepolia,
+    polygonAmoy
+  ],
   ssr: true
 });
 
 export const appKit = createAppKit({
   adapters: [wagmiAdapter],
   projectId,
-  networks: [mainnet, arcTestnet],
+  networks: [
+    arcTestnet,
+    baseSepolia,
+    arbitrumSepolia,
+    polygonAmoy
+  ],
 
   metadata: {
     name: "ARCora",
@@ -25,6 +40,9 @@ export const appKit = createAppKit({
   features: {
     analytics: true,
     swaps: true,
-    onramp: true
+    onramp: true,
+
+    // 🔥 IMPORTANT FIX
+    email: false
   }
 });

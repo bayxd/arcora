@@ -1,4 +1,5 @@
 import { useAccount, useReadContract } from "wagmi";
+import { arcTestnet } from "@reown/appkit/networks";
 
 const CONTRACT_ADDRESS = process.env
   .NEXT_PUBLIC_GENESIS_PASS_CONTRACT as `0x${string}`;
@@ -21,6 +22,7 @@ export function useGenesisPass() {
     abi,
     functionName: "balanceOf",
     args: address ? [address] : undefined,
+    chainId: arcTestnet.id,
     query: {
       enabled: !!address
     }

@@ -1,5 +1,3 @@
-"use client";
-
 import type { EIP1193Provider } from "viem";
 import { getAccount } from "@wagmi/core";
 
@@ -12,20 +10,13 @@ import {
   ArcTestnet
 } from "@circle-fin/app-kit/chains";
 
-import { config } from "@/lib/wagmi";
+import { wagmiAdapter } from "@/lib/reown";
 
 export async function connectBrowserWallet() {
+  const account = getAccount(wagmiAdapter.wagmiConfig);
 
-  const account = getAccount(config);
-
-  if (
-    !account.isConnected ||
-    !account.address ||
-    !account.connector
-  ) {
-    throw new Error(
-      "Wallet not connected. Please connect your wallet first."
-    );
+  if (!account.isConnected || !account.address || !account.connector) {
+    throw new Error("Wallet not connected. Please connect your wallet first.");
   }
 
   const provider =
@@ -35,10 +26,7 @@ export async function connectBrowserWallet() {
     await createViemAdapterFromProvider({
       provider,
       capabilities: {
-        supportedChains: [
-          BaseSepolia,
-          ArcTestnet
-        ]
+        supportedChains: [BaseSepolia, ArcTestnet]
       }
     });
 
