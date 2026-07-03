@@ -110,7 +110,7 @@ export default function ConnectWallet() {
             <Link href="/bridge" className={navClass("/bridge")}>Bridge</Link>
             <Link href="/send" className={navClass("/send")}>Send</Link>
             <Link href="/genesis" className={navClass("/genesis")}>My Genesis</Link>
-            <Link href="/nfts" className={navClass("/nfts")}>NFT</Link>
+
           </nav>
           </div>
 

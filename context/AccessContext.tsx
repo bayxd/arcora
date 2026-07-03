@@ -3,6 +3,7 @@
 import { createContext, useContext, ReactNode } from "react";
 import { useGenesisPass } from "@/hooks/useGenesisPass";
 
+
 type AccessContextType = {
   isHolder: boolean;
   isLoading: boolean;
