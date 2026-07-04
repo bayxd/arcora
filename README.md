@@ -109,29 +109,38 @@ KIT_KEY=KIT_KEY:your_key_id:your_key_secret
 ---
 
 ## Screenshots
+### DASHBOARD
+<img width="1768" height="907" alt="image" src="https://github.com/user-attachments/assets/b8f4540a-324c-4df7-8daa-fabd5a02358b" />
+
+
+
 ### PORTFOLIO
-<img width="1776" height="899" alt="image" src="https://github.com/user-attachments/assets/5620a01a-c02f-402e-91e9-ae301c975b70" />
+<img width="1404" height="904" alt="image" src="https://github.com/user-attachments/assets/374e45e3-7889-4c1d-b517-d7639d076518" />
+
+
+
+### ESCROW
+<img width="1324" height="905" alt="image" src="https://github.com/user-attachments/assets/b1c8a2a1-f082-4a25-8276-93789775af5f" />
 
 
 
 ### SWAP
-<img width="1584" height="897" alt="image" src="https://github.com/user-attachments/assets/5ad27b90-3d70-44da-8056-f388a6cdb8c9" />
+<img width="1322" height="905" alt="image" src="https://github.com/user-attachments/assets/5e6abea1-467e-4d52-b139-0937cabc2970" />
 
 
 
 ### BRIDGE
-<img width="1601" height="885" alt="image" src="https://github.com/user-attachments/assets/3aaaee58-8d0a-40bc-852c-f06729de2507" />
-
+<img width="1571" height="905" alt="image" src="https://github.com/user-attachments/assets/1c84ba12-d8ef-41d1-b031-1f9e203f103f" />
 
 
 
 ### SEND
-<img width="1594" height="852" alt="image" src="https://github.com/user-attachments/assets/ccdfba29-bb1f-4ec8-b435-d6a91a9a47f5" />
+<img width="1752" height="905" alt="image" src="https://github.com/user-attachments/assets/66d16adb-501e-459b-8e28-33180f1da098" />
 
 
 
 ### GENESIS PASS
-<img width="1583" height="896" alt="image" src="https://github.com/user-attachments/assets/05ee10d8-028f-40c7-a4e6-a1f418018e83" />
+<img width="1603" height="901" alt="image" src="https://github.com/user-attachments/assets/591280ab-aea7-4c7a-85ec-4e39d63c1900" />
 
 
 ---
