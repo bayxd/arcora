@@ -57,8 +57,11 @@ export const ERC20_APPROVE_ABI = [
 // way JobCreated's turned out to be missing evaluator/expiredAt/hook.
 // reject / claimRefund were NOT checked at all -- the explorer's method list also
 // shows fns this file doesn't wire up (evaluatorFeeBP, setEvaluatorFee,
-// whitelistedHooks, setHookWhitelist, jobHasBudget, jobCounter, platformFeeBP,
-// platformTreasury).
+// whitelistedHooks, setHookWhitelist, jobHasBudget, platformFeeBP,
+// platformTreasury). jobCounter IS now wired below (used to enumerate jobs
+// in useMyJobIds) but its behavior (numbering starts at 0 vs 1) was not
+// independently verified against the explorer — verify if job enumeration
+// ever seems to be missing job #1 or including a phantom job #0.
 export const AGENTIC_COMMERCE_ABI = [
   {
     type: "function",
@@ -115,6 +118,13 @@ export const AGENTIC_COMMERCE_ABI = [
       { name: "optParams", type: "bytes" },
     ],
     outputs: [],
+  },
+  {
+    type: "function",
+    name: "jobCounter",
+    stateMutability: "view",
+    inputs: [],
+    outputs: [{ name: "", type: "uint256" }],
   },
   {
     type: "function",

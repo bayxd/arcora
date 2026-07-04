@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { toast } from "sonner";
 import { parseUnits, keccak256, toHex, decodeEventLog } from "viem";
 import { useAccount, useReadContract, useWriteContract, usePublicClient } from "wagmi";
@@ -29,6 +29,92 @@ export function useJob(jobId: bigint) {
   });
 
   return { job, refetch };
+}
+
+const STORAGE_KEY_PREFIX = "arc-agentic-commerce-job-ids:";
+
+// AGENTIC_COMMERCE_ADDRESS is Arc's shared, officially pre-deployed tutorial
+// contract — used by every developer following the ERC-8183 tutorial, not
+// just this app. jobCounter() on it reflects jobs from everyone, worldwide,
+// which can already be in the thousands. Enumerating "all jobs, then filter
+// to mine" (whether via eth_getLogs or looping getJob(1..counter)) does not
+// scale against that and is what caused the RPC 413/429 errors and the
+// never-ending "Loading..." state.
+//
+// Instead, we track "jobs relevant to this wallet" ourselves, client-side,
+// in localStorage:
+//   - when THIS wallet creates a job as a client, we record the jobId here
+//     the moment it's created (see JobBoard's handlePostJob).
+//   - when THIS wallet is a provider on a job, there's no way to discover
+//     that automatically without an indexer, so JobBoard exposes a small
+//     "Track job by ID" input — the client tells the provider the job
+//     number (e.g. over chat) and the provider adds it here once.
+// This trades "automatic discovery" for "actually works reliably" — the
+// correct long-term fix is a backend/indexer keyed by client+provider
+// address, but that's out of scope for a client-only demo app.
+function loadStoredJobIds(address: string): bigint[] {
+  if (typeof window === "undefined") return [];
+  try {
+    const raw = window.localStorage.getItem(STORAGE_KEY_PREFIX + address.toLowerCase());
+    if (!raw) return [];
+    return (JSON.parse(raw) as string[]).map((s) => BigInt(s));
+  } catch (error) {
+    console.error("Could not read stored job ids:", error);
+    return [];
+  }
+}
+
+function saveStoredJobIds(address: string, ids: bigint[]) {
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.setItem(
+      STORAGE_KEY_PREFIX + address.toLowerCase(),
+      JSON.stringify(ids.map((id) => id.toString()))
+    );
+  } catch (error) {
+    console.error("Could not persist job ids:", error);
+  }
+}
+
+export function useMyJobIds() {
+  const { address } = useAccount();
+  const [jobIds, setJobIds] = useState<bigint[]>([]);
+
+  const refetch = useCallback(() => {
+    if (!address) {
+      setJobIds([]);
+      return;
+    }
+    setJobIds(loadStoredJobIds(address).sort((a, b) => (a > b ? -1 : 1)));
+  }, [address]);
+
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
+
+  const addJobId = useCallback(
+    (jobId: bigint) => {
+      if (!address) return;
+      const current = loadStoredJobIds(address);
+      if (current.some((id) => id === jobId)) return; // already tracked
+      const updated = [...current, jobId];
+      saveStoredJobIds(address, updated);
+      setJobIds(updated.sort((a, b) => (a > b ? -1 : 1)));
+    },
+    [address]
+  );
+
+  // loading is always false now — this reads localStorage synchronously,
+  // no RPC round trip involved. Kept in the return shape so JobBoard.tsx
+  // doesn't need to change how it consumes this hook.
+  return { jobIds, loading: false, refetch, addJobId };
+}
+
+const SET_BUDGET_MAX_ATTEMPTS = 3;
+const SET_BUDGET_RETRY_DELAY_MS = 1500;
+
+function wait(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 export function useJobBoard() {
@@ -127,6 +213,44 @@ export function useJobBoard() {
     }
   }
 
+  // Same as setBudget, but silently retries a couple of times before giving
+  // up — covers transient failures (wallet popup timing, RPC hiccup, etc.)
+  // so the "⚠️ Set Budget" fallback box in JobBoard only shows up for
+  // genuine failures (rejected tx, insufficient funds), not flaky ones.
+  async function setBudgetWithRetry(
+    jobId: bigint,
+    amountUsdc: string,
+    maxAttempts: number = SET_BUDGET_MAX_ATTEMPTS
+  ) {
+    let lastError: unknown = null;
+    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+      try {
+        const amount = parseUnits(amountUsdc, 6);
+        setStatus(attempt === 1 ? "submitting-tx" : "approving");
+        const hash = await writeContractAsync({
+          address: AGENTIC_COMMERCE_ADDRESS,
+          abi: AGENTIC_COMMERCE_ABI,
+          functionName: "setBudget",
+          args: [jobId, amount, "0x"],
+        });
+        setStatus("confirming");
+        await publicClient?.waitForTransactionReceipt({ hash });
+        setStatus("success");
+        return hash;
+      } catch (error) {
+        lastError = error;
+        console.error(`setBudget attempt ${attempt}/${maxAttempts} failed:`, error);
+        if (attempt < maxAttempts) {
+          await wait(SET_BUDGET_RETRY_DELAY_MS * attempt);
+        }
+      } finally {
+        setStatus("idle");
+      }
+    }
+    console.error("setBudget failed after all retries:", lastError);
+    return null;
+  }
+
   // approve + fund in one call — mirrors the "estimate -> execute" feel of useSend
   async function fundJob(jobId: bigint, amountUsdc: string) {
     if (!address) {
@@ -220,6 +344,7 @@ export function useJobBoard() {
     status,
     createJob,
     setBudget,
+    setBudgetWithRetry,
     fundJob,
     submitDeliverable,
     completeJob,

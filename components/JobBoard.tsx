@@ -4,14 +4,14 @@ import { useState } from "react";
 import { useAccount } from "wagmi";
 import { toast } from "sonner";
 
-import { useJobBoard, useJob } from "@/hooks/useJobBoard";
+import { useJobBoard, useJob, useMyJobIds } from "@/hooks/useJobBoard";
 import { useAccess } from "@/context/AccessContext";
 
 const STATUS_LABEL = ["Created", "Funded 🔒", "Submitted", "Completed ✅"];
 
 function JobRow({ jobId }: { jobId: bigint }) {
   const { job, refetch } = useJob(jobId);
-  const { fundJob, setBudget, submitDeliverable, completeJob, status } = useJobBoard();
+  const { fundJob, setBudgetWithRetry, submitDeliverable, completeJob, status } = useJobBoard();
   const { address } = useAccount();
   const [retryAmount, setRetryAmount] = useState("");
 
@@ -45,32 +45,38 @@ function JobRow({ jobId }: { jobId: bigint }) {
         {(Number(budget) / 1e6).toFixed(2)} USDC · Job #{jobId.toString()}
       </p>
 
-      {isClient && jobStatus === 0 && budget === BigInt(0) && (
+      {isProvider && jobStatus === 0 && budget === BigInt(0) && (
         <div className="rounded-lg bg-amber-500/10 border border-amber-500/25 p-2.5 space-y-2">
           <p className="text-[11px] text-amber-400 font-mono">
-            ⚠️ Budget is 0 USDC — set a budget before funding this job.
+            💰 Set your price for this job — the client can't fund it until you do.
           </p>
           <div className="flex gap-2">
             <input
               value={retryAmount}
               onChange={(e) => setRetryAmount(e.target.value)}
-              placeholder="Budget (USDC)"
+              placeholder="Your price (USDC)"
               className="flex-1 bg-zinc-800/80 border border-white/5 rounded-lg px-2.5 py-1.5 text-xs font-mono outline-none focus:border-amber-500/40"
             />
             <button
               className="h-8 px-3 rounded-lg text-xs font-bold uppercase bg-amber-600 disabled:opacity-50"
               onClick={async () => {
                 if (!retryAmount) return;
-                const hash = await setBudget(jobId, retryAmount);
+                const hash = await setBudgetWithRetry(jobId, retryAmount);
                 if (hash) setRetryAmount("");
                 refetch();
               }}
               disabled={status !== "idle" || !retryAmount}
             >
-              Set Budget
+              Set Price
             </button>
           </div>
         </div>
+      )}
+
+      {isClient && jobStatus === 0 && budget === BigInt(0) && (
+        <p className="text-[11px] text-zinc-500 font-mono italic">
+          Waiting for the provider to set a price for this job...
+        </p>
       )}
 
       <div className="flex gap-2">
@@ -118,13 +124,13 @@ function JobRow({ jobId }: { jobId: bigint }) {
 }
 
 export default function JobBoard() {
-  const { createJob, setBudget, status } = useJobBoard();
+  const { createJob, status } = useJobBoard();
   const { isHolder } = useAccess();
+  const { jobIds, loading: jobsLoading, addJobId } = useMyJobIds();
 
   const [provider, setProvider] = useState("");
   const [description, setDescription] = useState("");
-  const [amount, setAmount] = useState("");
-  const [jobIds, setJobIds] = useState<bigint[]>([]);
+  const [trackId, setTrackId] = useState("");
 
   async function handlePostJob() {
     const result = await createJob(provider as `0x${string}`, description);
@@ -134,22 +140,23 @@ export default function JobBoard() {
       // won't show up in this list until that's fixed.
       return;
     }
-    if (amount) {
-      const budgetHash = await setBudget(result.jobId, amount);
-      if (!budgetHash) {
-        // setBudget failed — the job exists onchain but with budget 0.
-        // Don't hide this: tell the user so they don't fund/rely on a
-        // job that has no money attached. The JobRow itself will also
-        // show a "Set Budget" retry box while budget stays 0.
-        toast.error(
-          `Job #${result.jobId.toString()} was created, but setting the ${amount} USDC budget failed. It's currently 0 USDC — retry from the job card before funding it.`
-        );
-      }
-    }
-    setJobIds((prev) => [...prev, result.jobId as bigint]);
+    // NOTE: budget is NOT set here. Per the contract, only the *provider*
+    // can call setBudget — the client (this wallet) creating the job has no
+    // permission to quote a price on the provider's behalf. The provider
+    // sets it from their own JobRow once they see the job (see JobRow below).
+    addJobId(result.jobId);
     setProvider("");
     setDescription("");
-    setAmount("");
+  }
+
+  function handleTrackJob() {
+    if (!trackId.trim()) return;
+    try {
+      addJobId(BigInt(trackId.trim()));
+      setTrackId("");
+    } catch {
+      toast.error("That doesn't look like a valid job ID");
+    }
   }
 
   return (
@@ -206,12 +213,9 @@ export default function JobBoard() {
             placeholder="Job description"
             className="w-full bg-zinc-800/80 border border-white/5 rounded-2xl p-3.5 text-sm outline-none focus:border-purple-500/30 duration-300"
           />
-          <input
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            placeholder="Budget (USDC)"
-            className="w-full bg-zinc-800/80 border border-white/5 rounded-2xl p-3.5 text-2xl font-bold font-mono tabular-nums outline-none focus:border-blue-500/30 duration-300"
-          />
+          <p className="text-[11px] text-zinc-600 font-mono px-1">
+            No price here — the provider sets it after you post the job.
+          </p>
 
           <button
             className="w-full h-12 rounded-xl text-sm font-bold tracking-wide uppercase bg-linear-to-r from-purple-600 via-pink-500 to-blue-500 hover:scale-[1.01] active:scale-[0.99] duration-300 disabled:opacity-50"
@@ -222,7 +226,32 @@ export default function JobBoard() {
           </button>
         </div>
 
+        <div className="flex gap-2 mb-4">
+          <input
+            value={trackId}
+            onChange={(e) => setTrackId(e.target.value)}
+            placeholder="Track a job you're a provider on (Job #)"
+            className="flex-1 bg-zinc-800/80 border border-white/5 rounded-xl px-3.5 py-2.5 text-xs font-mono outline-none focus:border-purple-500/30 duration-300"
+          />
+          <button
+            className="px-4 rounded-xl text-xs font-bold uppercase bg-zinc-700 hover:bg-zinc-600 duration-200"
+            onClick={handleTrackJob}
+          >
+            Track
+          </button>
+        </div>
+
         <div className="space-y-3">
+          {jobsLoading && jobIds.length === 0 && (
+            <p className="text-xs text-zinc-600 font-mono text-center py-4">
+              Loading your jobs from Arc...
+            </p>
+          )}
+          {!jobsLoading && jobIds.length === 0 && (
+            <p className="text-xs text-zinc-600 font-mono text-center py-4">
+              No jobs yet — post one above, or track a job by ID if you're a provider on one.
+            </p>
+          )}
           {jobIds.map((id) => (
             <JobRow key={id.toString()} jobId={id} />
           ))}
