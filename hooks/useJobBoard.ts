@@ -98,6 +98,8 @@ export function useJobBoard() {
       setStatus("failed");
       toast.error("Could not create job");
       return null;
+    } finally {
+      setStatus("idle");
     }
   }
 
@@ -120,6 +122,8 @@ export function useJobBoard() {
       setStatus("failed");
       toast.error("Could not set budget");
       return null;
+    } finally {
+      setStatus("idle");
     }
   }
 
@@ -158,6 +162,8 @@ export function useJobBoard() {
       console.error(error);
       setStatus("failed");
       toast.error("Funding failed");
+    } finally {
+      setStatus("idle");
     }
   }
 
@@ -182,6 +188,8 @@ export function useJobBoard() {
       console.error(error);
       setStatus("failed");
       toast.error("Submit failed");
+    } finally {
+      setStatus("idle");
     }
   }
 
@@ -203,6 +211,8 @@ export function useJobBoard() {
       console.error(error);
       setStatus("failed");
       toast.error("Completion failed");
+    } finally {
+      setStatus("idle");
     }
   }
 

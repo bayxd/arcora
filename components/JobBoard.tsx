@@ -46,7 +46,7 @@ function JobRow({ jobId }: { jobId: bigint }) {
       <div className="flex gap-2">
         {isClient && jobStatus === 0 && (
           <button
-            className="flex-1 h-9 rounded-lg text-xs font-bold uppercase bg-linear-to-r from-purple-600 via-pink-500 to-blue-500"
+            className="flex-1 h-9 rounded-lg text-xs font-bold uppercase bg-linear-to-r from-purple-600 via-pink-500 to-blue-500 disabled:opacity-50"
             onClick={async () => {
               await fundJob(jobId, (Number(budget) / 1e6).toString());
               refetch();
@@ -59,27 +59,27 @@ function JobRow({ jobId }: { jobId: bigint }) {
 
         {isProvider && jobStatus === 1 && (
           <button
-            className="flex-1 h-9 rounded-lg text-xs font-bold uppercase bg-zinc-700"
+            className="flex-1 h-9 rounded-lg text-xs font-bold uppercase bg-zinc-700 disabled:opacity-50"
             onClick={async () => {
               await submitDeliverable(jobId, "ipfs://deliverable-placeholder");
               refetch();
             }}
             disabled={status !== "idle"}
           >
-            Submit Deliverable
+            {status === "submitting-tx" || status === "confirming" ? "Submitting..." : "Submit Deliverable"}
           </button>
         )}
 
         {isClient && jobStatus === 2 && (
           <button
-            className="flex-1 h-9 rounded-lg text-xs font-bold uppercase bg-emerald-600"
+            className="flex-1 h-9 rounded-lg text-xs font-bold uppercase bg-emerald-600 disabled:opacity-50"
             onClick={async () => {
               await completeJob(jobId);
               refetch();
             }}
             disabled={status !== "idle"}
           >
-            Release Payment
+            {status === "submitting-tx" || status === "confirming" ? "Releasing..." : "Release Payment"}
           </button>
         )}
       </div>
