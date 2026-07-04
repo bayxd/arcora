@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: var(--font-display), sans-serif;
+  --font-mono: var(--font-mono-jb), monospace;
+}
+
 @keyframes spin-slow {
   from {
     transform: rotate(0deg);
@@ -19,6 +24,8 @@
 
 html,
 body {
+
+  font-family: var(--font-sans);
 
   background:
     radial-gradient(
@@ -47,6 +54,10 @@ body {
 
   scroll-behavior: smooth;
 
+}
+
+html {
+  overflow-x: hidden;
 }
 
 body {

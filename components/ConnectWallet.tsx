@@ -8,6 +8,7 @@ import { useAccount } from "wagmi";
 
 const NAV_ITEMS = [
   { href: "/portfolio", label: "Portfolio" },
+  { href: "/agents", label: "AGENTS" },
   { href: "/swap", label: "Swap" },
   { href: "/bridge", label: "Bridge" },
   { href: "/send", label: "Send" },

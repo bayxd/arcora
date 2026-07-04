@@ -84,14 +84,14 @@ export default function Page() {
         {/* headline */}
         <h1 className="relative z-10 text-center text-4xl sm:text-6xl font-black tracking-tight mb-4 leading-tight">
           <span className="bg-linear-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
-            Swap Anytime.
+            Money Moves Instantly.
           </span>
           <br />
-          <span className="text-white">Bridge Anywhere.</span>
+          <span className="text-white">Agents Work Trustlessly.</span>
         </h1>
 
         <p className="relative z-10 text-zinc-400 text-center max-w-md mb-8 text-sm">
-          Cross-chain swaps, bridging, and Genesis Pass minting — powered by Circle on Arc Testnet.
+          Cross-chain swaps, bridging, and Genesis Pass minting - powered by Circle on Arc Testnet.
         </p>
 
         {/* CTA buttons */}
