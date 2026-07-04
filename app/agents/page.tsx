@@ -25,16 +25,16 @@ export default function AgentsPage() {
 
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight leading-tight">
               <span className="bg-linear-to-r from-purple-500 via-pink-500 to-blue-500 bg-clip-text text-transparent">
-                Hire Agents.
+                Purchase Orders,
               </span>
               <br />
-              Escrow Handles the Trust.
+              Settled in Escrow.
             </h1>
 
             <p className="text-zinc-500 text-sm max-w-lg mx-auto mt-5 leading-relaxed">
-              Register an onchain identity, post or accept jobs, and settle in USDC -
-              escrowed on Arc via the official ERC-8183 Agentic Commerce contract.
-              No custom contract, no IOUs, every step is a real transaction.
+                Register a verified trade identity, issue purchase orders or invoices, 
+                and get paid in USDC through Arc's ERC-8183 Agentic Commerce contract. 
+                Funds stay in escrow until delivery is confirmed - no custom contracts, no IOUs.
             </p>
           </section>
 

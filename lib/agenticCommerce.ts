@@ -1,11 +1,3 @@
-// Arc Testnet — official pre-deployed contracts (from docs.arc.io tutorials)
-// ERC-8183: Agentic Commerce (job escrow) — https://docs.arc.io/arc/tutorials/create-your-first-erc-8183-job
-// ERC-8004: Trustless Agents (identity/reputation) — https://docs.arc.io/arc/tutorials/register-your-first-ai-agent
-//
-// NOTE: ABIs below are condensed to the functions/events this feature actually uses.
-// Double-check parameter order against the docs pages above before relying on this in prod —
-// copy this file's addresses/ABI 1:1 from there if anything here looks off.
-
 export const AGENTIC_COMMERCE_ADDRESS =
   "0x0747EEf0706327138c69792bF28Cd525089e4583" as const;
 
@@ -18,7 +10,6 @@ export const REPUTATION_REGISTRY_ADDRESS =
 export const VALIDATION_REGISTRY_ADDRESS =
   "0x8004Cb1BF31DAf7788923b405b754f57acEB4272" as const;
 
-// Arc Testnet USDC (same token your Send/Swap/Bridge cards already use)
 export const USDC_ARC_TESTNET =
   "0x3600000000000000000000000000000000000000" as const;
 
@@ -45,23 +36,6 @@ export const ERC20_APPROVE_ABI = [
   },
 ] as const;
 
-// VERIFIED against Arc Testnet explorer's Read/Write contract UI on the
-// implementation at 0xa316fd02827242d537f84730f8a37d0ba5fd351a.
-// createJob / setBudget / fund / getJob / submit / complete function signatures,
-// AND the JobCreated event, were all confirmed directly from the explorer
-// (function forms + a decoded log on a real createJob tx).
-// JobFunded / JobSubmitted / JobCompleted events were NOT checked against a real
-// log the way JobCreated was -- they're carried over from the tutorial. If fundJob/
-// submitDeliverable/completeJob ever need to decode something from their receipts
-// (they don't today), verify those event shapes on the explorer first, the same
-// way JobCreated's turned out to be missing evaluator/expiredAt/hook.
-// reject / claimRefund were NOT checked at all -- the explorer's method list also
-// shows fns this file doesn't wire up (evaluatorFeeBP, setEvaluatorFee,
-// whitelistedHooks, setHookWhitelist, jobHasBudget, platformFeeBP,
-// platformTreasury). jobCounter IS now wired below (used to enumerate jobs
-// in useMyJobIds) but its behavior (numbering starts at 0 vs 1) was not
-// independently verified against the explorer — verify if job enumeration
-// ever seems to be missing job #1 or including a phantom job #0.
 export const AGENTIC_COMMERCE_ABI = [
   {
     type: "function",

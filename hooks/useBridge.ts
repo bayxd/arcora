@@ -7,11 +7,16 @@ import { AppKit } from "@circle-fin/app-kit";
 import {
   connectBrowserWallet
 } from "@/lib/send/browserWallet";
+import { useBalances } from "@/hooks/useBalances";
+import { recordSnapshot } from "@/lib/history/portfolioSnapshot";
 
 const kit =
   new AppKit();
 
 export function useBridge() {
+
+  // Dipakai buat mencatat snapshot saldo begitu bridge sukses.
+  const { usdcBalance, eurcBalance } = useBalances();
 
   async function bridge(
 
@@ -59,6 +64,13 @@ export function useBridge() {
           amount
 
         });
+
+      // NOTE: sama seperti di useExecuteSwap.ts — usdcBalance/eurcBalance di
+      // sini masih dari render terakhir sebelum bridge ini selesai. Kalau ada
+      // refetch() dari useTokenBalance, idealnya dipanggil dulu sebelum ini.
+      recordSnapshot(Number(usdcBalance ?? 0), Number(eurcBalance ?? 0), {
+        force: true,
+      });
 
  return {
 

@@ -10,52 +10,31 @@ import {
 }
 from "recharts";
 
-const datasets = {
+import { usePortfolioHistory } from "@/hooks/usePortfolioHistory";
 
-  "1D": [
-    { value: 210 },
-    { value: 215 },
-    { value: 213 },
-    { value: 218 },
-    { value: 220 }
-  ],
+type Period = "1D" | "7D" | "30D" | "ALL";
 
-  "7D": [
-    { value: 180 },
-    { value: 190 },
-    { value: 205 },
-    { value: 220 },
-    { value: 215 },
-    { value: 225 },
-    { value: 230 }
-  ],
+const PERIODS: Period[] = ["1D", "7D", "30D", "ALL"];
 
-  "30D": [
-    { value: 120 },
-    { value: 135 },
-    { value: 150 },
-    { value: 180 },
-    { value: 220 },
-    { value: 260 },
-    { value: 300 }
-  ],
-
-  "ALL": [
-    { value: 60 },
-    { value: 90 },
-    { value: 130 },
-    { value: 170 },
-    { value: 220 },
-    { value: 280 },
-    { value: 350 }
-  ]
-
-};
+// Ambang minimal titik data biar chart nggak menyesatkan (garis lurus antar
+// 1-2 titik kelihatan seperti tren padahal cuma noise). Sesuaikan kalau perlu.
+const MIN_POINTS_TO_SHOW_CHART = 3;
 
 export default function PerformanceChart() {
 
-  const [period, setPeriod] =
-    useState<keyof typeof datasets>("7D");
+  const [period, setPeriod] = useState<Period>("7D");
+
+  // Baca snapshot ASLI dari localStorage (dicatat oleh
+  // usePortfolioHistorySnapshot() setiap kali halaman Portfolio dibuka).
+  // Tidak ada lagi data hardcode di sini.
+  const snapshots = usePortfolioHistory(period);
+
+  const chartData = snapshots.map((s) => ({
+    value: s.totalValueUSD,
+    timestamp: s.timestamp,
+  }));
+
+  const hasEnoughData = chartData.length >= MIN_POINTS_TO_SHOW_CHART;
 
   return (
 
@@ -72,8 +51,6 @@ export default function PerformanceChart() {
       shadow-2xl
       "
     >
-
-   
 
       {/* subtle dot grid texture */}
       <div
@@ -125,11 +102,7 @@ export default function PerformanceChart() {
 
             {
 
-              Object.keys(
-                datasets
-              )
-
-              .map(
+              PERIODS.map(
 
                 (item) => (
 
@@ -138,9 +111,7 @@ export default function PerformanceChart() {
                     key={item}
 
                     onClick={() =>
-                      setPeriod(
-                        item as keyof typeof datasets
-                      )
+                      setPeriod(item)
                     }
 
                     className={`
@@ -186,49 +157,66 @@ export default function PerformanceChart() {
           "
         >
 
-          <ResponsiveContainer>
+          {hasEnoughData ? (
 
-            <LineChart
-              data={
-                datasets[
-                  period
-                ]
-              }
-            >
+            <ResponsiveContainer>
 
-              <defs>
-                <linearGradient id="performanceLine" x1="0" y1="0" x2="1" y2="0">
-                  <stop offset="0%" stopColor="#a855f7" />
-                  <stop offset="50%" stopColor="#ec4899" />
-                  <stop offset="100%" stopColor="#3b82f6" />
-                </linearGradient>
-              </defs>
+              <LineChart data={chartData}>
 
-              <Tooltip
-                contentStyle={{
-                  background: "rgba(24,24,27,0.9)",
-                  border: "1px solid rgba(168,85,247,0.3)",
-                  borderRadius: "12px",
-                  color: "#fff",
-                  fontSize: "12px"
-                }}
-              />
+                <defs>
+                  <linearGradient id="performanceLine" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stopColor="#a855f7" />
+                    <stop offset="50%" stopColor="#ec4899" />
+                    <stop offset="100%" stopColor="#3b82f6" />
+                  </linearGradient>
+                </defs>
 
-              <Line
+                <Tooltip
+                  contentStyle={{
+                    background: "rgba(24,24,27,0.9)",
+                    border: "1px solid rgba(168,85,247,0.3)",
+                    borderRadius: "12px",
+                    color: "#fff",
+                    fontSize: "12px"
+                  }}
+                  labelFormatter={(_, payload) => {
+                    const ts = payload?.[0]?.payload?.timestamp;
+                    return ts ? new Date(ts).toLocaleString() : "";
+                  }}
+                  formatter={(value) => [`$${Number(value).toFixed(2)}`, "Portfolio value"]}
+                />
 
-                dataKey="value"
+                <Line
 
-                stroke="url(#performanceLine)"
+                  dataKey="value"
 
-                strokeWidth={4}
+                  stroke="url(#performanceLine)"
 
-                dot={false}
+                  strokeWidth={4}
 
-              />
+                  dot={false}
 
-            </LineChart>
+                />
 
-          </ResponsiveContainer>
+              </LineChart>
+
+            </ResponsiveContainer>
+
+          ) : (
+
+            // State jujur kalau histori belum cukup — daripada nampilin garis
+            // palsu yang seolah-olah tren asli.
+            <div className="h-full flex flex-col items-center justify-center text-center gap-2">
+              <p className="text-sm text-zinc-400">
+                Not enough history yet for this period.
+              </p>
+              <p className="text-xs text-zinc-500 max-w-xs">
+                Performance is tracked from your real balance each time you open
+                this page. Check back after a bit more activity.
+              </p>
+            </div>
+
+          )}
 
         </div>
 

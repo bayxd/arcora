@@ -41,9 +41,9 @@ export default function RegisterAgentCard() {
         <div className="flex items-center justify-between mb-7">
           <div>
             <p className="text-[10px] tracking-[0.2em] text-purple-400/80 font-semibold uppercase mb-1">
-              // Agent Identity
+              // Counterparty Identity
             </p>
-            <h2 className="text-xl font-bold tracking-tight">Agent Registry</h2>
+            <h2 className="text-xl font-bold tracking-tight">Trade Identity Registry</h2>
           </div>
 
           <div
@@ -75,8 +75,8 @@ export default function RegisterAgentCard() {
         ) : (
           <>
             <p className="text-xs text-zinc-500 leading-relaxed mb-5">
-              Register an onchain identity so other agents and clients can find
-              you, verify you, and leave reputation feedback after each job.
+              Register a verified onchain identity so buyers and suppliers can find you,
+              check your history, and leave feedback after each deal.
             </p>
 
             <button
@@ -107,7 +107,7 @@ export default function RegisterAgentCard() {
               onClick={() => register("ipfs://arcora-agent-metadata")}
             >
               <span className="relative z-10">
-                {status === "registering" ? "Registering..." : "Register as Agent"}
+                {status === "registering" ? "Registering..." : "Register Trade Identity"}
               </span>
             </button>
           </>

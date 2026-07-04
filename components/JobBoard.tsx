@@ -42,19 +42,19 @@ function JobRow({ jobId }: { jobId: bigint }) {
       </div>
 
       <p className="text-xs text-zinc-500 font-mono">
-        {(Number(budget) / 1e6).toFixed(2)} USDC · Job #{jobId.toString()}
+        {(Number(budget) / 1e6).toFixed(2)} USDC · Order #{jobId.toString()}
       </p>
 
       {isProvider && jobStatus === 0 && budget === BigInt(0) && (
         <div className="rounded-lg bg-amber-500/10 border border-amber-500/25 p-2.5 space-y-2">
           <p className="text-[11px] text-amber-400 font-mono">
-            💰 Set your price for this job — the client can't fund it until you do.
+            💰 Quote your price for this order — the buyer can't fund escrow until you do.
           </p>
           <div className="flex gap-2">
             <input
               value={retryAmount}
               onChange={(e) => setRetryAmount(e.target.value)}
-              placeholder="Your price (USDC)"
+              placeholder="Your quote (USDC)"
               className="flex-1 bg-zinc-800/80 border border-white/5 rounded-lg px-2.5 py-1.5 text-xs font-mono outline-none focus:border-amber-500/40"
             />
             <button
@@ -67,7 +67,7 @@ function JobRow({ jobId }: { jobId: bigint }) {
               }}
               disabled={status !== "idle" || !retryAmount}
             >
-              Set Price
+              Set Quote
             </button>
           </div>
         </div>
@@ -75,7 +75,7 @@ function JobRow({ jobId }: { jobId: bigint }) {
 
       {isClient && jobStatus === 0 && budget === BigInt(0) && (
         <p className="text-[11px] text-zinc-500 font-mono italic">
-          Waiting for the provider to set a price for this job...
+          Waiting for the supplier to quote a price for this order...
         </p>
       )}
 
@@ -102,7 +102,7 @@ function JobRow({ jobId }: { jobId: bigint }) {
             }}
             disabled={status !== "idle"}
           >
-            {status === "submitting-tx" || status === "confirming" ? "Submitting..." : "Submit Deliverable"}
+            {status === "submitting-tx" || status === "confirming" ? "Submitting..." : "Submit Proof of Delivery"}
           </button>
         )}
 
@@ -185,9 +185,9 @@ export default function JobBoard() {
         <div className="flex items-center justify-between mb-7">
           <div>
             <p className="text-[10px] tracking-[0.2em] text-purple-400/80 font-semibold uppercase mb-1">
-              // Agent Marketplace
+              // Trade Finance
             </p>
-            <h2 className="text-xl font-bold tracking-tight">Job Board</h2>
+            <h2 className="text-xl font-bold tracking-tight">Purchase Order Escrow</h2>
           </div>
           <div className="bg-purple-500/15 border border-purple-500/30 rounded-full px-3 py-1 text-purple-300 text-[10px] font-mono font-semibold tracking-widest">
             ERC-8183
@@ -204,17 +204,17 @@ export default function JobBoard() {
           <input
             value={provider}
             onChange={(e) => setProvider(e.target.value)}
-            placeholder="Provider address (0x...)"
+            placeholder="Supplier / counterparty address (0x...)"
             className="w-full bg-zinc-800/80 border border-white/5 rounded-2xl p-3.5 text-sm font-mono outline-none focus:border-purple-500/30 duration-300"
           />
           <input
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            placeholder="Job description"
+            placeholder="Purchase order / invoice description"
             className="w-full bg-zinc-800/80 border border-white/5 rounded-2xl p-3.5 text-sm outline-none focus:border-purple-500/30 duration-300"
           />
           <p className="text-[11px] text-zinc-600 font-mono px-1">
-            No price here — the provider sets it after you post the job.
+            Price isn't set here — the supplier quotes it after the order is created.
           </p>
 
           <button
@@ -222,7 +222,7 @@ export default function JobBoard() {
             onClick={handlePostJob}
             disabled={status !== "idle"}
           >
-            {status === "submitting-tx" ? "Posting..." : "Post Job"}
+            {status === "submitting-tx" ? "Creating..." : "Create Purchase Order"}
           </button>
         </div>
 
@@ -230,7 +230,7 @@ export default function JobBoard() {
           <input
             value={trackId}
             onChange={(e) => setTrackId(e.target.value)}
-            placeholder="Track a job you're a provider on (Job #)"
+            placeholder="Track an order you're the supplier on (Order #)"
             className="flex-1 bg-zinc-800/80 border border-white/5 rounded-xl px-3.5 py-2.5 text-xs font-mono outline-none focus:border-purple-500/30 duration-300"
           />
           <button
@@ -244,12 +244,12 @@ export default function JobBoard() {
         <div className="space-y-3">
           {jobsLoading && jobIds.length === 0 && (
             <p className="text-xs text-zinc-600 font-mono text-center py-4">
-              Loading your jobs from Arc...
+              Loading your orders from Arc...
             </p>
           )}
           {!jobsLoading && jobIds.length === 0 && (
             <p className="text-xs text-zinc-600 font-mono text-center py-4">
-              No jobs yet — post one above, or track a job by ID if you're a provider on one.
+              No orders yet. Create one above, or enter an order ID to track one you're supplying.
             </p>
           )}
           {jobIds.map((id) => (
