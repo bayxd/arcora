@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useAccount } from "wagmi";
+import { toast } from "sonner";
 
 import { useJobBoard, useJob } from "@/hooks/useJobBoard";
 import { useAccess } from "@/context/AccessContext";
@@ -10,8 +11,9 @@ const STATUS_LABEL = ["Created", "Funded 🔒", "Submitted", "Completed ✅"];
 
 function JobRow({ jobId }: { jobId: bigint }) {
   const { job, refetch } = useJob(jobId);
-  const { fundJob, submitDeliverable, completeJob, status } = useJobBoard();
+  const { fundJob, setBudget, submitDeliverable, completeJob, status } = useJobBoard();
   const { address } = useAccount();
+  const [retryAmount, setRetryAmount] = useState("");
 
   if (!job) return null;
 
@@ -43,8 +45,36 @@ function JobRow({ jobId }: { jobId: bigint }) {
         {(Number(budget) / 1e6).toFixed(2)} USDC · Job #{jobId.toString()}
       </p>
 
+      {isClient && jobStatus === 0 && budget === BigInt(0) && (
+        <div className="rounded-lg bg-amber-500/10 border border-amber-500/25 p-2.5 space-y-2">
+          <p className="text-[11px] text-amber-400 font-mono">
+            ⚠️ Budget is 0 USDC — set a budget before funding this job.
+          </p>
+          <div className="flex gap-2">
+            <input
+              value={retryAmount}
+              onChange={(e) => setRetryAmount(e.target.value)}
+              placeholder="Budget (USDC)"
+              className="flex-1 bg-zinc-800/80 border border-white/5 rounded-lg px-2.5 py-1.5 text-xs font-mono outline-none focus:border-amber-500/40"
+            />
+            <button
+              className="h-8 px-3 rounded-lg text-xs font-bold uppercase bg-amber-600 disabled:opacity-50"
+              onClick={async () => {
+                if (!retryAmount) return;
+                const hash = await setBudget(jobId, retryAmount);
+                if (hash) setRetryAmount("");
+                refetch();
+              }}
+              disabled={status !== "idle" || !retryAmount}
+            >
+              Set Budget
+            </button>
+          </div>
+        </div>
+      )}
+
       <div className="flex gap-2">
-        {isClient && jobStatus === 0 && (
+        {isClient && jobStatus === 0 && budget > BigInt(0) && (
           <button
             className="flex-1 h-9 rounded-lg text-xs font-bold uppercase bg-linear-to-r from-purple-600 via-pink-500 to-blue-500 disabled:opacity-50"
             onClick={async () => {
@@ -105,7 +135,16 @@ export default function JobBoard() {
       return;
     }
     if (amount) {
-      await setBudget(result.jobId, amount);
+      const budgetHash = await setBudget(result.jobId, amount);
+      if (!budgetHash) {
+        // setBudget failed — the job exists onchain but with budget 0.
+        // Don't hide this: tell the user so they don't fund/rely on a
+        // job that has no money attached. The JobRow itself will also
+        // show a "Set Budget" retry box while budget stays 0.
+        toast.error(
+          `Job #${result.jobId.toString()} was created, but setting the ${amount} USDC budget failed. It's currently 0 USDC — retry from the job card before funding it.`
+        );
+      }
     }
     setJobIds((prev) => [...prev, result.jobId as bigint]);
     setProvider("");
