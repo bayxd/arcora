@@ -32,7 +32,7 @@ export default function AgentsPage() {
             </h1>
 
             <p className="text-zinc-500 text-sm max-w-lg mx-auto mt-5 leading-relaxed">
-              Register an onchain identity, post or accept jobs, and settle in USDC —
+              Register an onchain identity, post or accept jobs, and settle in USDC -
               escrowed on Arc via the official ERC-8183 Agentic Commerce contract.
               No custom contract, no IOUs, every step is a real transaction.
             </p>
