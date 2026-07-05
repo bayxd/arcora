@@ -19,9 +19,11 @@ export default function RootLayout({children,}: {
   children: React.ReactNode;}) {
   return (
     <html lang="en" className={`${spaceGrotesk.variable} ${jetBrainsMono.variable}`}>
-      <body>
+      <body className="min-h-screen flex flex-col">
         <Providers>
-          {children}
+          <div className="flex-1 flex flex-col">
+            {children}
+          </div>
         </Providers>
         <Toaster
           richColors

@@ -15,60 +15,68 @@ export default function SwapPage() {
       min-h-screen
       overflow-hidden
       text-white
+      flex
+      flex-col
       "
     >
 
       <CyberpunkBackground />
 
       <ConnectWallet />
-      <RequireGenesisPass>
-      <div
-        className="
-        relative
-        z-10
-        max-w-7xl
-        mx-auto
-        px-6
-        py-10
-        "
-      >
 
-        {/* Swap Card */}
+      <div className="flex-1 flex flex-col">
 
-<section
-  className="
-  max-w-4xl
-  mx-auto
-  mt-10
-  "
->
-
-  <SwapCard />
-
-</section>
-
-
-        {/* History + Activity */}
-
-        <section
+        <RequireGenesisPass>
+        <div
           className="
-          max-w-4xl
+          relative
+          z-10
+          w-full
+          max-w-7xl
           mx-auto
-          mt-20
-          space-y-8
+          px-6
+          py-10
           "
         >
-          
-          
-          <SwapHistory />
+
+          {/* Swap Card */}
+
+          <section
+            className="
+            max-w-[1100px]
+            mx-auto
+            mt-10
+            "
+          >
+
+            <SwapCard />
+
+          </section>
+
+
+          {/* History + Activity */}
+
+          <section
+            className="
+            max-w-[1100px]
+            mx-auto
+            mt-20
+            space-y-8
+            "
+          >
+
+
+            <SwapHistory />
 
 
 
-        </section>
+          </section>
+
+        </div>
+
+        </RequireGenesisPass>
 
       </div>
-
-      </RequireGenesisPass>
 
       <Footer />
 

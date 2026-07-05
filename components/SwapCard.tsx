@@ -27,6 +27,9 @@ export default function SwapCard() {
     <section
       className="
         relative
+        w-full
+        max-w-[800px]
+        mx-auto
         overflow-hidden
         bg-zinc-900/80
         backdrop-blur-xl

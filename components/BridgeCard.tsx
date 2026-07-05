@@ -87,7 +87,20 @@ export default function BridgeCard() {
   }
 
   return (
-    <section className="relative overflow-hidden bg-zinc-900/80 backdrop-blur-xl border border-white/10 rounded-[28px] p-6 shadow-2xl">
+    <section 
+    className="
+    relative
+    w-full
+    max-w-[800px]
+    mx-auto
+    overflow-hidden
+    bg-zinc-900/80
+    backdrop-blur-xl
+    border
+    border-white/10
+    rounded-[28px]
+    p-6
+    shadow-2xl">
 
       {/* neon top strip */}
       <div className="absolute top-0 left-0 right-0 h-0.5 bg-linear-to-r from-purple-600 via-pink-500 to-blue-500" />

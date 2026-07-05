@@ -37,14 +37,18 @@ export default function SwapHistory() {
 
     <section
       className="
-      relative
-      overflow-hidden
-      bg-zinc-900/80
-      border
-      border-white/10
-      rounded-2xl
-      p-5
-      shadow-xl
+        relative
+        w-full
+        max-w-[800px]
+        mx-auto
+        overflow-hidden
+        bg-zinc-900/80
+        backdrop-blur-xl
+        border
+        border-white/10
+        rounded-[28px]
+        p-6
+        shadow-2xl
       "
     >
 

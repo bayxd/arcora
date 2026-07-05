@@ -15,6 +15,8 @@ export default function BridgePage() {
       min-h-screen
       overflow-hidden
       text-white
+      flex
+      flex-col
       "
     >
 
@@ -22,38 +24,43 @@ export default function BridgePage() {
 
       <ConnectWallet />
 
-      <RequireGenesisPass>
+      <div className="flex-1 flex flex-col">
 
-        <div
-          className="
-          relative
-          z-10
-          max-w-250
-          mx-auto
-          px-8
-          xl:px-16
-          py-25
-          space-y-10
-          "
-        >
+        <RequireGenesisPass>
 
           <div
             className="
-            max-w-250
+            relative
+            z-10
+            w-full
+            max-w-[1100px]
             mx-auto
+            px-8
+            xl:px-16
+            py-25
             space-y-10
             "
           >
 
-            <BridgeCard />
+            <div
+              className="
+              max-w-[1100px]
+              mx-auto
+              space-y-10
+              "
+            >
 
-            <BridgeHistory />
+              <BridgeCard />
+
+              <BridgeHistory />
+
+            </div>
 
           </div>
 
-        </div>
+        </RequireGenesisPass>
 
-      </RequireGenesisPass>
+      </div>
 
       <Footer />
 

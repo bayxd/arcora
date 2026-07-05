@@ -7,37 +7,40 @@ import CyberpunkBackground from "@/components/CyberpunkBackground";
 
 export default function SendPage() {
   return (
-    <main className="relative min-h-screen overflow-hidden text-white">
+    <main className="relative min-h-screen overflow-hidden text-white flex flex-col">
       <CyberpunkBackground />
 
       <ConnectWallet />
 
-      <RequireGenesisPass>
-        <div
-          className="
-            relative
-            z-10
-            max-w-[18000px]
-            mx-auto
-            px-8
-            xl:px-16
-            py-25
-            space-y-16
-          "
-        >
-          {/* Send Card */}
-          <section className="flex justify-center">
-            <SendCard />
-          </section>
+      <div className="flex-1 flex flex-col">
+        <RequireGenesisPass>
+          <div
+            className="
+              relative
+              z-10
+              w-full
+              max-w-[18000px]
+              mx-auto
+              px-8
+              xl:px-16
+              py-25
+              space-y-16
+            "
+          >
+            {/* Send Card */}
+            <section className="flex justify-center">
+              <SendCard />
+            </section>
 
-          {/* Send History */}
-          <section className="flex justify-center">
-            <div className="w-full max-w-200">
-              <SendHistory />
-            </div>
-          </section>
-        </div>
-      </RequireGenesisPass>
+            {/* Send History */}
+            <section className="flex justify-center">
+              <div className="w-full max-w-200">
+                <SendHistory />
+              </div>
+            </section>
+          </div>
+        </RequireGenesisPass>
+      </div>
 
       <Footer />
     </main>
