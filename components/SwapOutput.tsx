@@ -1,3 +1,5 @@
+import TokenSelector from "./TokenSelector";
+
 type Props = {
   amount?: string | number;
   tokenOut: string;
@@ -46,9 +48,7 @@ export default function SwapOutput({
           {displayAmount}
         </div>
 
-        <div className="bg-zinc-700/80 border border-white/5 rounded-full px-4 py-2 text-sm font-semibold">
-          {tokenOut}
-        </div>
+        <TokenSelector value={tokenOut} readOnly />
       </div>
     </div>
   );

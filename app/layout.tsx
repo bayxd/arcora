@@ -1,5 +1,6 @@
 import "./globals.css";
 import { Providers } from "./providers";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import { Toaster } from "sonner";
 import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 
@@ -18,17 +19,28 @@ const jetBrainsMono = JetBrains_Mono({
 export default function RootLayout({children,}: {
   children: React.ReactNode;}) {
   return (
-    <html lang="en" className={`${spaceGrotesk.variable} ${jetBrainsMono.variable}`}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${spaceGrotesk.variable} ${jetBrainsMono.variable}`}
+    >
       <body className="min-h-screen flex flex-col">
-        <Providers>
-          <div className="flex-1 flex flex-col">
-            {children}
-          </div>
-        </Providers>
-        <Toaster
-          richColors
-          position="top-right"
-        />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem={false}
+          disableTransitionOnChange
+        >
+          <Providers>
+            <div className="flex-1 flex flex-col">
+              {children}
+            </div>
+          </Providers>
+          <Toaster
+            richColors
+            position="top-right"
+          />
+        </ThemeProvider>
       </body>
     </html>
   );

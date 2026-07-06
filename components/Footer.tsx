@@ -9,9 +9,11 @@ export default function Footer() {
       relative
       mt-20
       border-t
-      border-white/5
+      border-black/5
+      dark:border-white/5
       py-10
-      text-zinc-400
+      text-zinc-500
+      dark:text-zinc-400
       overflow-hidden
       "
     >
@@ -88,11 +90,11 @@ export default function Footer() {
             </h3>
           </Link>
 
-          <p className="mt-3 text-sm font-mono text-zinc-500">
-            Swap. Bridge. Hire. Anywhere.
+          <p className="mt-3 text-sm font-mono text-zinc-500 dark:text-zinc-500">
+            Move Money Across Chains.
           </p>
 
-          <p className="mt-2 text-[11px] font-mono text-zinc-600">
+          <p className="mt-2 text-[11px] font-mono text-zinc-500 dark:text-zinc-600">
             © 2026 ARCora · Built with Next.js and Circle
           </p>
 
@@ -101,7 +103,7 @@ export default function Footer() {
 
         <div className="flex items-center gap-3">
 
-          <div className="hidden sm:flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-widest text-zinc-600 mr-2">
+          <div className="hidden sm:flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-widest text-zinc-500 dark:text-zinc-600 mr-2">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
             Arc Testnet
           </div>
@@ -120,14 +122,17 @@ export default function Footer() {
             justify-center
             rounded-full
             border
-            border-white/10
-            bg-white/[0.03]
+            border-black/10
+            dark:border-white/10
+            bg-black/[0.03]
+            dark:bg-white/[0.03]
             text-zinc-500
             transition-all
             duration-300
             hover:border-purple-400/40
             hover:bg-purple-500/10
-            hover:text-purple-300
+            hover:text-purple-500
+            dark:hover:text-purple-300
             hover:-translate-y-0.5
             "
           >
@@ -156,14 +161,17 @@ export default function Footer() {
             justify-center
             rounded-full
             border
-            border-white/10
-            bg-white/[0.03]
+            border-black/10
+            dark:border-white/10
+            bg-black/[0.03]
+            dark:bg-white/[0.03]
             text-zinc-500
             transition-all
             duration-300
             hover:border-pink-400/40
             hover:bg-pink-500/10
-            hover:text-pink-300
+            hover:text-pink-500
+            dark:hover:text-pink-300
             hover:-translate-y-0.5
             "
           >
@@ -178,7 +186,7 @@ export default function Footer() {
             </svg>
           </a>
 
-          <a
+                    <a
             href="https://x.com/ArcoraApp"
             target="_blank"
             rel="noreferrer"

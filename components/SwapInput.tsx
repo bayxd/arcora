@@ -1,3 +1,5 @@
+import TokenSelector from "./TokenSelector";
+
 type Props = {
 
   amount: string;
@@ -114,41 +116,7 @@ export default function SwapInput({
 
         />
 
-        <select
-
-          value={tokenIn}
-
-          onChange={(e) =>
-
-            setTokenIn(
-              e.target.value
-            )
-
-          }
-
-          className="
-          bg-zinc-700/80
-          border
-          border-white/5
-          rounded-full
-          px-4
-          py-2
-          text-sm
-          font-semibold
-          cursor-pointer
-          "
-
-        >
-
-          <option>
-            USDC
-          </option>
-
-          <option>
-            EURC
-          </option>
-
-        </select>
+        <TokenSelector value={tokenIn} onChange={setTokenIn} />
 
       </div>
 

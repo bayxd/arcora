@@ -4,6 +4,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { CHAINS } from "@/constants/chains";
 import { useBridge } from "@/hooks/useBridge";
+import NetworkSelector from "./NetworkSelector";
 
 const NETWORK_OPTIONS = [
   { value: "Base_Sepolia", label: "Base Sepolia", dot: "#3B82F6" },
@@ -138,7 +139,7 @@ export default function BridgeCard() {
         <div className="relative">
 
           {/* FROM */}
-          <div className="bg-zinc-800/80 border border-white/5 rounded-2xl p-4 relative z-10 hover:border-purple-500/20 duration-300">
+          <div className="bg-zinc-800/80 border border-white/5 rounded-2xl p-4 relative z-30 hover:border-purple-500/20 duration-300">
             <div className="flex items-center gap-2">
               <span
                 className="w-1.5 h-1.5 rounded-full"
@@ -158,17 +159,11 @@ export default function BridgeCard() {
               />
 
               {direction === "toArc" ? (
-                <select
+                <NetworkSelector
                   value={otherChain}
-                  onChange={(e) => setOtherChain(e.target.value)}
-                  className="bg-zinc-700/80 border border-white/5 rounded-full px-4 py-2 text-sm font-semibold cursor-pointer"
-                >
-                  {NETWORK_OPTIONS.map((n) => (
-                    <option key={n.value} value={n.value}>
-                      {n.label}
-                    </option>
-                  ))}
-                </select>
+                  options={NETWORK_OPTIONS}
+                  onChange={setOtherChain}
+                />
               ) : (
                 <div className="bg-zinc-700/80 border border-white/5 rounded-full px-4 py-2 text-sm font-semibold">
                   Arc Testnet
@@ -241,17 +236,11 @@ export default function BridgeCard() {
                   {otherChainInfo.label}
                 </div>
 
-                <select
+                <NetworkSelector
                   value={otherChain}
-                  onChange={(e) => setOtherChain(e.target.value)}
-                  className="bg-zinc-700/80 border border-white/5 rounded-full px-4 py-2 text-sm font-semibold cursor-pointer"
-                >
-                  {NETWORK_OPTIONS.map((n) => (
-                    <option key={n.value} value={n.value}>
-                      {n.label}
-                    </option>
-                  ))}
-                </select>
+                  options={NETWORK_OPTIONS}
+                  onChange={setOtherChain}
+                />
               </div>
             )}
           </div>

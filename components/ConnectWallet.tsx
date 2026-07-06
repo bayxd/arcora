@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { useAccount } from "wagmi";
+import ThemeToggle from "./ThemeToggle";
 
 const NAV_ITEMS = [
   { href: "/portfolio", label: "Portfolio" },
@@ -35,12 +36,17 @@ export default function ConnectWallet() {
         <div
           className="
           relative
-          bg-zinc-900/60
+          bg-white/70
+          dark:bg-zinc-900/60
           backdrop-blur-2xl
           rounded-full
           px-6
           py-3
-          shadow-[0_10px_50px_rgba(0,0,0,.4),0_0_40px_rgba(168,85,247,0.06)]
+          shadow-[0_10px_50px_rgba(0,0,0,.08)]
+          dark:shadow-[0_10px_50px_rgba(0,0,0,.4),0_0_40px_rgba(168,85,247,0.06)]
+          border
+          border-black/5
+          dark:border-transparent
           flex
           items-center
           justify-between
@@ -127,8 +133,8 @@ export default function ConnectWallet() {
                     relative px-3.5 py-2 text-xs font-mono uppercase tracking-widest duration-300
                     ${
                       active
-                        ? "text-white"
-                        : "text-zinc-500 hover:text-zinc-200"
+                        ? "text-zinc-900 dark:text-white"
+                        : "text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-200"
                     }
                   `}
                 >
@@ -157,39 +163,45 @@ export default function ConnectWallet() {
             })}
           </nav>
 
-          {/* Connect Wallet */}
-          <button
-            onClick={() => appKit.open()}
-            className="
-            relative
-            overflow-hidden
-            px-4
-            py-2
-            rounded-full
-            text-sm
-            font-semibold
-            font-mono
-            bg-linear-to-r
-            from-purple-600
-            via-pink-500
-            to-blue-500
-            shadow-[0_0_16px_rgba(168,85,247,0.3)]
-            hover:shadow-[0_0_22px_rgba(168,85,247,0.45)]
-            hover:scale-[1.02]
-            duration-300
-            flex
-            items-center
-            gap-2
-            shrink-0
-            "
-          >
-            {isConnected && address && (
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-300 animate-pulse" />
-            )}
-            {isConnected && address
-              ? `${address.slice(0, 6)}...${address.slice(-4)}`
-              : "Connect Wallet"}
-          </button>
+          {/* Right side: theme toggle + connect wallet */}
+          <div className="flex items-center gap-3 shrink-0">
+
+            <ThemeToggle />
+
+            <button
+              onClick={() => appKit.open()}
+              className="
+              relative
+              overflow-hidden
+              px-4
+              py-2
+              rounded-full
+              text-sm
+              font-semibold
+              font-mono
+              text-white
+              bg-linear-to-r
+              from-purple-600
+              via-pink-500
+              to-blue-500
+              shadow-[0_0_16px_rgba(168,85,247,0.3)]
+              hover:shadow-[0_0_22px_rgba(168,85,247,0.45)]
+              hover:scale-[1.02]
+              duration-300
+              flex
+              items-center
+              gap-2
+              "
+            >
+              {isConnected && address && (
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-300 animate-pulse" />
+              )}
+              {isConnected && address
+                ? `${address.slice(0, 6)}...${address.slice(-4)}`
+                : "Connect Wallet"}
+            </button>
+
+          </div>
 
         </div>
 

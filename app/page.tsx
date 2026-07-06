@@ -1,15 +1,133 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 import ConnectWallet from "@/components/ConnectWallet";
 import Footer from "@/components/Footer";
 import { useAppKit } from "@reown/appkit/react";
+
+const STEPS = [
+  {
+    n: "01",
+    title: "Connect your wallet",
+    body: "Link any EVM wallet to get started on Arc Testnet — no signup, no forms.",
+  },
+  {
+    n: "02",
+    title: "Mint a Genesis Pass",
+    body: "A free onchain pass that unlocks Swap, Bridge, Send, and Escrow. One-time mint, gas sponsored.",
+  },
+  {
+    n: "03",
+    title: "Move money your way",
+    body: "Swap stablecoins, bridge across chains, send instantly, or settle a trade deal in escrow.",
+  },
+];
+
+const FEATURES = [
+  {
+    href: "/swap",
+    tag: "// Dex Terminal",
+    title: "Swap",
+    body: "Trade USDC ⇄ EURC instantly on Arc Testnet with minimal slippage.",
+    badge: null,
+  },
+  {
+    href: "/bridge",
+    tag: "// Cross-Chain Relay",
+    title: "Bridge",
+    body: "Move USDC between Arc, Base, Ethereum, Arbitrum, and Polygon testnets.",
+    badge: null,
+  },
+  {
+    href: "/send",
+    tag: "// Instant Transfer",
+    title: "Send",
+    body: "Send USDC to any wallet address in seconds, with sponsored gas.",
+    badge: null,
+  },
+  {
+    href: "/agents",
+    tag: "// Counterparty Identity",
+    title: "Escrow",
+    body: "Register a verified trade identity, issue purchase orders, and get paid in USDC — funds stay locked until delivery is confirmed.",
+    badge: "New",
+  },
+];
+
+const TRUST_POINTS = [
+  { label: "Non-custodial", detail: "Your keys, your funds — always" },
+  { label: "Open standards", detail: "Built on ERC-8004 + ERC-8183" },
+  { label: "Testnet only", detail: "No real funds are at risk right now" },
+  { label: "Sponsored gas", detail: "Powered by Circle on Arc Testnet" },
+];
+
+const FAQS = [
+  {
+    q: "What is Arc Testnet?",
+    a: "Arc is a testnet chain used to try out ARCora's features — swaps, bridging, sends, and escrow-backed trade — before anything goes live with real funds.",
+  },
+  {
+    q: "What's a Genesis Pass, and why do I need one?",
+    a: "It's a free onchain pass minted to your wallet. It unlocks access to Swap, Bridge, Send, and Escrow. It's a one-time mint, and gas is sponsored — it won't cost you anything on testnet.",
+  },
+  {
+    q: "How does Escrow keep my trade safe?",
+    a: "When you create a purchase order, the buyer's USDC is held in an onchain escrow contract (ERC-8183) rather than sent directly to the seller. Funds only release once delivery is confirmed, so neither side has to trust the other blindly.",
+  },
+  {
+    q: "What's the difference between Swap and Escrow?",
+    a: "Swap is for exchanging one token for another (USDC ⇄ EURC) immediately. Escrow is for trade deals between two parties — a buyer and a supplier — where funds need to stay locked until a condition (like delivery) is met.",
+  },
+  {
+    q: "Do I need real money to try this?",
+    a: "No. Everything runs on Arc Testnet with test tokens and sponsored gas, so you can explore every feature without spending anything real.",
+  },
+];
+
+function FAQItem({ q, a }: { q: string; a: string }) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div className="border-b border-black/5 dark:border-white/5 py-5">
+      <button
+        onClick={() => setOpen((o) => !o)}
+        className="w-full flex items-center justify-between text-left gap-4"
+      >
+        <span className="text-sm md:text-base font-semibold text-zinc-900 dark:text-white">
+          {q}
+        </span>
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className={`shrink-0 text-zinc-400 transition-transform duration-300 ${
+            open ? "rotate-45" : ""
+          }`}
+        >
+          <path d="M12 5v14M5 12h14" />
+        </svg>
+      </button>
+
+      {open && (
+        <p className="mt-3 text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed max-w-2xl">
+          {a}
+        </p>
+      )}
+    </div>
+  );
+}
 
 export default function Page() {
   const appKit = useAppKit();
 
   return (
-    <main className="min-h-screen text-white">
+    <main className="min-h-screen text-zinc-900 dark:text-white">
 
       <ConnectWallet />
 
@@ -35,9 +153,9 @@ export default function Page() {
         <div className="absolute w-87.5 h-87.5 bg-pink-500/20 blur-[100px] rounded-full animate-ping" />
 
         {/* eyebrow status tag */}
-        <div className="relative z-10 mb-7 flex items-center gap-2 rounded-full border border-purple-500/30 bg-zinc-900/60 backdrop-blur px-4 py-1.5 shadow-[0_0_16px_rgba(168,85,247,0.15)]">
+        <div className="relative z-10 mb-7 flex items-center gap-2 rounded-full border border-purple-500/30 bg-white/70 dark:bg-zinc-900/60 backdrop-blur px-4 py-1.5 shadow-[0_0_16px_rgba(168,85,247,0.15)]">
           <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-          <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-zinc-400">
+          <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">
             Arc Testnet · Network Online
           </span>
         </div>
@@ -45,25 +163,21 @@ export default function Page() {
         {/* orb centerpiece with HUD rings */}
         <div className="relative z-10 w-56 h-56 flex items-center justify-center mb-10">
 
-          {/* outer dashed ring */}
           <div
             className="absolute inset-0 rounded-full border border-dashed border-purple-500/30 animate-spin"
             style={{ animationDuration: "22s" }}
           />
 
-          {/* mid ring, reverse direction */}
           <div
             className="absolute inset-6 rounded-full border border-blue-500/20 animate-spin"
             style={{ animationDuration: "14s", animationDirection: "reverse" }}
           />
 
-          {/* HUD corner brackets */}
           <div className="pointer-events-none absolute -top-1 -left-1 h-4 w-4 border-t border-l border-purple-400/60" />
           <div className="pointer-events-none absolute -top-1 -right-1 h-4 w-4 border-t border-r border-blue-400/60" />
           <div className="pointer-events-none absolute -bottom-1 -left-1 h-4 w-4 border-b border-l border-purple-400/30" />
           <div className="pointer-events-none absolute -bottom-1 -right-1 h-4 w-4 border-b border-r border-blue-400/30" />
 
-          {/* orbiting token nodes */}
           <div
             className="absolute inset-0 animate-spin"
             style={{ animationDuration: "9s" }}
@@ -77,21 +191,21 @@ export default function Page() {
             <span className="absolute bottom-0 left-1/2 -translate-x-1/2 h-2 w-2 rounded-full bg-pink-400 shadow-[0_0_8px_#f472b6]" />
           </div>
 
-          {/* core orb */}
           <div className="relative w-32 h-32 rounded-full bg-linear-to-tr from-purple-500 via-pink-500 to-blue-500 animate-spin-slow shadow-2xl" />
         </div>
 
         {/* headline */}
         <h1 className="relative z-10 text-center text-4xl sm:text-6xl font-black tracking-tight mb-4 leading-tight">
           <span className="bg-linear-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
-            Money Moves Instantly.
+            Swap, Bridge, and Trade —
           </span>
           <br />
-          <span className="text-white">Agents Work Trustlessly.</span>
+          <span>All Backed by Onchain Escrow.</span>
         </h1>
 
-        <p className="relative z-10 text-zinc-400 text-center max-w-md mb-8 text-sm">
-          Cross-chain swaps, bridging, and Genesis Pass minting - powered by Circle on Arc Testnet.
+        <p className="relative z-10 text-zinc-500 dark:text-zinc-400 text-center max-w-lg mb-8 text-sm leading-relaxed">
+          Cross-chain stablecoin payments for individuals. Verified trade identity
+          and escrow-protected purchase orders for business. Powered by Circle on Arc Testnet.
         </p>
 
         {/* CTA buttons */}
@@ -106,6 +220,7 @@ export default function Page() {
             font-bold
             uppercase
             tracking-wide
+            text-white
             bg-linear-to-r
             from-purple-600
             via-pink-500
@@ -122,7 +237,7 @@ export default function Page() {
           </Link>
 
           <Link
-            href="/genesis"
+            href="/agents"
             className="
             h-12
             px-6
@@ -130,37 +245,181 @@ export default function Page() {
             text-sm
             font-semibold
             border
-            border-white/10
-            bg-zinc-900/60
+            border-black/10
+            dark:border-white/10
+            bg-white/70
+            dark:bg-zinc-900/60
             backdrop-blur
             hover:border-purple-500/30
-            hover:bg-zinc-800
+            hover:bg-zinc-100
+            dark:hover:bg-zinc-800
             duration-300
             flex
             items-center
             "
           >
-            Mint Genesis Pass
+            Explore Escrow
           </Link>
         </div>
 
+        <p className="relative z-10 mt-4 text-[11px] font-mono text-zinc-500 dark:text-zinc-600">
+          New here? You'll mint a free Genesis Pass the first time you launch the app — see how below.
+        </p>
+
         {/* status ticker */}
-        <div className="relative z-10 mt-12 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-mono text-zinc-500">
+        <div className="relative z-10 mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-mono text-zinc-500 dark:text-zinc-500">
           <div>
-            <span className="text-purple-400 font-semibold">USDC</span>
-            <span className="mx-1.5 text-zinc-700">·</span>
-            <span className="text-zinc-400">EURC</span>
+            <span className="text-purple-500 dark:text-purple-400 font-semibold">USDC</span>
+            <span className="mx-1.5 text-zinc-400 dark:text-zinc-700">·</span>
+            <span className="text-zinc-500 dark:text-zinc-400">EURC</span>
           </div>
-          <div className="h-3 w-px bg-white/10 hidden sm:block" />
+          <div className="h-3 w-px bg-black/10 dark:bg-white/10 hidden sm:block" />
           <div>
-            Chain: <span className="text-blue-400">Arc-Testnet</span>
+            Chain: <span className="text-blue-500 dark:text-blue-400">Arc-Testnet</span>
           </div>
-          <div className="h-3 w-px bg-white/10 hidden sm:block" />
+          <div className="h-3 w-px bg-black/10 dark:bg-white/10 hidden sm:block" />
           <div>
-            Gas: <span className="text-emerald-400">Sponsored</span>
+            Gas: <span className="text-emerald-500 dark:text-emerald-400">Sponsored</span>
           </div>
         </div>
 
+      </section>
+
+      {/* How it works */}
+      <section className="relative max-w-5xl mx-auto px-6 py-20">
+        <div className="text-center mb-14">
+          <p className="text-[10px] tracking-[0.2em] text-purple-500 dark:text-purple-400/80 font-semibold uppercase mb-2 font-mono">
+            // Getting Started
+          </p>
+          <h2 className="text-3xl font-bold tracking-tight">How it works</h2>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-6">
+          {STEPS.map((step) => (
+            <div
+              key={step.n}
+              className="
+              relative
+              bg-white/70
+              dark:bg-zinc-900/70
+              backdrop-blur-xl
+              border
+              border-black/5
+              dark:border-white/10
+              rounded-3xl
+              p-6
+              "
+            >
+              <span className="text-4xl font-black bg-linear-to-r from-purple-400 via-pink-500 to-blue-500 bg-clip-text text-transparent">
+                {step.n}
+              </span>
+              <h3 className="text-lg font-bold mt-3 mb-2">{step.title}</h3>
+              <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
+                {step.body}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Feature grid */}
+      <section className="relative max-w-5xl mx-auto px-6 py-10">
+        <div className="text-center mb-14">
+          <p className="text-[10px] tracking-[0.2em] text-purple-500 dark:text-purple-400/80 font-semibold uppercase mb-2 font-mono">
+            // What You Can Do
+          </p>
+          <h2 className="text-3xl font-bold tracking-tight">Four ways to move money</h2>
+        </div>
+
+        <div className="grid sm:grid-cols-2 gap-6">
+          {FEATURES.map((f) => (
+            <Link
+              key={f.href}
+              href={f.href}
+              className="
+              group
+              relative
+              overflow-hidden
+              bg-white/70
+              dark:bg-zinc-900/70
+              backdrop-blur-xl
+              border
+              border-black/5
+              dark:border-white/10
+              rounded-3xl
+              p-6
+              hover:border-purple-500/30
+              duration-300
+              "
+            >
+              <div className="absolute top-0 left-0 right-0 h-0.5 bg-linear-to-r from-purple-600 via-pink-500 to-blue-500 opacity-0 group-hover:opacity-100 duration-300" />
+
+              <div className="flex items-center justify-between mb-3">
+                <p className="text-[10px] tracking-[0.2em] text-purple-500 dark:text-purple-400/80 font-semibold uppercase font-mono">
+                  {f.tag}
+                </p>
+
+                {f.badge && (
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-widest px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-500 dark:text-emerald-400 border border-emerald-500/30">
+                    {f.badge}
+                  </span>
+                )}
+              </div>
+
+              <h3 className="text-xl font-bold mb-2">{f.title}</h3>
+              <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
+                {f.body}
+              </p>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Trust signals */}
+      <section className="relative max-w-5xl mx-auto px-6 py-10">
+        <div
+          className="
+          bg-white/70
+          dark:bg-zinc-900/70
+          backdrop-blur-xl
+          border
+          border-black/5
+          dark:border-white/10
+          rounded-3xl
+          p-8
+          grid
+          grid-cols-2
+          md:grid-cols-4
+          gap-6
+          "
+        >
+          {TRUST_POINTS.map((t) => (
+            <div key={t.label}>
+              <p className="text-sm font-bold text-zinc-900 dark:text-white mb-1">
+                {t.label}
+              </p>
+              <p className="text-xs text-zinc-500 dark:text-zinc-500 leading-relaxed">
+                {t.detail}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="relative max-w-3xl mx-auto px-6 py-20">
+        <div className="text-center mb-10">
+          <p className="text-[10px] tracking-[0.2em] text-purple-500 dark:text-purple-400/80 font-semibold uppercase mb-2 font-mono">
+            // FAQ
+          </p>
+          <h2 className="text-3xl font-bold tracking-tight">Common questions</h2>
+        </div>
+
+        <div>
+          {FAQS.map((item) => (
+            <FAQItem key={item.q} q={item.q} a={item.a} />
+          ))}
+        </div>
       </section>
 
       <Footer />
