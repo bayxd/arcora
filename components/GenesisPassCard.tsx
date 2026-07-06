@@ -1,18 +1,51 @@
 "use client";
 
 import Image from "next/image";
+import { useRef, useState } from "react";
 
 const BADGE_IMAGE =
   "https://gateway.pinata.cloud/ipfs/bafybeidn35bgjvbbss7vwcu6hfwibumgvkd46uonkiq53eqwbs4hmcdo24";
 
 const CONTRACT_ADDRESS = process.env.NEXT_PUBLIC_GENESIS_PASS_CONTRACT;
 
-export default function GenesisPassCard() {
-  return (
-    <section className="relative overflow-hidden bg-zinc-900/80 backdrop-blur-xl border border-white/10 rounded-[28px] p-6 shadow-2xl max-w-lg mx-auto">
+// Fixed (not Math.random()) so server-rendered and hydrated markup match -
+// randomizing these per-render would cause a hydration mismatch warning.
+const SPARKLES = [
+  { left: "12%", top: "18%", delay: "0s", duration: "3.2s", size: 3 },
+  { left: "82%", top: "22%", delay: "0.6s", duration: "4s", size: 2 },
+  { left: "68%", top: "72%", delay: "1.2s", duration: "3.6s", size: 3 },
+  { left: "20%", top: "80%", delay: "1.8s", duration: "3.9s", size: 2 },
+  { left: "90%", top: "55%", delay: "0.3s", duration: "3.4s", size: 2 },
+  { left: "8%", top: "50%", delay: "2.1s", duration: "4.2s", size: 3 },
+  { left: "50%", top: "10%", delay: "1.5s", duration: "3.7s", size: 2 },
+  { left: "58%", top: "90%", delay: "0.9s", duration: "3.3s", size: 2 },
+];
 
-      {/* neon top strip */}
-      <div className="absolute top-0 left-0 right-0 h-0.5 bg-linear-to-r from-purple-600 via-pink-500 to-blue-500" />
+export default function GenesisPassCard() {
+  const badgeRef = useRef<HTMLDivElement>(null);
+  const [tilt, setTilt] = useState({ rx: 0, ry: 0 });
+  const [sheen, setSheen] = useState({ x: 50, y: 50 });
+  const [hovering, setHovering] = useState(false);
+
+  function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
+    const rect = badgeRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    const px = (e.clientX - rect.left) / rect.width; // 0..1
+    const py = (e.clientY - rect.top) / rect.height; // 0..1
+    setTilt({ rx: (0.5 - py) * 16, ry: (px - 0.5) * 16 });
+    setSheen({ x: px * 100, y: py * 100 });
+  }
+
+  function handleMouseLeave() {
+    setTilt({ rx: 0, ry: 0 });
+    setHovering(false);
+  }
+
+  return (
+    <section className="relative overflow-hidden bg-zinc-900/80 backdrop-blur-xl border border-white/10 rounded-[28px] p-6 shadow-2xl max-w-lg mx-auto genesis-card">
+
+      {/* animated shimmer top strip (replaces the static gradient strip) */}
+      <div className="absolute top-0 left-0 right-0 h-0.5 shimmer-strip" />
 
       {/* HUD corner brackets */}
       <div className="pointer-events-none absolute top-3 left-3 h-3 w-3 border-t border-l border-purple-500/50 rounded-tl-sm" />
@@ -37,14 +70,52 @@ export default function GenesisPassCard() {
           </div>
         </div>
 
-        <div className="relative rounded-2xl overflow-hidden border border-white/10">
+        {/* 3D tilt + sheen + sparkles wrapper */}
+        <div
+          ref={badgeRef}
+          onMouseMove={handleMouseMove}
+          onMouseEnter={() => setHovering(true)}
+          onMouseLeave={handleMouseLeave}
+          className="relative rounded-2xl overflow-hidden border border-white/10 badge-wrapper"
+          style={{
+            transform: `perspective(900px) rotateX(${tilt.rx}deg) rotateY(${tilt.ry}deg) scale(${hovering ? 1.02 : 1})`,
+          }}
+        >
+          {/* soft pulsing glow behind the badge */}
+          <div className="pointer-events-none absolute inset-0 badge-glow" />
+
           <Image
             src={BADGE_IMAGE}
             width={400}
             height={400}
             alt="ARCora Genesis Pass"
-            className="w-full"
+            className="w-full relative z-10"
           />
+
+          {/* cursor-following glossy sheen, only visible on hover */}
+          <div
+            className="pointer-events-none absolute inset-0 z-20 sheen"
+            style={{
+              opacity: hovering ? 1 : 0,
+              background: `radial-gradient(circle at ${sheen.x}% ${sheen.y}%, rgba(255,255,255,0.28), transparent 42%)`,
+            }}
+          />
+
+          {/* floating sparkles */}
+          {SPARKLES.map((s, i) => (
+            <span
+              key={i}
+              className="pointer-events-none absolute z-20 rounded-full sparkle"
+              style={{
+                left: s.left,
+                top: s.top,
+                width: s.size,
+                height: s.size,
+                animationDelay: s.delay,
+                animationDuration: s.duration,
+              }}
+            />
+          ))}
         </div>
 
         <div className="mt-5">
@@ -77,14 +148,14 @@ export default function GenesisPassCard() {
             target="_blank"
             rel="noreferrer"
             className="
+            explorer-link
             block
             text-center
             mt-5
             bg-zinc-800
             border
             border-white/5
-            hover:bg-zinc-700
-            hover:border-purple-500/30
+            hover:border-purple-500/40
             duration-300
             rounded-xl
             py-2.5
@@ -92,12 +163,105 @@ export default function GenesisPassCard() {
             font-semibold
             "
           >
-            View Contract on Explorer ↗
+            View Contract on Explorer {"->"}
           </a>
         )}
 
       </div>
 
+      <style>{`
+        .shimmer-strip {
+          background: linear-gradient(
+            90deg,
+            #9333ea,
+            #ec4899,
+            #3b82f6,
+            #9333ea
+          );
+          background-size: 300% 100%;
+          animation: shimmerMove 4s linear infinite;
+        }
+        @keyframes shimmerMove {
+          0% {
+            background-position: 0% 50%;
+          }
+          100% {
+            background-position: 300% 50%;
+          }
+        }
+
+        .badge-wrapper {
+          transition: transform 150ms ease-out;
+          transform-style: preserve-3d;
+        }
+
+        .badge-glow {
+          background: radial-gradient(
+            circle at 50% 50%,
+            rgba(168, 85, 247, 0.35),
+            transparent 65%
+          );
+          animation: glowPulse 3.5s ease-in-out infinite;
+        }
+        @keyframes glowPulse {
+          0% {
+            opacity: 0.5;
+            transform: scale(1);
+          }
+          50% {
+            opacity: 0.9;
+            transform: scale(1.08);
+          }
+          100% {
+            opacity: 0.5;
+            transform: scale(1);
+          }
+        }
+
+        .sheen {
+          transition: opacity 200ms ease-out;
+          mix-blend-mode: overlay;
+        }
+
+        .sparkle {
+          background: white;
+          box-shadow: 0 0 6px 2px rgba(255, 255, 255, 0.8);
+          animation-name: sparkleFloat;
+          animation-timing-function: ease-in-out;
+          animation-iteration-count: infinite;
+        }
+        @keyframes sparkleFloat {
+          0% {
+            opacity: 0;
+            transform: translateY(0) scale(0.6);
+          }
+          50% {
+            opacity: 1;
+            transform: translateY(-8px) scale(1);
+          }
+          100% {
+            opacity: 0;
+            transform: translateY(0) scale(0.6);
+          }
+        }
+
+        .explorer-link {
+          position: relative;
+          overflow: hidden;
+          transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+        }
+        .explorer-link:hover {
+          transform: scale(1.015);
+          box-shadow: 0 0 20px rgba(168, 85, 247, 0.25);
+        }
+
+        .genesis-card {
+          transition: box-shadow 300ms ease;
+        }
+        .genesis-card:hover {
+          box-shadow: 0 0 40px rgba(168, 85, 247, 0.12);
+        }
+      `}</style>
     </section>
   );
 }
