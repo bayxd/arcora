@@ -109,6 +109,49 @@ export default function Footer() {
           </div>
 
           <a
+            href="https://faucet.circle.com/"
+            target="_blank"
+            rel="noreferrer"
+            className="
+            group
+            flex
+            items-center
+            gap-1.5
+            h-9
+            px-4
+            rounded-full
+            border
+            border-black/10
+            dark:border-white/10
+            bg-black/[0.03]
+            dark:bg-white/[0.03]
+            text-xs
+            font-semibold
+            tracking-wide
+            text-zinc-500
+            dark:text-zinc-400
+            transition-all
+            duration-300
+            hover:border-blue-400/40
+            hover:bg-blue-500/10
+            hover:text-blue-500
+            dark:hover:text-blue-300
+            hover:-translate-y-0.5
+            "
+          >
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="transition-transform duration-300 group-hover:scale-110"
+            >
+              <path d="M12 2C12 2 5 10.5 5 15.5a7 7 0 0 0 14 0C19 10.5 12 2 12 2Zm0 17a5 5 0 0 1-5-5c0-.28.03-.56.08-.85.5 1.9 2.2 3.35 4.42 3.35 1.4 0 2.6-.58 3.5-1.5-.36 2.3-2.35 4-4.5 4.5-.16.03-.33.05-.5.05Z" />
+            </svg>
+            Faucet
+          </a>
+
+          <a
             href="https://github.com/Arcticoz/"
             target="_blank"
             rel="noreferrer"
