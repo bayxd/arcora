@@ -197,10 +197,10 @@ export default function Page() {
         {/* headline */}
         <h1 className="relative z-10 text-center text-4xl sm:text-6xl font-black tracking-tight mb-4 leading-tight">
           <span className="bg-linear-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
-            Swap, Bridge, and Trade —
+            Swap, Bridge, and Trade 
           </span>
           <br />
-          <span>All Backed by Onchain Escrow.</span>
+          <span>Escrow-Backed When It Counts.</span>
         </h1>
 
         <p className="relative z-10 text-zinc-500 dark:text-zinc-400 text-center max-w-lg mb-8 text-sm leading-relaxed">
