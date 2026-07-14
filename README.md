@@ -1,171 +1,206 @@
+<div align="center">
+
 # ARCora
 
-### Swap. Mint. Own.
-https://arcora-opal.vercel.app/
+### Swap. Escrow. Own.
 
-ARCora is a modern Web3 application built on Arc Testnet, designed to provide a seamless experience for managing stablecoins and NFTs. Powered by Circle App Kit, ARCora combines swapping, transferring, bridging, and NFT utilities into a single interface.
+**A stablecoin commerce app built natively on Arc Testnet — powered by Circle's developer platform.**
+
+[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://arcora-opal.vercel.app/)
+[![Built with Next.js](https://img.shields.io/badge/Next.js-16-black)](https://nextjs.org/)
+[![Arc Testnet](https://img.shields.io/badge/network-Arc%20Testnet-8A2BE2)](https://docs.arc.io)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](#license)
+
+[Live Demo](https://arcora-opal.vercel.app/) · [Report a Bug](../../issues) · [Twitter](https://x.com/forbyuu) · [Telegram](https://t.me/timer28)
+
+</div>
+
+---
+
+## Overview
+
+ARCora is a Web3 application on **Arc Testnet**, Circle's stablecoin-native L1. It brings together onchain trade escrow, token swaps, cross-chain bridging, and stablecoin transfers into a single interface — built on Arc's officially pre-deployed ERC-8004 / ERC-8183 contracts and Circle's App Kit.
+
+Access to the app is gated by a **Genesis Pass NFT**, an ERC-721 contract deployed by this project.
+
+## Table of Contents
+
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Smart Contracts](#smart-contracts)
+- [Getting Started](#getting-started)
+- [Environment Variables](#environment-variables)
+- [Screenshots](#screenshots)
+- [Roadmap](#roadmap)
+- [Changelog](#changelog)
+- [License](#license)
 
 ---
 
 ## Features
 
-### Wallet Connection
-* Connect wallet with Reown kit
-* Multi-wallet support
-* Real-time account information
+### 🔗 Wallet Connection
+- Connect via Reown AppKit
+- Multi-wallet support (MetaMask and any EIP-6963-compatible wallet)
+- Real-time account info and network status
 
-### Portfolio Dashboard
-* USDC balance
-* EURC balance
-* NFT holdings
-* Total assets overview
+### 📊 Portfolio Dashboard
+- USDC and EURC balances
+- NFT holdings
+- Total assets overview
 
-### Send Stablecoins
-Powered by Circle App Kit Browser Wallet
-* Wallet-to-wallet transfers
-* USDC transfers on Arc Testnet
-* Transaction estimation
-* MetaMask and EIP-6963 compatible wallets
-* ArcScan transaction verification
+### 🤝 Trade Escrow
+Built on Arc's **ERC-8004** (Identity Registry) and **ERC-8183** (Agentic Commerce) contracts.
+- Onchain trade identity registration for buyers and suppliers
+- Purchase order creation with supplier-set pricing
+- Milestone-based USDC escrow: `Created → Funded → Submitted → Completed`
+- Proof-of-delivery submission before funds release
+- Every step is a real onchain transaction — no off-chain state
 
-### Token Swap
-Powered by Circle App Kit
-* USDC ⇄ EURC swaps
-* Quote estimation
-* Slippage settings
-* Transaction history
-* ArcScan explorer links
+### 💱 Token Swap
+Powered by Circle App Kit.
+- USDC ⇄ EURC swaps
+- Quote estimation with configurable slippage
+- Swap history with ArcScan explorer links
 
-### Cross-Chain Bridge
-* Bridge assets across supported chains
-* Powered by Circle Bridge Kit
-* Track bridge transactions
-* Multi-chain support
+### 🌉 Cross-Chain Bridge
+Powered by Circle's CCTP (Cross-Chain Transfer Protocol).
+- Bridge USDC from Base Sepolia to Arc Testnet
+- Bridge history tracking
+- Multi-chain support
 
-### Genesis Pass
-* Access to Swap,Bridge,Send
+### 💸 Send
+Powered by Circle App Kit's browser wallet flow.
+- Direct wallet-to-wallet USDC transfers on Arc Testnet
+- Transaction estimation before sending
+- ArcScan transaction verification
+
+### 🎫 Genesis Pass
+- ERC-721 access pass, deployed by this project
+- Gates access to Escrow, Swap, Bridge, and Send
 
 ---
 
 ## Tech Stack
 
-### Frontend
-* Next.js 16
-* React 19
-* TypeScript
-* TailwindCSS
-### Web3
-* Wagmi
-* Viem
-* RainbowKit
-### Circle Ecosystem
-* @circle-fin/app-kit
-* @circle-fin/adapter-viem-v2
-### Additional Libraries
-* TanStack Query
-* Sonner
-* Recharts
-* Lucide React
+| Layer | Technologies |
+|---|---|
+| **Frontend** | Next.js 16, React 19, TypeScript, Tailwind CSS |
+| **Web3** | Wagmi, Viem, Reown AppKit |
+| **Circle Ecosystem** | `@circle-fin/app-kit`, `@circle-fin/adapter-viem-v2` |
+| **Data & UI** | TanStack Query, Recharts, Sonner, Lucide React |
 
 ---
 
-## Installation
+## Smart Contracts
 
-Clone the repository:
+Contract addresses on Arc Testnet:
+
+| Contract | Address | Deployed by |
+|---|---|---|
+| Genesis Pass (ERC-721) | `[fill in NEXT_PUBLIC_GENESIS_PASS_CONTRACT]` | This project |
+| Identity Registry (ERC-8004) | `0x8004A818BFB912233c491871b3d84c89A494BD9e` | Arc (shared, official) |
+| Agentic Commerce / Escrow (ERC-8183) | `0x0747EEf0706327138c69792bF28Cd525089e4583` | Arc (shared, official) |
+| Reputation Registry | `0x8004B663056A597Dffe9eCcC1965A193B7388713` | Arc (shared, official) |
+| Validation Registry | `0x8004Cb1BF31DAf7788923b405b754f57acEB4272` | Arc (shared, official) |
+
+> The Genesis Pass is the only contract deployed specifically for ARCora. Escrow and identity functionality build on Arc's shared, officially pre-deployed tutorial contracts rather than reimplementing them — Swap and Bridge run through Circle's App Kit / CCTP infrastructure.
+
+---
+
+## Getting Started
+
+### Prerequisites
+- Node.js 18+
+- npm
+
+### Installation
 
 ```bash
-git clone https://github.com/your-username/arcora.git
-```
-
-Install dependencies:
-
-```bash
+git clone https://github.com/Arcticoz/arcora.git
+cd arcora
 npm install
 ```
 
-Run development server:
+### Run the development server
 
 ```bash
 npm run dev
 ```
 
-Open:
-
-```text
-http://localhost:3000
-```
+Then open [http://localhost:3000](http://localhost:3000).
 
 ---
 
 ## Environment Variables
 
-Create `.env.local`
+Create a `.env.local` file in the project root:
 
 ```env
 PRIVATE_KEY=your_private_key
 KIT_KEY=KIT_KEY:your_key_id:your_key_secret
+NEXT_PUBLIC_GENESIS_PASS_CONTRACT=0x...
 ```
+
+> `PRIVATE_KEY` and `KIT_KEY` are server-only secrets — never commit them or expose them to the client. `NEXT_PUBLIC_GENESIS_PASS_CONTRACT` is safe to expose since it's a public contract address.
 
 ---
 
 ## Screenshots
-### DASHBOARD
-<img width="1768" height="907" alt="image" src="https://github.com/user-attachments/assets/b8f4540a-324c-4df7-8daa-fabd5a02358b" />
 
+### Dashboard
+<img width="1768" height="907" alt="Dashboard" src="https://github.com/user-attachments/assets/b8f4540a-324c-4df7-8daa-fabd5a02358b" />
 
+### Portfolio
+<img width="1404" height="904" alt="Portfolio" src="https://github.com/user-attachments/assets/374e45e3-7889-4c1d-b517-d7639d076518" />
 
-### PORTFOLIO
-<img width="1404" height="904" alt="image" src="https://github.com/user-attachments/assets/374e45e3-7889-4c1d-b517-d7639d076518" />
+### Trade Escrow
+<img width="1324" height="905" alt="Trade Escrow" src="https://github.com/user-attachments/assets/b1c8a2a1-f082-4a25-8276-93789775af5f" />
 
+### Swap
+<img width="1322" height="905" alt="Swap" src="https://github.com/user-attachments/assets/5e6abea1-467e-4d52-b139-0937cabc2970" />
 
+### Bridge
+<img width="1571" height="905" alt="Bridge" src="https://github.com/user-attachments/assets/1c84ba12-d8ef-41d1-b031-1f9e203f103f" />
 
-### ESCROW
-<img width="1324" height="905" alt="image" src="https://github.com/user-attachments/assets/b1c8a2a1-f082-4a25-8276-93789775af5f" />
+### Send
+<img width="1752" height="905" alt="Send" src="https://github.com/user-attachments/assets/66d16adb-501e-459b-8e28-33180f1da098" />
 
-
-
-### SWAP
-<img width="1322" height="905" alt="image" src="https://github.com/user-attachments/assets/5e6abea1-467e-4d52-b139-0937cabc2970" />
-
-
-
-### BRIDGE
-<img width="1571" height="905" alt="image" src="https://github.com/user-attachments/assets/1c84ba12-d8ef-41d1-b031-1f9e203f103f" />
-
-
-
-### SEND
-<img width="1752" height="905" alt="image" src="https://github.com/user-attachments/assets/66d16adb-501e-459b-8e28-33180f1da098" />
-
-
-
-### GENESIS PASS
-<img width="1603" height="901" alt="image" src="https://github.com/user-attachments/assets/591280ab-aea7-4c7a-85ec-4e39d63c1900" />
-
+### Genesis Pass
+<img width="1603" height="901" alt="Genesis Pass" src="https://github.com/user-attachments/assets/591280ab-aea7-4c7a-85ec-4e39d63c1900" />
 
 ---
 
-## Deployment
+## Roadmap
 
-ARCora is deployed on Vercel.
+- [ ] Fully client-signed Swap flow (currently routed through a backend proxy due to CORS on Circle's Stablecoin Kit service)
+- [ ] Autonomous agent provider for Trade Escrow — an automated wallet that listens for jobs and fulfills them without manual interaction
+- [ ] Deeper integration with Circle Agent Stack (Agent Wallets, Circle CLI, Agent Marketplace)
 
 ---
+
+## Changelog
 
 ### Refactor: NFT Contract Deployment
+Replaced the custom Solidity ERC-721 contract with Circle's official Smart Contract Template.
 
-Refactored the NFT deployment architecture by replacing the custom Solidity ERC-721 contract with Circle's official Smart Contract Template.
-
-Highlights:
-- Migrated deployment to the Circle SDK workflow.
-- Removed dependency on manually maintained ERC-721 contracts.
-- Standardized the deployment process according to Circle documentation.
-- Improved integration with Circle Developer Platform.
+- Migrated deployment to the Circle SDK workflow
+- Removed dependency on a manually maintained ERC-721 contract
+- Standardized deployment according to Circle documentation
+- Improved integration with the Circle Developer Platform
 
 ---
 
+## License
+
+MIT
+
+---
+
+<div align="center">
 
 Built with ❤️ using Next.js and Circle Web3 Services.
 
----
-https://x.com/forbyuu
-https://t.me/timer28
+[Twitter](https://x.com/forbyuu) · [Telegram](https://t.me/timer28)
+
+</div>
