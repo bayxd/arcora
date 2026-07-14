@@ -62,6 +62,76 @@ const TRUST_POINTS = [
   { label: "Sponsored gas", detail: "Powered by Circle on Arc Testnet" },
 ];
 
+const ROADMAP = [
+  {
+    phase: "Phase 1",
+    title: "Foundation",
+    status: "live" as const,
+    items: [
+      "Wallet connect + gas-sponsored Genesis Pass mint",
+      "USDC ⇄ EURC swap on Arc Testnet",
+      "Cross-chain USDC bridging (Base, Ethereum, Arbitrum, Polygon)",
+      "Instant peer-to-peer USDC send",
+    ],
+  },
+  {
+    phase: "Phase 2",
+    title: "Trusted Trade Infrastructure",
+    status: "live" as const,
+    items: [
+      "Onchain agent identity via ERC-8004",
+      "Escrow-backed purchase orders via ERC-8183",
+      "Reputation feedback after job completion",
+    ],
+  },
+  {
+    phase: "Phase 3",
+    title: "AI Agent Trust Layer",
+    status: "planned" as const,
+    items: [
+      "ReputationHook — auto-write job outcomes to the ERC-8004 Reputation Registry on every completion, instead of manual feedback",
+      "ReputationGateHook — require a minimum reputation score before a provider can be funded for a job",
+      "AI evaluator agent — an LLM-based evaluator that checks deliverables against the job description automatically, instead of the client self-evaluating",
+      "SLAHook — auto-refund the client if a provider misses the job's expiry deadline",
+    ],
+  },
+  {
+    phase: "Phase 4",
+    title: "Agentic Payments & Discovery",
+    status: "planned" as const,
+    items: [
+      "x402 / Circle Nanopayments for sub-cent, pay-per-call agent services — complements ERC-8183 escrow for larger multi-step jobs",
+      "MCP / Agent Card support so external AI agents (not just humans in this UI) can discover and hire ARCora agents programmatically",
+      "Public agent directory ranked by onchain ERC-8004 reputation",
+      "Mainnet launch on Arc after a security audit",
+    ],
+  },
+];
+
+const ROADMAP_STATUS_STYLE: Record<
+  "live" | "in-progress" | "planned",
+  { label: string; dot: string; badge: string }
+> = {
+  live: {
+    label: "Live",
+    dot: "bg-emerald-400",
+    badge:
+      "bg-emerald-500/15 text-emerald-500 dark:text-emerald-400 border-emerald-500/30",
+  },
+  "in-progress": {
+    label: "In Progress",
+    dot: "bg-blue-400",
+    badge:
+      "bg-blue-500/15 text-blue-500 dark:text-blue-400 border-blue-500/30",
+  },
+  planned: {
+    label: "Planned",
+    dot: "bg-zinc-400 dark:bg-zinc-500",
+    badge:
+      "bg-zinc-500/10 text-zinc-500 dark:text-zinc-400 border-zinc-500/20",
+  },
+};
+
 const FAQS = [
   {
     q: "What is Arc Testnet?",
@@ -403,6 +473,68 @@ export default function Page() {
               </p>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* Roadmap */}
+      <section className="relative max-w-5xl mx-auto px-6 py-20">
+        <div className="text-center mb-14">
+          <p className="text-[10px] tracking-[0.2em] text-purple-500 dark:text-purple-400/80 font-semibold uppercase mb-2 font-mono">
+            // Where We're Headed
+          </p>
+          <h2 className="text-3xl font-bold tracking-tight">Roadmap</h2>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-6">
+          {ROADMAP.map((stage) => {
+            const s = ROADMAP_STATUS_STYLE[stage.status];
+            return (
+              <div
+                key={stage.phase}
+                className="
+                relative
+                overflow-hidden
+                bg-white/70
+                dark:bg-zinc-900/70
+                backdrop-blur-xl
+                border
+                border-black/5
+                dark:border-white/10
+                rounded-3xl
+                p-6
+                "
+              >
+                <div className="absolute top-0 left-0 right-0 h-0.5 bg-linear-to-r from-purple-600 via-pink-500 to-blue-500" />
+
+                <div className="flex items-center justify-between mb-3">
+                  <p className="text-[10px] tracking-[0.2em] text-purple-500 dark:text-purple-400/80 font-semibold uppercase font-mono">
+                    // {stage.phase}
+                  </p>
+
+                  <span
+                    className={`flex items-center gap-1.5 text-[10px] font-mono font-bold uppercase tracking-widest px-2 py-0.5 rounded-full border ${s.badge}`}
+                  >
+                    <span className={`h-1.5 w-1.5 rounded-full ${s.dot}`} />
+                    {s.label}
+                  </span>
+                </div>
+
+                <h3 className="text-xl font-bold mb-4">{stage.title}</h3>
+
+                <ul className="space-y-2.5">
+                  {stage.items.map((item) => (
+                    <li
+                      key={item}
+                      className="flex items-start gap-2.5 text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed"
+                    >
+                      <span className="mt-1.5 h-1 w-1 rounded-full bg-purple-400 shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })}
         </div>
       </section>
 
