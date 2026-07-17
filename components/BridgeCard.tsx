@@ -2,9 +2,51 @@
 
 import { useState } from "react";
 import { toast } from "sonner";
+import { useAccount, useReadContract } from "wagmi";
 import { CHAINS } from "@/constants/chains";
 import { useBridge } from "@/hooks/useBridge";
+import { useBalances } from "@/hooks/useBalances";
 import NetworkSelector from "./NetworkSelector";
+
+// Official Circle testnet USDC addresses (source: circlefin/skills use-usdc
+// SKILL.md). These are only used to read the connected wallet's balance on
+// the external chain for display -- bridging itself still goes through
+// useBridge()/kit.bridge(), this doesn't change that at all.
+const EXTERNAL_USDC: Record<
+  string,
+  { address: `0x${string}`; chainId: number; decimals: number }
+> = {
+  Base_Sepolia: {
+    address: "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
+    chainId: 84532,
+    decimals: 6,
+  },
+  Ethereum_Sepolia: {
+    address: "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238",
+    chainId: 11155111,
+    decimals: 6,
+  },
+  Arbitrum_Sepolia: {
+    address: "0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d",
+    chainId: 421614,
+    decimals: 6,
+  },
+  Polygon_Amoy_Testnet: {
+    address: "0x41E94Eb019C0762f9Bfcf9Fb1E58725BfB0e7582",
+    chainId: 80002,
+    decimals: 6,
+  },
+};
+
+const ERC20_BALANCE_OF_ABI = [
+  {
+    type: "function",
+    name: "balanceOf",
+    stateMutability: "view",
+    inputs: [{ name: "account", type: "address" }],
+    outputs: [{ name: "", type: "uint256" }],
+  },
+] as const;
 
 const NETWORK_OPTIONS = [
   { value: "Base_Sepolia", label: "Base Sepolia", dot: "#3B82F6" },
@@ -37,6 +79,42 @@ export default function BridgeCard() {
   const toLabel = direction === "toArc" ? "Arc Testnet" : otherChainInfo.label;
 
   const { bridge: executeBridge } = useBridge();
+  const { address: connectedAddress } = useAccount();
+  const { usdcBalance } = useBalances();
+
+  const externalTokenInfo = EXTERNAL_USDC[otherChain];
+
+  // Reads the connected wallet's USDC balance directly on the external
+  // chain. Requires your wagmi config to have RPC support for these testnet
+  // chain IDs -- if it doesn't, this will just stay undefined and the
+  // balance/MAX UI below will quietly not show, same as before this change.
+  const { data: externalBalanceRaw, isLoading: externalBalanceLoading } =
+    useReadContract({
+      address: externalTokenInfo?.address,
+      abi: ERC20_BALANCE_OF_ABI,
+      functionName: "balanceOf",
+      args: connectedAddress ? [connectedAddress] : undefined,
+      chainId: externalTokenInfo?.chainId,
+      query: {
+        enabled: !!connectedAddress && !!externalTokenInfo,
+      },
+    });
+
+  const externalBalance =
+    externalBalanceRaw !== undefined
+      ? Number(externalBalanceRaw) / 10 ** (externalTokenInfo?.decimals ?? 6)
+      : undefined;
+
+  // Unified "from" balance regardless of direction -- Arc-side balance when
+  // bridging out of Arc, external-chain balance when bridging into Arc.
+  const fromBalance = direction === "fromArc" ? usdcBalance ?? 0 : externalBalance;
+  const fromBalanceLoading = direction === "toArc" && externalBalanceLoading;
+
+  const numericAmount = Number(amount);
+  const isAmountValid =
+    amount !== "" && !Number.isNaN(numericAmount) && numericAmount > 0;
+  const exceedsBalance =
+    isAmountValid && fromBalance !== undefined && numericAmount > fromBalance;
 
   function reverseDirection() {
     setDirection((prev) => (prev === "toArc" ? "fromArc" : "toArc"));
@@ -68,6 +146,10 @@ export default function BridgeCard() {
           date: new Date().toLocaleString(),
           txHash: txHash ?? "",
           explorerUrl: explorerUrl ?? "",
+          // Confirmed: kit.bridge()'s result includes mintTxHash, meaning
+          // the call only resolves once the destination-chain mint has
+          // actually happened (not just the source-chain burn) -- so
+          // "Completed" here is accurate, not a guess.
           status: "Completed"
         });
 
@@ -148,6 +230,24 @@ export default function BridgeCard() {
               <p className="text-zinc-500 text-[10px] uppercase tracking-widest font-semibold">
                 From - {fromLabel}
               </p>
+              {(fromBalance !== undefined || fromBalanceLoading) && (
+                <p className="ml-auto text-[11px] font-mono text-zinc-500">
+                  {fromBalanceLoading ? (
+                    "Loading balance..."
+                  ) : (
+                    <>
+                      Bal <span className="text-zinc-300">{(fromBalance ?? 0).toFixed(4)}</span> USDC
+                      <button
+                        type="button"
+                        onClick={() => setAmount(String(fromBalance ?? 0))}
+                        className="ml-1.5 text-purple-400 hover:text-purple-300 font-semibold"
+                      >
+                        MAX
+                      </button>
+                    </>
+                  )}
+                </p>
+              )}
             </div>
 
             <div className="flex items-center justify-between mt-2.5">
@@ -170,6 +270,12 @@ export default function BridgeCard() {
                 </div>
               )}
             </div>
+
+            {exceedsBalance && (
+              <p className="mt-2 text-[11px] text-red-400 font-mono">
+                Amount exceeds your available balance
+              </p>
+            )}
           </div>
 
           {/* CONNECTOR — signature bridge line */}
@@ -247,9 +353,13 @@ export default function BridgeCard() {
 
         </div>
 
+        <p className="mt-3 text-[11px] text-zinc-600 font-mono text-center">
+          Cross-chain transfers use Circle's CCTP - the button stays busy until settlement finishes (usually well under a minute).
+        </p>
+
         <button
           onClick={bridgeHandler}
-          disabled={loading}
+          disabled={loading || !isAmountValid || exceedsBalance}
           className="
           group
           relative

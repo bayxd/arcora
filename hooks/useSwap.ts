@@ -149,6 +149,8 @@ export function useSwap() {
 
     quote,
 
+    getQuote,
+
     swap,
 
     swapResult

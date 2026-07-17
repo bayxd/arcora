@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useRef } from "react";
+
 import { useSwap } from "@/hooks/useSwap";
 import { useTokens } from "@/hooks/useTokens";
 import { useSlippage } from "@/hooks/useSlippage";
@@ -19,16 +21,40 @@ export default function SwapCard() {
   const { slippage, setSlippage } = useSlippage();
   const { tokenIn, tokenOut, setTokenIn, reverseTokens } = useTokens();
 
-  const { status, quote, swap, swapResult } = useSwap();
+  const { status, quote, getQuote, swap, swapResult } = useSwap();
 
   const { usdcBalance, eurcBalance } = useBalances();
+
+  // Live-quote as the user types, debounced so we don't hit the estimate
+  // endpoint on every keystroke. This only ever calls getQuote() - it never
+  // touches swap()/executeSwap(), so nothing gets executed just from typing
+  // an amount.
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+
+    const numericAmount = Number(amount);
+    if (!amount || Number.isNaN(numericAmount) || numericAmount <= 0) {
+      return;
+    }
+
+    debounceRef.current = setTimeout(() => {
+      getQuote(amount, tokenIn, tokenOut, slippage);
+    }, 400);
+
+    return () => {
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [amount, tokenIn, tokenOut, slippage]);
 
   return (
     <section
       className="
         relative
         w-full
-        max-w-[800px]
+        max-w-[600px]
         mx-auto
         overflow-hidden
         bg-zinc-900/80
