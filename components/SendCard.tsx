@@ -36,7 +36,8 @@ export default function SendCard() {
       p-6
       shadow-2xl
       w-full
-      max-w-200
+      max-w-[600px]
+      mx-auto
       "
     >
 

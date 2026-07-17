@@ -174,7 +174,7 @@ export default function BridgeCard() {
     className="
     relative
     w-full
-    max-w-[800px]
+    max-w-[600px]
     mx-auto
     overflow-hidden
     bg-zinc-900/80

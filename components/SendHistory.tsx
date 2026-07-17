@@ -29,17 +29,20 @@ export default function SendHistory() {
   return (
 
     <section
-        className="
-        relative
-        overflow-hidden
-        bg-zinc-900/80
-        border
-        border-white/10
-        rounded-2xl
-        p-5
-        shadow-xl
-        w-200
-        "
+      className="
+      relative
+      overflow-hidden
+      bg-zinc-900/80
+      backdrop-blur-xl
+      border
+      border-white/10
+      rounded-[28px]
+      p-6
+      shadow-2xl
+      w-full
+      max-w-[600px]
+      mx-auto
+      "
     >
 
       {/* neon top strip */}
