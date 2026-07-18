@@ -1,3 +1,5 @@
+"use client";
+
 import { createAppKit } from "@reown/appkit/react";
 import { WagmiAdapter } from "@reown/appkit-adapter-wagmi";
 import {
@@ -6,6 +8,8 @@ import {
   arbitrumSepolia,
   polygonAmoy
 } from "@reown/appkit/networks";
+
+import { installCircleProxy } from "@/lib/installCircleProxy";
 
 const projectId = process.env.NEXT_PUBLIC_REOWN_PROJECT_ID!;
 
@@ -19,6 +23,8 @@ export const wagmiAdapter = new WagmiAdapter({
   ],
   ssr: true
 });
+
+installCircleProxy();
 
 export const appKit = createAppKit({
   adapters: [wagmiAdapter],
@@ -42,7 +48,7 @@ export const appKit = createAppKit({
     swaps: true,
     onramp: true,
 
-    // 🔥 IMPORTANT FIX
+
     email: false
   }
 });
