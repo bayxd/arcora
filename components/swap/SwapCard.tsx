@@ -2,19 +2,19 @@
 
 import { useEffect, useRef } from "react";
 
-import { useSwap } from "@/hooks/useSwap";
-import { useTokens } from "@/hooks/useTokens";
-import { useSlippage } from "@/hooks/useSlippage";
-import { useAmount } from "@/hooks/useAmount";
-import { useBalances } from "@/hooks/useBalances";
+import { useSwap } from "@/hooks/swap/useSwap";
+import { useTokens } from "@/hooks/swap/useTokens";
+import { useSlippage } from "@/hooks/swap/useSlippage";
+import { useAmount } from "@/hooks/swap/useAmount";
+import { useBalances } from "@/hooks/swap/useBalances";
 
-import SwapResultCard from "./SwapResultCard";
-import SwapInput from "./SwapInput";
-import SwapOutput from "./SwapOutput";
-import SwapInfo from "./SwapInfo";
-import SlippageSelector from "./SlippageSelector";
-import SwapButton from "./SwapButton";
-import SwapDirectionButton from "./SwapDirectionButton";
+import SwapResultCard from "@/components/swap/SwapResultCard";
+import SwapInput from "@/components/swap/SwapInput";
+import SwapOutput from "@/components/swap/SwapOutput";
+import SwapInfo from "@/components/swap/SwapInfo";
+import SlippageSelector from "@/components/swap/SlippageSelector";
+import SwapButton from "@/components/swap/SwapButton";
+import SwapDirectionButton from "@/components/swap/SwapDirectionButton";
 
 export default function SwapCard() {
   const { amount, setAmount } = useAmount();

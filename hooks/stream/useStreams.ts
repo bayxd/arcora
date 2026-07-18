@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 import { useAccess } from "@/context/AccessContext";
-import { useExecuteSend } from "./useExecuteSend";
+import { useExecuteSend } from "../send/useExecuteSend";
 
 export type StreamStatus = "active" | "completed";
 

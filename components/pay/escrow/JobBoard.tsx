@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useAccount } from "wagmi";
 import { toast } from "sonner";
 
-import { useJobBoard, useJob, useMyJobIds } from "@/hooks/useJobBoard";
+import { useJobBoard, useJob, useMyJobIds } from "@/hooks/pay/escrow/useJobBoard";
 import { useAccess } from "@/context/AccessContext";
 
 const STATUS_LABEL = ["Created", "Funded 🔒", "Submitted", "Completed ✅"];

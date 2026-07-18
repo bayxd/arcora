@@ -1,5 +1,5 @@
-import { executeSwap } from "@/lib/executeSwap";
-import { recoverSwap } from "@/lib/recoverSwap";
+import { executeSwap } from "@/lib/swap/executeSwap";
+import { recoverSwap } from "@/lib/swap/recoverSwap";
 import { CHAINS } from "@/constants/chains";
 
 export async function POST(

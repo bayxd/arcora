@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { toast } from "sonner";
 
-import { useEstimateSend } from "./useEstimateSend";
-import { useExecuteSend } from "./useExecuteSend";
+import { useEstimateSend } from "@/hooks/send/useEstimateSend";
+import { useExecuteSend } from "@/hooks/send/useExecuteSend";
 
 export type SendStatus =
 

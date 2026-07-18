@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-import { useSend } from "@/hooks/useSend";
+import { useSend } from "@/hooks/send/useSend";
 
 export default function SendCard() {
 

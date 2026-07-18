@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import ConnectWallet from "@/components/ConnectWallet";
-import Footer from "@/components/Footer";
+import Footer from "@/components/dashboard/Footer";
 import { useAppKit } from "@reown/appkit/react";
 
 const STEPS = [

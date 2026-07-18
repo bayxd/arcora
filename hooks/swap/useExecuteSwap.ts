@@ -3,9 +3,9 @@
 import { toast } from "sonner";
 
 import { executeSwapBrowser } from "@/lib/swap/executeSwapBrowser";
-import { recoverSwap } from "@/lib/recoverSwap";
-import { saveSwapHistory } from "@/lib/swapHistory";
-import { useBalances } from "@/hooks/useBalances";
+import { recoverSwap } from "@/lib/swap/recoverSwap";
+import { saveSwapHistory } from "@/lib/swap/swapHistory";
+import { useBalances } from "@/hooks/swap/useBalances";
 import { recordSnapshot } from "@/lib/history/portfolioSnapshot";
 
 export function useExecuteSwap() {

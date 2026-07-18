@@ -1,8 +1,8 @@
 import ConnectWallet from "@/components/ConnectWallet";
-import Footer from "@/components/Footer";
-import PortfolioSummary from "@/components/PortfolioSummary";
-import PerformanceChart from "@/components/PerformanceChart";
-import CyberpunkBackground from "@/components/CyberpunkBackground";
+import Footer from "@/components/dashboard/Footer";
+import PortfolioSummary from "@/components/portfolio/PortfolioSummary";
+import PerformanceChart from "@/components/portfolio/PerformanceChart";
+import CyberpunkBackground from "@/components/ui/CyberpunkBackground";
 
 export default function PortfolioPage() {
 

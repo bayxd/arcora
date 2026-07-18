@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-import { useBalances } from "@/hooks/useBalances";
+import { useBalances } from "@/hooks/swap/useBalances";
 import {
   recordSnapshot,
   getSnapshotsInRange,

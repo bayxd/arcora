@@ -1,8 +1,8 @@
 import ConnectWallet from "@/components/ConnectWallet";
-import Footer from "@/components/Footer";
-import RequireGenesisPass from "@/components/RequireGenesisPass";
-import GenesisPassCard from "@/components/GenesisPassCard";
-import CyberpunkBackground from "@/components/CyberpunkBackground";
+import Footer from "@/components/dashboard/Footer";
+import RequireGenesisPass from "@/components/nft/RequireGenesisPass";
+import GenesisPassCard from "@/components/nft/GenesisPassCard";
+import CyberpunkBackground from "@/components/ui/CyberpunkBackground";
 
 export default function GenesisPage() {
   return (

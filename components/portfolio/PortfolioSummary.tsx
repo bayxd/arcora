@@ -2,7 +2,7 @@
 
 import { useAccount, useBalance } from "wagmi";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
-import { usePortfolioHistory } from "@/hooks/usePortfolioHistory";
+import { usePortfolioHistory } from "@/hooks/portfolio/usePortfolioHistory";
 
 const USDC_TOKEN =
   "0x3600000000000000000000000000000000000000" as `0x${string}`;

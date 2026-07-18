@@ -7,7 +7,7 @@ import {
 
 import {
   NFT_ADDRESS
-} from "../lib/contracts";
+} from "../../lib/contracts";
 
 
 const abi = [

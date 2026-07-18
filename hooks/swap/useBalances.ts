@@ -1,7 +1,7 @@
 "use client";
 
 import { useTokenBalance }
-from "@/hooks/useTokenBalance";
+from "@/hooks/portfolio/useTokenBalance";
 
 import { TOKENS }
 from "@/constants/tokens";

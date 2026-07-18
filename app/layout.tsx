@@ -1,6 +1,6 @@
 import "./globals.css";
 import { Providers } from "./providers";
-import { ThemeProvider } from "@/components/ThemeProvider";
+import { ThemeProvider } from "@/components/ui/ThemeProvider";
 import { Toaster } from "sonner";
 import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 

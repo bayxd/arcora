@@ -1,7 +1,7 @@
 import ConnectWallet from "@/components/ConnectWallet";
-import UnifiedBalanceCard from "@/components/UnifiedBalanceCard";
-import Footer from "@/components/Footer";
-import UnifiedBalanceHistory from "@/components/UnifiedBalanceHistory";
+import UnifiedBalanceCard from "@/components/portfolio/UnifiedBalanceCard";
+import Footer from "@/components/dashboard/Footer";
+import UnifiedBalanceHistory from "@/components/portfolio/UnifiedBalanceHistory";
 
 export default function UnifiedBalancePage() {
   return (

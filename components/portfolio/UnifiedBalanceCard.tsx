@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
-import { useUnifiedBalance } from "@/hooks/useUnifiedBalance";
+import { useUnifiedBalance } from "@/hooks/portfolio/useUnifiedBalance";
 
 
 export default function UnifiedBalanceCard() {

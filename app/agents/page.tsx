@@ -1,11 +1,11 @@
 "use client";
 
-import RegisterAgentCard from "@/components/RegisterAgentCard";
+import RegisterAgentCard from "@/components/pay/escrow/RegisterAgentCard";
 import ConnectWallet from "@/components/ConnectWallet";
-import JobBoard from "@/components/JobBoard";
-import RequireGenesisPass from "@/components/RequireGenesisPass";
-import CyberpunkBackground from "@/components/CyberpunkBackground";
-import Footer from "@/components/Footer";
+import JobBoard from "@/components/pay/escrow/JobBoard";
+import RequireGenesisPass from "@/components/nft/RequireGenesisPass";
+import CyberpunkBackground from "@/components/ui/CyberpunkBackground";
+import Footer from "@/components/dashboard/Footer";
 
 export default function AgentsPage() {
   return (

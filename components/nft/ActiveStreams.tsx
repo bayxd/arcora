@@ -1,6 +1,6 @@
 "use client";
 
-import { useStreams } from "@/hooks/useStreams";
+import { useStreams } from "@/hooks/stream/useStreams";
 
 export default function ActiveStreams() {
   const { streams, accruedOf, withdraw, withdrawingId } = useStreams();

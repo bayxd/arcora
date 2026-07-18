@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, ReactNode } from "react";
-import { useGenesisPass } from "@/hooks/useGenesisPass";
+import { useGenesisPass } from "@/hooks/nft/useGenesisPass";
 
 
 type AccessContextType = {

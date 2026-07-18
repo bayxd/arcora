@@ -1,9 +1,9 @@
-import RequireGenesisPass from "@/components/RequireGenesisPass";
+import RequireGenesisPass from "@/components/nft/RequireGenesisPass";
 import ConnectWallet from "@/components/ConnectWallet";
-import SwapCard from "@/components/SwapCard";
-import SwapHistory from "@/components/SwapHistory";
-import Footer from "@/components/Footer";
-import CyberpunkBackground from "@/components/CyberpunkBackground";
+import SwapCard from "@/components/swap/SwapCard";
+import SwapHistory from "@/components/swap/SwapHistory";
+import Footer from "@/components/dashboard/Footer";
+import CyberpunkBackground from "@/components/ui/CyberpunkBackground";
 
 export default function SwapPage() {
 

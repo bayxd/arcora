@@ -1,9 +1,9 @@
 "use client";
 
-import StatsCard from "./StatsCard";
-import USDCStats from "./USDCStats";
-import EURCStats from "./EURCStats";
-import TotalAssets from "./TotalAssets";
+import StatsCard from "../portfolio/StatsCard";
+import USDCStats from "../portfolio/USDCStats";
+import EURCStats from "../portfolio/EURCStats";
+import TotalAssets from "../portfolio/TotalAssets";
 
 export default function DashboardStats() {
 

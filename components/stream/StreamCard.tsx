@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-import { useStreams } from "@/hooks/useStreams";
+import { useStreams } from "@/hooks/stream/useStreams";
 
 const DURATION_OPTIONS = [
   { value: 3600, label: "1 Hour" },

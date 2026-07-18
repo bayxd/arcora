@@ -1,9 +1,9 @@
 import ConnectWallet from "@/components/ConnectWallet";
-import SendCard from "@/components/SendCard";
-import Footer from "@/components/Footer";
-import RequireGenesisPass from "@/components/RequireGenesisPass";
-import SendHistory from "@/components/SendHistory";
-import CyberpunkBackground from "@/components/CyberpunkBackground";
+import SendCard from "@/components/send/SendCard";
+import Footer from "@/components/dashboard/Footer";
+import RequireGenesisPass from "@/components/nft/RequireGenesisPass";
+import SendHistory from "@/components/send/SendHistory";
+import CyberpunkBackground from "@/components/ui/CyberpunkBackground";
 
 export default function SendPage() {
   return (

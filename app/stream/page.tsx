@@ -1,8 +1,8 @@
 import ConnectWallet from "@/components/ConnectWallet";
-import Footer from "@/components/Footer";
-import RequireGenesisPass from "@/components/RequireGenesisPass";
+import Footer from "@/components/dashboard/Footer";
+import RequireGenesisPass from "@/components/nft/RequireGenesisPass";
 import StreamCard from "@/components/StreamCard";
-import ActiveStreams from "@/components/ActiveStreams";
+import ActiveStreams from "@/components/nft/ActiveStreams";
 
 export default function StreamPage() {
   return (

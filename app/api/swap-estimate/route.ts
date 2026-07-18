@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { estimateSwap } from "@/lib/estimateSwap";
+import { estimateSwap } from "@/lib/swap/estimateSwap";
 
 export async function POST(
   request: Request

@@ -1,6 +1,6 @@
 "use client";
 
-import { useAgentIdentity } from "@/hooks/useAgentIdentity";
+import { useAgentIdentity } from "@/hooks/pay/escrow/useAgentIdentity";
 
 export default function RegisterAgentCard() {
   const { status, isRegistered, agentId, register } = useAgentIdentity();

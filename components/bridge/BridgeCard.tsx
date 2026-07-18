@@ -4,9 +4,9 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { useAccount, useReadContract } from "wagmi";
 import { CHAINS } from "@/constants/chains";
-import { useBridge } from "@/hooks/useBridge";
-import { useBalances } from "@/hooks/useBalances";
-import NetworkSelector from "./NetworkSelector";
+import { useBridge } from "@/hooks/bridge/useBridge";
+import { useBalances } from "@/hooks/swap/useBalances";
+import NetworkSelector from "@/components/network/NetworkSelector";
 
 // Official Circle testnet USDC addresses (source: circlefin/skills use-usdc
 // SKILL.md). These are only used to read the connected wallet's balance on

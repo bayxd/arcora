@@ -1,9 +1,9 @@
 import ConnectWallet from "@/components/ConnectWallet";
-import BridgeCard from "@/components/BridgeCard";
-import BridgeHistory from "@/components/BridgeHistory";
-import Footer from "@/components/Footer";
-import RequireGenesisPass from "@/components/RequireGenesisPass";
-import CyberpunkBackground from "@/components/CyberpunkBackground";
+import BridgeCard from "@/components/bridge/BridgeCard";
+import BridgeHistory from "@/components/bridge/BridgeHistory";
+import Footer from "@/components/dashboard/Footer";
+import RequireGenesisPass from "@/components/nft/RequireGenesisPass";
+import CyberpunkBackground from "@/components/ui/CyberpunkBackground";
 
 export default function BridgePage() {
 

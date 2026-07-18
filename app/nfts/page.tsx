@@ -1,7 +1,7 @@
 import ConnectWallet from "@/components/ConnectWallet";
-import NFTInfo from "@/components/NFTInfo";
-import MyNFTs from "@/components/MyNFTs";
-import Footer from "@/components/Footer";
+import NFTInfo from "@/components/nft/NFTInfo";
+import MyNFTs from "@/components/nft/MyNFTs";
+import Footer from "@/components/dashboard/Footer";
 
 export default function NFTsPage() {
 

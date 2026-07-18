@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { useAccount } from "wagmi";
-import ThemeToggle from "./ThemeToggle";
+import ThemeToggle from "./ui/ThemeToggle";
 
 const NAV_ITEMS = [
   { href: "/portfolio", label: "Portfolio" },

@@ -10,7 +10,7 @@ import {
 }
 from "recharts";
 
-import { usePortfolioHistory } from "@/hooks/usePortfolioHistory";
+import { usePortfolioHistory } from "@/hooks/portfolio/usePortfolioHistory";
 
 type Period = "1D" | "7D" | "30D" | "ALL";
 

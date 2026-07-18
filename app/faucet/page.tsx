@@ -2,8 +2,8 @@
 
 import FaucetCard from "@/components/FaucetCard";
 import ConnectWallet from "@/components/ConnectWallet";
-import CyberpunkBackground from "@/components/CyberpunkBackground";
-import Footer from "@/components/Footer";
+import CyberpunkBackground from "@/components/ui/CyberpunkBackground";
+import Footer from "@/components/dashboard/Footer";
 
 export default function FaucetPage() {
   return (
